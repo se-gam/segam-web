@@ -1,10 +1,5 @@
 import React from 'react';
-import { Button } from 'antd';
 
 export default function Home() {
-  return (
-    <main>
-      <Button type="primary">버튼입니다.</Button>
-    </main>
-  );
+  return <main>메인페이지</main>;
 }

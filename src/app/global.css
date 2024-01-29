@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  /* 글자 선택 막기 */
+  user-select: none;
+}
