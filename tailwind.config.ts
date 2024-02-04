@@ -11,6 +11,14 @@ const config: Config = {
   },
   theme: {
     extend: {
+      borderRadius: {
+        none: '0',
+        sm: '0.25rem',
+        DEFAULT: '0.375rem',
+        md: '0.75rem',
+        lg: '1.25rem',
+        full: '9999px',
+      },
       colors: {
         theme_primary: '#626FE5',
         theme_secondary: '#4A82EE',
