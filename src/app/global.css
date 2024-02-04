@@ -1,7 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+  .f28 {
+    font-size: 1.75rem;
+    line-height: 2.125rem;
+  }
+  .f24 {
+    font-size: 1.5rem;
+    line-height: 1.875rem;
+  }
+  .f20 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  .f16 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  .f14 {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  .f12 {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+}
 * {
   /* 글자 선택 막기 */
   user-select: none;
+  letter-spacing: -0.015em;
 }

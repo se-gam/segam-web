@@ -1,5 +1,9 @@
 import React from 'react';
 
 export default function Home() {
-  return <main>메인페이지</main>;
+  return (
+    <main>
+      <h1 className="f28">메인</h1>
+    </main>
+  );
 }

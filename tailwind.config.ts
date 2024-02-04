@@ -8,10 +8,29 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        theme_primary: '#626FE5',
+        theme_secondary: '#4A82EE',
+        theme_tertiary: '#B0B8C1',
+        theme_accent: '#191F28',
+        text_primary: '#4E5968',
+        text_secondary: '#979799',
+        text_placeholder: '#B8B8B8',
+        app_bg: '#F7F6F5',
+        button_default_bg: '#F2F4F6',
+        button_default_text: '#D9D9D9',
+        tag_blue_bg: '#D6E6FD',
+        tag_blue_text: '#3281F7',
+        tag_red_bg: '#FCDADC',
+        tag_red_text: '#F04452',
+        icons_bg: '#DEE9FD',
+        card_bg: '#ffffff',
+        error: '#DA4237',
+        tag_yellow_bg: '#FAF6CF',
+        tag_yellow_text: '#1C2B36',
+        tag_orange_bg: '#FCDDC7',
+        tag_orange_text: '#8F3415',
+        timeline_bg: '#DFE4E8',
       },
     },
   },
