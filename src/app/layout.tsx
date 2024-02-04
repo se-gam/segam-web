@@ -1,7 +1,11 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import '@/app/global.css';
+import localFont from 'next/font/local';
 
+const pretendard = localFont({
+  src: '../../public/PretendardVariable.woff2',
+});
 // 줌 방지 코드
 export const viewport: Viewport = {
   width: 'device-width',
@@ -22,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={pretendard.className}>{children}</body>
     </html>
   );
 }
