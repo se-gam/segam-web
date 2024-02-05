@@ -15,8 +15,9 @@ const config: Config = {
         none: '0',
         sm: '0.25rem',
         DEFAULT: '0.375rem',
-        md: '0.75rem',
-        lg: '1.25rem',
+        md: '0.625rem',
+        lg: '0.75rem',
+        '2xl': '1.25rem',
         full: '9999px',
       },
       colors: {
