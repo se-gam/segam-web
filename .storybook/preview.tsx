@@ -8,7 +8,9 @@ export const withDecorator = (Story) => (
       width: '390px',
       height: '844px',
       padding: '16px',
-      backgroundColor: '#F7F6F5',
+      backgroundColor: '#ffffff',
+      border: '1px solid #aaaaaa',
+      borderRadius: '8px',
     }}
   >
     <Story />
