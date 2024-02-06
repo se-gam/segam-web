@@ -5,16 +5,19 @@ const meta: Meta<typeof Button> = {
   title: '버튼',
   component: Button,
   argTypes: {
-    children: {
+    label: {
       control: 'text',
     },
     size: {
       control: 'radio',
       options: ['sm', 'md', 'lg', 'full'],
     },
-    accent: {
-      control: 'boolean',
-      options: ['true', 'false'],
+    variant: {
+      control: 'radio',
+      options: ['default', 'primary', 'selected', 'disabled'],
+    },
+    className: {
+      control: 'text',
     },
   },
 };
@@ -24,8 +27,8 @@ type Story = StoryObj<typeof Button>;
 
 export const ButtonStory: Story = {
   args: {
-    children: 'Button',
+    label: 'Button',
     size: 'sm',
-    accent: false,
+    variant: 'default',
   },
 };

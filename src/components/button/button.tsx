@@ -1,41 +1,57 @@
-import React from 'react';
-import clsx from 'clsx';
+'use client';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+import React from 'react';
+import { cva } from 'class-variance-authority';
+import cn from '@/utils/cn';
+
+interface ButtonProps {
+  label: string;
+  variant: 'default' | 'primary' | 'selected' | 'disabled';
   size: 'sm' | 'md' | 'lg' | 'full';
-  accent: boolean;
+  className: string;
+  onClick: () => void;
 }
+
+const ButtonVariants = cva(
+  'transition-opacity duration-200 active:opacity-80',
+  {
+    variants: {
+      variant: {
+        default: 'bg-button_default_bg text-text_primary',
+        primary: 'bg-theme_primary text-white',
+        selected: 'bg-button_default_bg text-theme_secondary',
+        disabled: ' bg-button_default_bg text-theme_tertiary',
+      },
+      size: {
+        sm: 'f12 rounded px-2 py-1.5 font-semibold',
+        md: 'f14 rounded px-3 py-1.5 font-semibold',
+        lg: 'f14 rounded px-4 py-1.5 font-semibold',
+        full: 'f16 h-12 w-full rounded-md font-bold',
+      },
+    },
+  },
+);
+
 export default function Button({
-  children,
-  onClick,
+  label,
+  variant,
   size,
-  accent = false,
+  className = '',
+  onClick,
 }: ButtonProps) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={clsx(
-        'transition-opacity duration-200 active:opacity-80',
-        {
-          'f12 rounded bg-button_default_bg px-2 py-1.5 font-semibold':
-            size === 'sm',
-          'f14 rounded bg-button_default_bg px-3 py-1.5 font-semibold':
-            size === 'md',
-          'f14 rounded bg-button_default_bg px-4 py-1.5 font-semibold':
-            size === 'lg',
-          'f16 h-12 w-full rounded-md bg-theme_primary font-bold':
-            size === 'full',
-        },
-        {
-          'text-white': size === 'full',
-          'text-text_primary': !accent,
-          'text-theme_secondary': accent && size !== 'full',
-        },
+      className={cn(
+        ButtonVariants({
+          size,
+          variant,
+        }),
+        className,
       )}
     >
-      {children}
+      {label}
     </button>
   );
 }
