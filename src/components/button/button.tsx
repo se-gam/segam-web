@@ -8,8 +8,8 @@ interface ButtonProps {
   label: string;
   variant: 'default' | 'primary' | 'selected' | 'disabled';
   size: 'sm' | 'md' | 'lg' | 'full';
-  className: string;
-  onClick: () => void;
+  className?: string;
+  onClick?: () => void;
 }
 
 const ButtonVariants = cva(
@@ -37,7 +37,7 @@ export default function Button({
   variant,
   size,
   className = '',
-  onClick,
+  onClick = () => {},
 }: ButtonProps) {
   return (
     <button

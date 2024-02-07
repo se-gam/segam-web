@@ -5,7 +5,7 @@ interface TagProps {
   label: string;
   size: 'sm' | 'md';
   variant: 'default' | 'done' | 'warning' | 'orange' | 'yellow' | 'danger';
-  className: string;
+  className?: string;
 }
 
 const TagVariants = cva('px-2 py-1 font-semibold rounded', {
@@ -27,8 +27,8 @@ const TagVariants = cva('px-2 py-1 font-semibold rounded', {
 
 export default function Tag({
   label,
-  variant = 'default',
   size,
+  variant = 'default',
   className = '',
 }: TagProps) {
   return (
