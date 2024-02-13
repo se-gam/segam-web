@@ -8,7 +8,7 @@ interface TagProps {
   className?: string;
 }
 
-const TagVariants = cva('px-2 py-1 font-semibold rounded', {
+const TagVariants = cva('font-semibold rounded', {
   variants: {
     variant: {
       default: 'bg-button_default_bg text-text_primary',
@@ -19,8 +19,8 @@ const TagVariants = cva('px-2 py-1 font-semibold rounded', {
       danger: 'bg-button_default_bg text-error',
     },
     size: {
-      sm: 'f12',
-      md: 'f14',
+      sm: 'f12 px-2 py-1 ',
+      md: 'f14 px-3 py-1.5',
     },
   },
 });
