@@ -1,4 +1,4 @@
-import Tag from '@/components/tag/tag';
+import Tag from '@/components/common/tag/tag';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Tag> = {
