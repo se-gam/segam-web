@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.0",
+    "antd": "^5.14.1",
     "antd-mobile": "^5.34.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

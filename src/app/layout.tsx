@@ -1,8 +1,8 @@
-import React from 'react';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata, Viewport } from 'next';
-import '@/app/global.css';
 import localFont from 'next/font/local';
 import cn from '@/utils/cn';
+import '@/app/global.css';
 
 const pretendard = localFont({
   src: '../../public/PretendardVariable.woff2',
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(pretendard.className, 'container mx-auto h-dvh')}>
-        {children}
+        <AntdRegistry>{children}</AntdRegistry>
       </body>
     </html>
   );
