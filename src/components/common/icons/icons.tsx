@@ -1,4 +1,3 @@
-import cn from '@/utils/cn';
 import Image from 'next/image';
 
 type IconProps = React.HTMLAttributes<SVGElement>;
@@ -10,7 +9,8 @@ type ImageType = {
 
 interface ImageIconProps extends IconProps {
   name: string;
-  className?: string;
+  width: number;
+  height: number;
 }
 
 const IMAGE: ImageType = {
@@ -80,10 +80,8 @@ const Icons = {
       </g>
     </svg>
   ),
-  ImageIcon: ({ name, className = '' }: ImageIconProps) => (
-    <div className={cn('relative', className)}>
-      <Image src={IMAGE[name].src} alt="icon" fill />
-    </div>
+  ImageIcon: ({ name, width, height }: ImageIconProps) => (
+    <Image src={IMAGE[name].src} alt="icon" width={width} height={height} />
   ),
 };
 
