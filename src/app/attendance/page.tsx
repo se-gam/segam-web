@@ -14,7 +14,7 @@ export default function Attendance() {
           <p className="f16 font-medium text-text_secondary">토요일까지 할 일이 3개가 있어요.</p>
         </div>
       </section>
-      <AttendanceBoard type="total" />
+      <AttendanceBoard type="dashboard" />
     </main>
   );
 }
