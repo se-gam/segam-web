@@ -12,8 +12,8 @@ const options = {
     { label: '과제별', value: 2 },
   ],
   subject: [
-    { label: '강의별', value: 0 },
-    { label: '과제별', value: 1 },
+    { label: '강의별', value: 1 },
+    { label: '과제별', value: 2 },
   ],
 };
 
@@ -22,7 +22,7 @@ interface AttendanceBoardProps {
 }
 
 export default function AttendanceBoard({ type }: AttendanceBoardProps) {
-  const [index, setIndex] = useState<number>(0);
+  const [index, setIndex] = useState<number>(options[type][0].value);
   return (
     <div className="space-y-3">
       <Tab

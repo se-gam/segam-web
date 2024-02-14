@@ -6,6 +6,7 @@ import useLink from '@/hooks/useLink';
 interface BoardProps {
   title: string;
   url: string;
+
   children?: React.ReactNode;
 }
 
@@ -19,7 +20,7 @@ export default function Board({ title, children, url }: BoardProps) {
           type="button"
           aria-label={`go to ${title}`}
           onClick={() => {
-            navigateTo(url);
+            navigateTo(url, url, title);
           }}
         >
           <Icons.ArrowRight className="fill-theme_tertiary" width="1rem" height="1rem" />

@@ -16,7 +16,7 @@ export default function AttendanceCard({ title, iconName }: AttendanceCardProps)
       type="button"
       className="flex w-full items-center justify-between gap-4 rounded-md p-3 active:bg-gray-200"
       onClick={() => {
-        navigateTo(`attendance/${title}`);
+        navigateTo(`attendance/${title}`, 'Detail', title);
       }}
     >
       <div className="flex items-center gap-4">
