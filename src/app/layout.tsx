@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`container mx-auto h-dvh ${pretendard.className}`}>
+      <body className={`container mx-auto h-dvh overflow-hidden ${pretendard.className}`}>
         <AntdRegistry>{children}</AntdRegistry>
       </body>
     </html>
