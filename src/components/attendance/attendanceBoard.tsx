@@ -6,7 +6,7 @@ import Tab from '@/components/common/tab/tab';
 import { useState } from 'react';
 
 const options = {
-  total: [
+  dashboard: [
     { label: '과목별', value: 0 },
     { label: '강의별', value: 1 },
     { label: '과제별', value: 2 },
@@ -18,7 +18,7 @@ const options = {
 };
 
 interface AttendanceBoardProps {
-  type: 'total' | 'subject';
+  type: 'dashboard' | 'subject';
 }
 
 export default function AttendanceBoard({ type }: AttendanceBoardProps) {

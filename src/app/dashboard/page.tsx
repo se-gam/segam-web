@@ -23,7 +23,7 @@ export default function DashBoard() {
     <main className="container h-full bg-app_bg px-4 py-3">
       <header className="mb-4 flex w-full justify-between">
         <h1 className="f20 font-bold text-text_primary">감자탕</h1>
-        <Icons.Bell className="fill-theme_tertiary" width={24} height={24} />
+        <Icons.Bell className="fill-theme_tertiary" width="1.5rem" height="1.5rem" />
       </header>
       <div className="space-y-3">
         <Board title="출석 현황" url="attendance">

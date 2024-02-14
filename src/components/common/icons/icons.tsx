@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
 interface IconProps extends React.HtmlHTMLAttributes<SVGElement> {
-  width: number;
-  height: number;
+  width: string;
+  height: string;
 }
 type ImageType = {
   [key: string]: {
@@ -10,7 +10,7 @@ type ImageType = {
   };
 };
 
-interface ImageIconProps extends IconProps {
+interface ImageIconProps {
   name: string;
   width: number;
   height: number;
