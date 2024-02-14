@@ -1,11 +1,11 @@
-import React from 'react';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata, Viewport } from 'next';
-import '@/app/global.css';
 import localFont from 'next/font/local';
-import cn from '@/utils/cn';
+import '@/app/global.css';
 
 const pretendard = localFont({
-  src: '../../public/PretendardVariable.woff2',
+  src: './PretendardVariable.woff2',
+  display: 'swap',
 });
 // 줌 방지 코드
 export const viewport: Viewport = {
@@ -26,9 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(pretendard.className, 'container mx-auto h-dvh')}>
-        {children}
+    <html lang="ko">
+      <body className={`container mx-auto h-dvh overflow-hidden ${pretendard.className}`}>
+        <AntdRegistry>{children}</AntdRegistry>
       </body>
     </html>
   );

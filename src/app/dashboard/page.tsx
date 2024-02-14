@@ -1,6 +1,6 @@
-import Board from '@/components/board/board';
-import AttendanceCard from '@/components/cards/attendanceCard';
-import StudyRoomCard from '@/components/cards/studyRoomCard';
+import Board from '@/components/dashboard/board/board';
+import AttendanceCard from '@/components/dashboard/card/attendanceCard';
+import StudyRoomCard from '@/components/dashboard/card/studyRoomCard';
 import Icons from '@/components/common/icons/icons';
 
 const data = [
@@ -23,16 +23,12 @@ export default function DashBoard() {
     <main className="container h-full bg-app_bg px-4 py-3">
       <header className="mb-4 flex w-full justify-between">
         <h1 className="f20 font-bold text-text_primary">감자탕</h1>
-        <Icons.Bell className="h-6 w-6 fill-theme_tertiary" />
+        <Icons.Bell className="fill-theme_tertiary" width="1.5rem" height="1.5rem" />
       </header>
       <div className="space-y-3">
         <Board title="출석 현황" url="attendance">
           {data.map((item) => (
-            <AttendanceCard
-              key={item.id}
-              title={item.title}
-              iconName={item.iconName}
-            />
+            <AttendanceCard key={item.id} title={item.title} iconName={item.iconName} />
           ))}
         </Board>
         <Board title="나의 예약현황" url="studyRoom">

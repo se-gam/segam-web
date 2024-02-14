@@ -1,13 +1,16 @@
 import Image from 'next/image';
 
-type IconProps = React.HTMLAttributes<SVGElement>;
+interface IconProps extends React.HtmlHTMLAttributes<SVGElement> {
+  width: string;
+  height: string;
+}
 type ImageType = {
   [key: string]: {
     src: string;
   };
 };
 
-interface ImageIconProps extends IconProps {
+interface ImageIconProps {
   name: string;
   width: number;
   height: number;
@@ -65,13 +68,7 @@ const IMAGE: ImageType = {
 };
 const Icons = {
   Bell: (props: IconProps) => (
-    <svg
-      {...props}
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg {...props} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <g>
         <g>
           <path d="M20.9792 16.2944L19.8791 13.8361H19.7007V9.34446C19.7007 5.27769 16.4894 2 12.5051 2C8.52075 2 5.3095 5.27769 5.3095 9.34446V13.9575L4.03095 16.2944C3.88228 16.5979 4.29855 16.9317 4.65536 16.9317H20.3548C20.6819 16.9317 21.0982 16.6586 20.9792 16.2944Z" />
@@ -81,18 +78,8 @@ const Icons = {
     </svg>
   ),
   ArrowRight: (props: IconProps) => (
-    <svg
-      {...props}
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g>
-        <g>
-          <path d="M9.29289 7.29289C9.68342 6.90237 10.3166 6.90237 10.7071 7.29289L15.7071 12.2929C16.0976 12.6834 16.0976 13.3166 15.7071 13.7071L10.7071 18.7071C10.3166 19.0976 9.68342 19.0976 9.29289 18.7071C8.90237 18.3166 8.90237 17.6834 9.29289 17.2929L13.5858 13L9.29289 8.70711C8.90237 8.31658 8.90237 7.68342 9.29289 7.29289Z" />
-        </g>
-      </g>
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
     </svg>
   ),
   ImageIcon: ({ name, width, height }: ImageIconProps) => (

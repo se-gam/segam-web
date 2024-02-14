@@ -11,6 +11,7 @@ export const withDecorator = (Story) => (
       backgroundColor: '#ffffff',
       border: '1px solid #aaaaaa',
       borderRadius: '8px',
+      fontFamily: 'Pretendard',
     }}
   >
     <Story />

@@ -8,10 +8,7 @@ interface AttendanceCardProps {
   title: string;
   iconName: string;
 }
-export default function AttendanceCard({
-  title,
-  iconName,
-}: AttendanceCardProps) {
+export default function AttendanceCard({ title, iconName }: AttendanceCardProps) {
   const { navigateTo } = useLink();
 
   return (
