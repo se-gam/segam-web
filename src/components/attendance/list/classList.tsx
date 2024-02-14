@@ -89,7 +89,7 @@ export default function ClassList() {
           type="button"
           aria-label="go to detail"
           onClick={() => {
-            navigateTo(`/attendance/${item.title}`);
+            navigateTo(`attendance/${item.title}`, 'Detail', item.title);
           }}
           className="flex w-full flex-nowrap items-center justify-between gap-9 rounded pr-1.5 text-left active:bg-gray-300"
         >
