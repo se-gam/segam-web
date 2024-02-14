@@ -3,17 +3,24 @@
 import { ConfigProvider, Segmented } from 'antd';
 
 interface TabProps {
-  value: string;
+  value: string | undefined;
   onChange: (value: string) => void;
   options: { label: string; value: string }[];
+  defaultValue: string;
 }
 
-export default function Tab({ value, onChange, options }: TabProps) {
+export default function Tab({
+  value,
+  onChange,
+  options,
+  defaultValue,
+}: TabProps) {
   return (
     <ConfigProvider
       theme={{
         token: {
           controlHeightLG: 48,
+          borderRadiusLG: 12,
         },
         components: {
           Segmented: {
@@ -26,6 +33,7 @@ export default function Tab({ value, onChange, options }: TabProps) {
       }}
     >
       <Segmented
+        defaultValue={defaultValue}
         value={value}
         onChange={onChange}
         options={options.map((option) => ({
