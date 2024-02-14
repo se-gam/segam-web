@@ -1,15 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@font-face {
-  font-family: 'pretendard';
-  src: url('/public/PretendardVariable.woff2');
-}
-@layer base {
-  html {
-    font-family: 'pretendard';
-  }
-}
+
 @layer components {
   .f28 {
     font-size: 1.75rem;
