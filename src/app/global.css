@@ -1,7 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@layer base {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
 @layer components {
   .f28 {
     font-size: 1.75rem;
