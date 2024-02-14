@@ -22,7 +22,7 @@ export default function Board({ title, children, url }: BoardProps) {
             navigateTo(url);
           }}
         >
-          <Icons.ArrowRight className="w-4.5 h-4.5 fill-theme_tertiary" />
+          <Icons.ArrowRight className="fill-theme_tertiary" width={16} height={16} />
         </button>
       </div>
       {children}

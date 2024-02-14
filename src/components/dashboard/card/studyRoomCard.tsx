@@ -6,11 +6,7 @@ interface StudyRoomCardProps {
   description: string;
   iconName: string;
 }
-export default function StudyRoomCard({
-  title,
-  iconName,
-  description,
-}: StudyRoomCardProps) {
+export default function StudyRoomCard({ title, iconName, description }: StudyRoomCardProps) {
   return (
     <div className="flex w-full items-center justify-between gap-4 rounded-md p-3">
       <div className="flex items-center gap-4">
