@@ -31,7 +31,7 @@ export default function DashBoard() {
             <AttendanceCard key={item.id} title={item.title} iconName={item.iconName} />
           ))}
         </Board>
-        <Board title="나의 예약현황" url="studyRoom">
+        <Board title="나의 예약현황" url="studyroom">
           {data.map((item) => (
             <StudyRoomCard
               key={item.id}
