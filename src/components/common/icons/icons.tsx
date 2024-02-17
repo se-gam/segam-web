@@ -65,6 +65,9 @@ const IMAGE: ImageType = {
   studyRoom: {
     src: '/images/studyRoom.png',
   },
+  grandMother: {
+    src: '/images/grandMother.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
