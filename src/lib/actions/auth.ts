@@ -18,9 +18,7 @@ export default async function login(formData: FormData) {
     },
   })
     .then((response) => response.body)
-    .catch((e) => {
-      console.log(e.message);
-
+    .catch(() => {
       throw new Error('학번과 비밀번호를 확인하세요.');
     });
   cookies().set('accessToken', accessToken, {
