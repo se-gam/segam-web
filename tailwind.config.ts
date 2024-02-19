@@ -25,6 +25,7 @@ const config: Config = {
         theme_secondary: '#4A82EE',
         theme_tertiary: '#B0B8C1',
         theme_accent: '#191F28',
+        nav_bg: '#FCFCFC',
         text_primary: '#4E5968',
         text_secondary: '#979799',
         text_placeholder: '#B8B8B8',
