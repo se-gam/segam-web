@@ -21,9 +21,12 @@ const returnFetchRetry: ReturnFetch = (args) =>
     ...args,
     interceptors: {
       response: async (response, requestArgs, fetch) => {
-        if (response.status !== 401 || !response.url.includes('/login')) {
-          return response;
-        }
+        if (response.status !== 401) return response;
+        if (cookies().has('accessToken')) cookies().delete('accessToken');
+        if (cookies().has('refreshToken')) cookies().delete('refreshToken');
+        if (cookies().has('encrypted')) cookies().delete('encrypted');
+        if (!response.url.includes('/login')) return response;
+
         const responseToRefreshCookie = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/v1/auth/refresh`,
           {
