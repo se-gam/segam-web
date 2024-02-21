@@ -1,75 +1,69 @@
 'use client';
 
-import Button from '@/components/common/button/button';
 import login from '@/lib/actions/auth';
-import { Modal, Spin } from 'antd';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useFormState, useFormStatus } from 'react-dom';
 
-export default function LoginPage() {
-  const [modal, contextHolder] = Modal.useModal();
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const countDown = () => {
-    modal.error({
-      icon: null,
-      title: <h2 className="f20 font-bold text-text_primary">로그인 오류</h2>,
-      content: (
-        <p className="f14 font-medium text-text_secondary">학번과 비밀번호를 확인해주세요.</p>
-      ),
-      okButtonProps: {
-        style: {
-          backgroundColor: '#626FE5',
-          color: 'white',
-          borderRadius: '0.375rem',
-        },
+import { Modal } from 'antd';
+
+const error = (message: string) => {
+  Modal.error({
+    title: <h3 className="f20 font-bold text-text_primary">로그인 실패</h3>,
+    content: <p className="f14 font-medium text-text_secondary">{message}</p>,
+    icon: null,
+    okButtonProps: {
+      style: {
+        backgroundColor: '#626FE5',
+        color: 'white',
+        borderRadius: '4px',
+        border: 'none',
       },
-      okText: <span className="f16 font-medium text-white">확인</span>,
-    });
-  };
-  const loginHandler = async () => {
-    setLoading(true);
-    const formData = new FormData();
-    formData.append('studentId', id);
-    formData.append('password', password);
-    await login(formData)
-      .then(() => {
-        router.push('/dashboard');
-      })
-      .catch(() => {
-        setLoading(false);
-        countDown();
-      });
-  };
-
+    },
+  });
+};
+export default function LoginPage() {
+  const [result, formAction] = useFormState(login, null);
+  const { pending } = useFormStatus();
+  const router = useRouter();
+  useEffect(() => {
+    if (result === null) return;
+    const message = result?.message;
+    switch (message) {
+      case '로그인 성공':
+        router.replace('/dashboard');
+        break;
+      default:
+        error(result.message);
+    }
+  }, [result, router]);
   return (
-    <>
-      {loading && (
-        <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-30">
-          <Spin />
-        </div>
-      )}
-      {contextHolder}
-      <main className="container flex h-full flex-col bg-app_bg p-4 pt-6">
-        <h1 className="f20 mb-4 font-bold text-text_primary">로그인</h1>
+    <main className="container flex h-full flex-col bg-app_bg p-4 pt-6">
+      <h1 className="f20 mb-4 font-bold text-text_primary">로그인</h1>
+      <form action={formAction}>
         <input
           type="text"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
+          id="studentId"
+          name="studentId"
           placeholder="학번"
           className="mb-4 h-12 w-full rounded-md px-4"
         />
         <input
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          id="password"
+          name="password"
           placeholder="비밀번호"
           className="mb-4 h-12 w-full rounded-md px-4"
         />
-        <Button onClick={loginHandler} label="로그인" variant="primary" size="full" />
-      </main>
-    </>
+
+        <button
+          type="submit"
+          className="mb-4 h-12 w-full rounded-md bg-theme_primary font-medium text-white transition-opacity duration-200 active:opacity-80 aria-disabled:opacity-50"
+          aria-disabled={pending}
+        >
+          로그인
+        </button>
+      </form>
+    </main>
   );
 }
