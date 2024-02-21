@@ -1,3 +1,5 @@
+'use server';
+
 import { cookies } from 'next/headers';
 import returnFetch, { ReturnFetch } from 'return-fetch';
 import returnFetchJson from 'return-fetch-json';
@@ -24,16 +26,13 @@ const returnFetchRetry: ReturnFetch = (args) =>
         if (response.status !== 401) return response;
         if (cookies().has('accessToken')) cookies().delete('accessToken');
         if (cookies().has('refreshToken')) cookies().delete('refreshToken');
-        if (cookies().has('encrypted')) cookies().delete('encrypted');
         if (!response.url.includes('/login')) return response;
 
         const responseToRefreshCookie = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/v1/auth/refresh`,
           {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+
             body: JSON.stringify({
               refreshToken: cookies().get('refreshToken')?.value,
             }),
@@ -45,14 +44,20 @@ const returnFetchRetry: ReturnFetch = (args) =>
         const { accessToken, refreshToken } = await responseToRefreshCookie.json();
         if (!accessToken || !refreshToken) throw new Error('오류');
         if (accessToken && refreshToken) {
-          cookies().set('accessToken', accessToken);
-          cookies().set('refreshToken', refreshToken);
+          cookies().set('accessToken', accessToken, {
+            maxAge: 60 * 60 * 24 * 7,
+          });
+          cookies().set('refreshToken', refreshToken, {
+            maxAge: 60 * 60 * 24 * 168,
+          });
         }
         return fetch(...requestArgs);
       },
     },
   });
+
 const fetchExtended = returnFetchJson({
+  jsonParser: JSON.parse,
   fetch: returnFetchThrowingErrorByStatusCode({
     fetch: returnFetchRetry({
       baseUrl: process.env.NEXT_PUBLIC_BASE_URL,

@@ -1,9 +1,9 @@
 import NavLinks from '@/components/common/navLinks/NavLinks';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="container flex h-dvh flex-col justify-between">
-      {children}
+    <div className="flex h-full flex-col justify-between">
+      <div className="h-full overflow-auto">{children}</div>
       <NavLinks />
     </div>
   );

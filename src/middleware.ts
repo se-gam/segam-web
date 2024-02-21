@@ -6,15 +6,16 @@ export function middleware(request: NextRequest) {
   const hasAccessToken = request.cookies.has('accessToken');
   const hasRefreshToken = request.cookies.has('refreshToken');
   const isLoggedIn = hasPassword && hasAccessToken && hasRefreshToken;
-  if (request.nextUrl.pathname === '/dashboard' && !isLoggedIn) {
+  if (request.nextUrl.pathname !== '/login' && !isLoggedIn) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
   if (request.nextUrl.pathname === '/login' && isLoggedIn) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/login'],
+  matcher: ['/login', '/dashboard/:path*'],
 };

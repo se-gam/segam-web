@@ -1,10 +1,10 @@
 import ClassCard from '@/components/attendance/card/classCard';
 import Tag from '@/components/common/tag/tag';
-import { Lecture } from '@/lib/definitions';
+import { Assignment } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
 
-interface LectureProps {
-  lectures: Lecture[];
+interface AssignmentListProps {
+  assignments: Assignment[];
 }
 const tagLabel = (endDate: string) => {
   const todayDate = new Date();
@@ -17,24 +17,24 @@ const tagLabel = (endDate: string) => {
   }
   return `${remainDay}일 남음`;
 };
-export default function SubjectList({ lectures }: LectureProps) {
-  if (lectures.length === 0)
+export default function AssignmentList({ assignments }: AssignmentListProps) {
+  if (assignments.length === 0)
     return (
       <div className="flex h-20 w-full items-center justify-center rounded-lg">
-        <p className="f16 font-medium text-text_secondary">업데이트 된 강의가 없습니다.</p>
+        <p className="f16 font-medium text-text_secondary">업데이트 된 과제가 없습니다.</p>
       </div>
     );
   return (
     <div className="space-y-1">
-      {lectures.map((lecture) => (
+      {assignments.map((assignment) => (
         <ClassCard
-          key={lecture.id}
-          title={lecture.name}
-          description={`${dateDotFormatter(lecture.startsAt)} ~ ${dateDotFormatter(lecture.endsAt)}`}
+          key={assignment.id}
+          title={assignment.name}
+          description={`${dateDotFormatter(assignment.endsAt)}`}
           tag={
             <Tag
-              label={lecture.isDone ? '완료' : tagLabel(lecture.endsAt)}
-              variant={lecture.isDone ? 'done' : 'warning'}
+              label={assignment.isDone ? '완료' : tagLabel(assignment.endsAt)}
+              variant={assignment.isDone ? 'done' : 'warning'}
               size="sm"
             />
           }
