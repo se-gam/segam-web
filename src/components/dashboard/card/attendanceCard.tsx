@@ -7,16 +7,17 @@ import useLink from '@/hooks/useLink';
 interface AttendanceCardProps {
   title: string;
   iconName: string;
+  remainJobs?: number;
+  id: number;
 }
-export default function AttendanceCard({ title, iconName }: AttendanceCardProps) {
+export default function AttendanceCard({ title, iconName, remainJobs, id }: AttendanceCardProps) {
   const { navigateTo } = useLink();
-
   return (
     <button
       type="button"
       className="flex w-full items-center justify-between gap-4 rounded-md p-3 active:bg-gray-200"
       onClick={() => {
-        navigateTo(`attendance/${title}`, 'Detail', title);
+        navigateTo(`dashboard/attendance/${id}`, 'Detail', title);
       }}
     >
       <div className="flex items-center gap-4">
@@ -25,7 +26,11 @@ export default function AttendanceCard({ title, iconName }: AttendanceCardProps)
         </div>
         <p className="f16 font-bold text-text_primary">{title}</p>
       </div>
-      <Tag size="sm" variant="done" label="1개" />
+      <Tag
+        size="sm"
+        variant={remainJobs ? 'warning' : 'done'}
+        label={remainJobs ? `${remainJobs}개` : '완료'}
+      />
     </button>
   );
 }
