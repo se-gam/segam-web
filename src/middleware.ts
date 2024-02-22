@@ -7,6 +7,13 @@ export function middleware(request: NextRequest) {
   const hasRefreshToken = request.cookies.has('refreshToken');
   const requestUrl = request.nextUrl.pathname;
   const isLoggedIn = hasPassword && hasAccessToken && hasRefreshToken;
+  if (requestUrl === '/logout') {
+    const response = NextResponse.redirect(new URL('/login', request.url));
+    response.cookies.delete('encrypted');
+    response.cookies.delete('accessToken');
+    response.cookies.delete('refreshToken');
+    return response;
+  }
   if (isLoggedIn && (requestUrl === '/' || requestUrl === '/login')) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
@@ -17,5 +24,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/login', '/dashboard/:path*', '/'],
+  matcher: ['/login', '/dashboard/:path*', '/', '/logout'],
 };
