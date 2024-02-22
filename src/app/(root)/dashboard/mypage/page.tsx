@@ -1,4 +1,5 @@
 import Icons from '@/components/common/icons/icons';
+import Link from 'next/link';
 
 const settings = [
   {
@@ -21,7 +22,7 @@ const settings = [
 const auth = [
   {
     label: '로그아웃',
-    link: 'logout',
+    link: '/logout',
   },
   {
     label: '회원 탈퇴',
@@ -46,14 +47,15 @@ export default function MyPage() {
       <section className="bg-white py-2">
         <div className="space-y-1 px-2">
           {settings.map((setting) => (
-            <button
+            <Link
               key={setting.label}
               type="button"
               className="flex w-full items-center justify-between rounded bg-white px-2 py-4 transition-transform active:scale-[0.98] active:bg-app_bg"
+              href="/dashboard/mypage"
             >
               <span className="f16 font-medium text-text_primary ">{setting.label}</span>
               <Icons.ArrowRight className="fill-theme_tertiary" width="1rem" height="1rem" />
-            </button>
+            </Link>
           ))}
         </div>
       </section>
@@ -61,14 +63,15 @@ export default function MyPage() {
       <section>
         <div className="space-y-1 bg-white px-2 py-2">
           {auth.map((fn) => (
-            <button
+            <Link
               key={fn.label}
-              type="button"
+              type="submit"
               className="flex w-full items-center justify-between rounded bg-white px-2 py-4 transition-transform active:scale-[0.98] active:bg-app_bg"
+              href={fn.link}
             >
               <span className="f16 font-medium text-text_primary">{fn.label}</span>
               <Icons.ArrowRight className="fill-theme_tertiary" width="1rem" height="1rem" />
-            </button>
+            </Link>
           ))}
         </div>
       </section>
