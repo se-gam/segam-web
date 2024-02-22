@@ -1,5 +1,4 @@
 import Icons from '@/components/common/icons/icons';
-import { logout } from '@/lib/actions/auth';
 import Link from 'next/link';
 
 const settings = [
@@ -23,7 +22,7 @@ const settings = [
 const auth = [
   {
     label: '로그아웃',
-    action: logout,
+    link: '/logout',
   },
   {
     label: '회원 탈퇴',
@@ -64,16 +63,15 @@ export default function MyPage() {
       <section>
         <div className="space-y-1 bg-white px-2 py-2">
           {auth.map((fn) => (
-            <form action={fn.action}>
-              <button
-                key={fn.label}
-                type="submit"
-                className="flex w-full items-center justify-between rounded bg-white px-2 py-4 transition-transform active:scale-[0.98] active:bg-app_bg"
-              >
-                <span className="f16 font-medium text-text_primary">{fn.label}</span>
-                <Icons.ArrowRight className="fill-theme_tertiary" width="1rem" height="1rem" />
-              </button>
-            </form>
+            <Link
+              key={fn.label}
+              type="submit"
+              className="flex w-full items-center justify-between rounded bg-white px-2 py-4 transition-transform active:scale-[0.98] active:bg-app_bg"
+              href={fn.link}
+            >
+              <span className="f16 font-medium text-text_primary">{fn.label}</span>
+              <Icons.ArrowRight className="fill-theme_tertiary" width="1rem" height="1rem" />
+            </Link>
           ))}
         </div>
       </section>
