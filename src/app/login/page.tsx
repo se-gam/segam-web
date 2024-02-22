@@ -22,6 +22,7 @@ const error = (message: string) => {
     },
   });
 };
+
 export default function LoginPage() {
   const [result, formAction] = useFormState(login, null);
   const { pending } = useFormStatus();
@@ -34,7 +35,7 @@ export default function LoginPage() {
         router.replace('/dashboard');
         break;
       default:
-        error(result.message);
+        error(result.message ? result.message : '알 수 없는 오류가 발생했습니다.');
     }
   }, [result, router]);
   return (
