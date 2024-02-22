@@ -22,7 +22,7 @@ const data = [
 export default async function DashBoard() {
   const { courses } = await getCourseAttendance();
   return (
-    <main className="container h-full bg-app_bg px-4 py-3">
+    <main className="page bg-app_bg px-4 py-3">
       <header className="mb-4 flex w-full justify-between">
         <h1 className="f20 font-bold text-text_primary">감자탕</h1>
         <Icons.Bell className="fill-theme_tertiary" width="1.5rem" height="1.5rem" />

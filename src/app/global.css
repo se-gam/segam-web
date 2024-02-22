@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer components {
+  .page {
+    height: calc(100dvh - 4.125rem);
+  }
   .f28 {
     font-size: 1.75rem;
     line-height: 2.125rem;

@@ -31,7 +31,7 @@ const auth = [
 ];
 export default function MyPage() {
   return (
-    <main className="container h-full overflow-auto bg-app_bg">
+    <main className="page overflow-auto bg-app_bg">
       <header className="mb-4.5 px-4 py-2.5">
         <h1 className="f20 font-bold text-text_primary">내 정보</h1>
       </header>

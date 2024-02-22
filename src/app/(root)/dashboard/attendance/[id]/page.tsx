@@ -19,7 +19,7 @@ export default async function SubjectPage({ params }: { params: { id: number } }
   const totalJobText =
     totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요.` : '모든 할 일을 완료했어요. 🎉';
   return (
-    <main className="container h-full overflow-auto bg-white px-4 py-2.5">
+    <main className="page overflow-auto bg-white px-4 py-2.5">
       <header className="mb-4">
         <h1 className="f20 font-bold text-text_primary">{course.name}</h1>
       </header>
