@@ -13,7 +13,7 @@ export default async function Attendance() {
     imminentDueDate,
   }: CourseAttendance = await getCourseAttendance();
   const totalJobText =
-    totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요.` : '모든 할 일을 완료했어요. 🎉';
+    totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요` : '모든 할 일을 완료했어요 🎉';
   return (
     <main className="page bg-white px-4 pt-2.5">
       <header className="mb-4">
@@ -26,7 +26,7 @@ export default async function Attendance() {
           {imminentDueDate && (
             <p className="f16 font-medium text-text_secondary">{`${dayFormatByDate(imminentDueDate)}요일 까지 할 일이 ${
               imminentLectureLeft + imminentAssignmentLeft
-            }개가 있어요.`}</p>
+            }개가 있어요`}</p>
           )}
         </div>
       </section>

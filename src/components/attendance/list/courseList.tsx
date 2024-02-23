@@ -15,7 +15,7 @@ export default function CourseList({ courses }: CourseListProps) {
   if (courses.length === 0)
     return (
       <div className="flex h-20 w-full items-center justify-center rounded-lg">
-        <p className="f16 font-medium text-text_secondary">수강중인 강의가 없습니다.</p>
+        <p className="f16 font-medium text-text_secondary">수강중인 강의가 없습니다</p>
       </div>
     );
   return (
@@ -26,7 +26,7 @@ export default function CourseList({ courses }: CourseListProps) {
         const isDone = lectureDone && assignmentDone;
         const nextLectureText = course.nextLectureDate
           ? course.nextLectureDate
-          : '모든 강의를 완료했어요.';
+          : '모든 강의를 완료했어요';
         return (
           <button
             key={course.id}

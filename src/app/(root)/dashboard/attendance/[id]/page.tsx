@@ -17,7 +17,7 @@ export default async function SubjectPage({ params }: { params: { id: number } }
     : '';
   const totalJobs = course.lecturesLeft + course.assignmentsLeft;
   const totalJobText =
-    totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요.` : '모든 할 일을 완료했어요. 🎉';
+    totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요` : '모든 할 일을 완료했어요 🎉';
   return (
     <main className="page overflow-auto bg-white px-4 py-2.5">
       <header className="mb-4">
