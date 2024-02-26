@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority';
 
 interface TagProps {
   label: string;
-  size: 'sm' | 'md';
+  size: 'sm' | 'ms' | 'md';
   variant: 'default' | 'done' | 'warning' | 'orange' | 'yellow' | 'danger';
   className?: string;
 }
@@ -19,18 +19,14 @@ const TagVariants = cva('font-semibold rounded', {
       danger: 'bg-button_default_bg text-error',
     },
     size: {
-      sm: 'f12 px-2 py-1 ',
+      sm: 'f12 px-2 py-1',
+      ms: 'f12 px-3 py-1.5',
       md: 'f14 px-3 py-1.5',
     },
   },
 });
 
-export default function Tag({
-  label,
-  size,
-  variant = 'default',
-  className = '',
-}: TagProps) {
+export default function Tag({ label, size, variant = 'default', className = '' }: TagProps) {
   return (
     <span
       className={cn(

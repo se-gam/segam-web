@@ -50,3 +50,32 @@ export type ApiResponse<T> = {
   statusText: string;
   data: T;
 };
+export type Slot = {
+  id: number;
+  date: string;
+  startsAt: number;
+  isReserved: boolean;
+  isClosed: boolean;
+};
+export type Studyroom = {
+  id: number;
+  name: string;
+  location: string;
+  minUsers: number;
+  maxUsers: number;
+  isCinema: boolean;
+  operatingHours: string;
+  slots: Slot[];
+};
+export type Friend = {
+  studentId: string;
+  name: string;
+};
+export type Friends = {
+  friends: Friend[];
+};
+
+export type ReservationUser = {
+  studentId: string;
+  name: string;
+};
