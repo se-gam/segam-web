@@ -68,6 +68,33 @@ const IMAGE: ImageType = {
   grandMother: {
     src: '/images/grandMother.png',
   },
+  chicken: {
+    src: '/images/chicken.png',
+  },
+  cake: {
+    src: '/images/cake.png',
+  },
+  frenchFries: {
+    src: '/images/frenchFries.png',
+  },
+  hamburger: {
+    src: '/images/hamburger.png',
+  },
+  hotdog: {
+    src: '/images/hotdog.png',
+  },
+  pizza: {
+    src: '/images/pizza.png',
+  },
+  kebab: {
+    src: '/images/kebab.png',
+  },
+  noodle: {
+    src: '/images/noodle.png',
+  },
+  seshi: {
+    src: '/images/seshi.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
