@@ -17,12 +17,12 @@ export function middleware(request: NextRequest) {
   if (isLoggedIn && (requestUrl === '/' || requestUrl === '/login')) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
-  if (!isLoggedIn && requestUrl.includes('/dashboard')) {
+  if (!isLoggedIn && (requestUrl.includes('/dashboard') || requestUrl.includes('/reservation'))) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/login', '/dashboard/:path*', '/', '/logout'],
+  matcher: ['/login', '/dashboard/:path*', '/', '/logout', '/reservation/:path*'],
 };
