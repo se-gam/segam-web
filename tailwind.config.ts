@@ -52,12 +52,12 @@ const config: Config = {
       },
       keyframes: {
         slide: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
         },
         slide_reverse: {
           '0%': { transform: 'translateX(-40%)' },
-          '100%': { transform: 'translateX(-7.5%)' },
+          '100%': { transform: 'translateX(0%)' },
         },
         slideIn: {
           from: { transform: 'translateY(0%)' },
@@ -65,8 +65,8 @@ const config: Config = {
         },
       },
       animation: {
-        slide: 'slide 10s infinite linear',
-        slide_reverse: 'slide_reverse 2s infinite linear',
+        slide: 'slide 60s infinite linear',
+        slide_reverse: 'slide_reverse 60s infinite linear',
         slideIn: 'slideIn 3s infinite',
       },
     },

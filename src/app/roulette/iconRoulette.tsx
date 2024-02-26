@@ -2,6 +2,8 @@
 
 import Icons from '@/components/common/icons/icons';
 import React from 'react';
+// eslint-disable-next-line
+import _ from 'lodash';
 
 export default function MenuRoulette({ componentKey }: { componentKey: number }) {
   const shuffleArray = (array: String[]) => {
@@ -33,7 +35,7 @@ export default function MenuRoulette({ componentKey }: { componentKey: number })
     'noodle',
     'seshi',
   ]);
-  const extendedMenuItems = [...menuItems, ...menuItems];
+  const extendedMenuItems = _.flatMap(_.times(10, () => menuItems));
 
   return (
     <div
