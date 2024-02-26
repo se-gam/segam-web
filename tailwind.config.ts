@@ -53,7 +53,7 @@ const config: Config = {
       keyframes: {
         slide: {
           from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-50%)' },
+          to: { transform: 'translateX(-40%)' },
         },
         slide_reverse: {
           '0%': { transform: 'translateX(-40%)' },

@@ -35,7 +35,7 @@ export default function MenuRoulette({ componentKey }: { componentKey: number })
     'noodle',
     'seshi',
   ]);
-  const extendedMenuItems = _.flatMap(_.times(10, () => menuItems));
+  const extendedMenuItems = _.flatMap(_.times(2, () => menuItems));
 
   return (
     <div

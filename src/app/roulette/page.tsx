@@ -21,7 +21,7 @@ export default function RoulettePage() {
   };
 
   return (
-    <main className="container flex h-full w-full flex-col items-center bg-gradient-to-b from-roulette_bg to-white">
+    <main className="container flex h-full w-full flex-col items-center bg-gradient-to-b from-roulette_bg to-white ">
       <div className="f28 pt-[4.375rem] font-bold text-text_primary">점심 뭐 먹을까?</div>
       <div className=" f16 p-1 font-medium text-text_secondary">
         세종대 주변 58개의 맛집중에서 골랐어요
@@ -40,7 +40,7 @@ export default function RoulettePage() {
       {_.times(3, (index) => (
         <MenuRoulette key={index} componentKey={index} />
       ))}
-      <div className="mt-8 w-full px-5">
+      <div className="w-full px-5">
         <Button
           className="px-20"
           type="button"
