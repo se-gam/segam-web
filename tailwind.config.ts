@@ -56,8 +56,8 @@ const config: Config = {
           to: { transform: 'translateX(-40%)' },
         },
         slide_reverse: {
-          '0%': { transform: 'translateX(-40%)' },
-          '100%': { transform: 'translateX(0%)' },
+          '0%': { transform: 'translateX(-10%)' },
+          '100%': { transform: 'translateX(50%)' },
         },
         slideIn: {
           from: { transform: 'translateY(0%)' },

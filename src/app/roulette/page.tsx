@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import MenuRoulette from '@/app/roulette/iconRoulette';
+import MenuRoulette from '@/components/roulette/iconRoulette';
 import Button from '@/components/common/button/button';
-import menuList from './menuList';
+import menuList from '../../components/roulette/menuList';
 // eslint-disable-next-line
 import _ from 'lodash';
 
@@ -21,12 +21,12 @@ export default function RoulettePage() {
   };
 
   return (
-    <main className="container flex h-full w-full flex-col items-center bg-gradient-to-b from-roulette_bg to-white ">
+    <main className=" container flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-scroll bg-gradient-to-b from-roulette_bg to-white ">
       <div className="f28 pt-[4.375rem] font-bold text-text_primary">점심 뭐 먹을까?</div>
       <div className=" f16 p-1 font-medium text-text_secondary">
         세종대 주변 58개의 맛집중에서 골랐어요
       </div>
-      <div className="text-pri f28 mb-14 mt-16 flex h-20 w-72 overflow-hidden rounded-2xl bg-app_bg font-bold text-text_primary">
+      <div className=" text-pri f28 mb-14 mt-16 flex h-20 w-72 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-app_bg font-bold text-text_primary">
         <div className={`${isSpinning ? 'animate-slideIn' : ''} transition-all duration-1000`}>
           {isSpinning
             ? menuList.map((option, index) => (
@@ -40,9 +40,8 @@ export default function RoulettePage() {
       {_.times(3, (index) => (
         <MenuRoulette key={index} componentKey={index} />
       ))}
-      <div className="w-full px-5">
+      <div className="mb-8 flex h-full w-full items-end px-5">
         <Button
-          className="px-20"
           type="button"
           size="full"
           label="룰렛 돌리기"
