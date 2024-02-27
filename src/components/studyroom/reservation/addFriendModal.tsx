@@ -2,19 +2,22 @@
 
 import BottomDrawer from '@/components/common/bottomDrawer/bottomDrawer';
 import useModal from '@/hooks/useModal';
-import { checkUser } from '@/lib/actions/studyroom';
+import { postAddFriend } from '@/lib/actions/user';
+import { Friend } from '@/lib/definitions';
 import { useState } from 'react';
 
 interface AddFriendModalProps {
   drawerOpen: boolean;
-  date: Date;
+  date?: Date;
+  friends: Friend[];
   setDrawerOpen: (open: boolean) => void;
-  addFriend: (friend: { studentId: string; name: string }) => void;
+  addFriend: (friend: Friend) => void;
 }
 
 export default function AddFriendModal({
   drawerOpen,
   date,
+  friends,
   setDrawerOpen,
   addFriend,
 }: AddFriendModalProps) {
@@ -36,21 +39,27 @@ export default function AddFriendModal({
       });
       return;
     }
-    await checkUser({
-      friendId,
-      friendName,
-      date,
-    })
-      .then(() => {
-        addFriend({ studentId: friendId, name: friendName });
-        setDrawerOpen(false);
-      })
-      .catch(() => {
-        modal({
-          title: '오류',
-          content: '학번과 이름을 확인해주세요.',
-        });
+    if (friends.find((f) => f.studentId === friendId)) {
+      modal({
+        title: '오류',
+        content: '이미 추가된 친구입니다.',
       });
+      return;
+    }
+    try {
+      await postAddFriend({
+        friendId,
+        friendName,
+        date,
+      });
+      addFriend({ studentId: friendId, name: friendName });
+      setDrawerOpen(false);
+    } catch (e) {
+      modal({
+        title: '오류',
+        content: '학번과 이름을 확인해주세요.',
+      });
+    }
   };
   return (
     <BottomDrawer

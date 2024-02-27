@@ -1,6 +1,6 @@
 'use client';
 
-import { checkUser } from '@/lib/actions/studyroom';
+import { postAddFriend } from '@/lib/actions/user';
 import cn from '@/utils/cn';
 import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
@@ -26,21 +26,21 @@ export default function CheckUser({
   const handleCheckUserClick = async () => {
     setLoading(true);
     setResult(null);
-    await checkUser({
-      friendId,
-      friendName,
-      date,
-    })
-      .then(() => {
-        setResult(true);
-        onSuccess({
-          studentId: friendId,
-          name: friendName,
-        });
-      })
-      .catch(() => {
-        setResult(false);
+    try {
+      await postAddFriend({
+        friendId,
+        friendName,
+        date,
       });
+      setResult(true);
+      onSuccess({
+        studentId: friendId,
+        name: friendName,
+      });
+    } catch (e) {
+      setResult(false);
+    }
+
     setLoading(false);
   };
 
