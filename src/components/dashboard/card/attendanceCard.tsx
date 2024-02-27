@@ -17,7 +17,10 @@ export default function AttendanceCard({ title, iconName, remainJobs, id }: Atte
       type="button"
       className="flex w-full items-center justify-between gap-4 rounded-md p-3 active:bg-gray-200"
       onClick={() => {
-        navigateTo(`dashboard/attendance/${id}`, 'Detail', title);
+        navigateTo({
+          page: `attendance/${id}`,
+          title,
+        });
       }}
     >
       <div className="flex items-center gap-4">

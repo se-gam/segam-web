@@ -1,7 +1,5 @@
-'use client';
-
 import Icons from '@/components/common/icons/icons';
-import useLink from '@/hooks/useLink';
+import Link from 'next/link';
 
 interface BoardProps {
   title: string;
@@ -11,20 +9,13 @@ interface BoardProps {
 }
 
 export default function Board({ title, children, url }: BoardProps) {
-  const { navigateTo } = useLink();
   return (
     <section className="rounded-2xl bg-white px-3 py-5">
       <div className="mb-4 flex items-center justify-between px-3">
         <h2 className="f20 font-bold text-text_primary">{title}</h2>
-        <button
-          type="button"
-          aria-label={`go to ${title}`}
-          onClick={() => {
-            navigateTo(url, url, title);
-          }}
-        >
+        <Link type="button" aria-label={`go to ${title}`} href={url}>
           <Icons.ArrowRight className="fill-theme_tertiary" width="1rem" height="1rem" />
-        </button>
+        </Link>
       </div>
       {children}
     </section>
