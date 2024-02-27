@@ -2,24 +2,26 @@
 
 import { Friends } from '@/lib/definitions';
 import fetchExtended from '@/utils/fetchExtended';
+import { unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
 
 export async function getFriends() {
-  const res = await fetchExtended<Friends>('/v1/user/friend', {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-  })
-    .then((response) => {
-      const friends = response.body.friends.map((friend) => ({
-        studentId: friend.studentId,
-        name: friend.name,
-      }));
-      return friends;
-    })
-    .catch(() => []);
-  return res;
+  unstable_noStore();
+  try {
+    const res = await fetchExtended<Friends>('/v1/user/friend', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+    });
+    const friends = res.body.friends.map((friend) => ({
+      studentId: friend.studentId,
+      name: friend.name,
+    }));
+    return friends;
+  } catch (e) {
+    throw new Error('친구목록을 불러오는데 실패 했습니다.');
+  }
 }
 
 interface AddFriendProps {
