@@ -1,32 +1,16 @@
 'use client';
 
+import useModal from '@/hooks/useModal';
 import login from '@/lib/actions/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
-import { Modal } from 'antd';
-
-const error = (message: string) => {
-  Modal.error({
-    title: <h3 className="f20 font-bold text-text_primary">로그인 실패</h3>,
-    content: <p className="f14 font-medium text-text_secondary">{message}</p>,
-    icon: null,
-    okButtonProps: {
-      style: {
-        backgroundColor: '#626FE5',
-        color: 'white',
-        borderRadius: '4px',
-        border: 'none',
-      },
-    },
-  });
-};
-
 export default function LoginPage() {
   const [result, formAction] = useFormState(login, null);
   const { pending } = useFormStatus();
   const router = useRouter();
+  const { modal } = useModal();
   useEffect(() => {
     if (result === null) return;
     const message = result?.message;
@@ -35,7 +19,10 @@ export default function LoginPage() {
         router.replace('/dashboard');
         break;
       default:
-        error(result.message ? result.message : '알 수 없는 오류가 발생했습니다.');
+        modal({
+          title: '로그인 실패',
+          content: result.message,
+        });
     }
   }, [result, router]);
   return (

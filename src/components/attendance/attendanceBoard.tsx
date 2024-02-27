@@ -5,6 +5,7 @@ import CourseList from '@/components/attendance/list/courseList';
 import SubjectList from '@/components/attendance/list/subjectList';
 import Tab from '@/components/common/tab/tab';
 import { Course } from '@/lib/definitions';
+
 import { useState } from 'react';
 
 const TAB_OPTIONS = {

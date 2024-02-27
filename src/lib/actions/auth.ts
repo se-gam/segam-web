@@ -21,7 +21,7 @@ export default async function login(prevState: any, formData: FormData) {
         os: 'IOS',
       },
     })
-      .then((response: any) => {
+      .then((response) => {
         const { accessToken, refreshToken } = response.body;
         cookies().set('accessToken', accessToken, { maxAge: 60 * 60 * 24 * 7, httpOnly: true });
         cookies().set('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 168, httpOnly: true });
@@ -31,7 +31,7 @@ export default async function login(prevState: any, formData: FormData) {
         });
         return { message: '로그인 성공' };
       })
-      .catch((e: any) => {
+      .catch((e) => {
         switch (e.status) {
           case 500:
             throw new Error('서버 오류가 발생했습니다. 다시 시도해주세요.');

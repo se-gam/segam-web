@@ -7,7 +7,7 @@ import cn from '@/utils/cn';
 interface ButtonProps {
   label: string;
   variant: 'default' | 'primary' | 'selected' | 'disabled';
-  size: 'sm' | 'md' | 'lg' | 'full';
+  size: 'sm' | 'md' | 'ml' | 'lg' | 'full';
   className?: string;
   type?: 'button' | 'submit';
   onClick?: () => void;
@@ -24,6 +24,7 @@ const ButtonVariants = cva('transition-opacity duration-200 active:opacity-80', 
     size: {
       sm: 'f12 rounded px-2 py-1.5 font-semibold',
       md: 'f14 rounded px-3 py-1.5 font-semibold',
+      ml: 'f14 rounded px-3.5 py-2 font-semibold',
       lg: 'f14 rounded px-4 py-1.5 font-semibold',
       full: 'f16 h-12 w-full rounded-md font-bold',
     },
