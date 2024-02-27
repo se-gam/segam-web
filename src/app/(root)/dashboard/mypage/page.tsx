@@ -50,7 +50,7 @@ export default function MyPage() {
             <Link
               key={setting.label}
               type="button"
-              className="flex w-full items-center justify-between rounded bg-white px-2 py-4 transition-transform active:scale-[0.98] active:bg-app_bg"
+              className="flex w-full items-center justify-between rounded bg-white px-2 py-4 transition-transform duration-300 focus:scale-[0.98] focus:bg-app_bg active:scale-[0.98] active:bg-app_bg"
               href="/dashboard/mypage"
             >
               <span className="f16 font-medium text-text_primary ">{setting.label}</span>
@@ -66,7 +66,7 @@ export default function MyPage() {
             <Link
               key={fn.label}
               type="submit"
-              className="flex w-full items-center justify-between rounded bg-white px-2 py-4 transition-transform active:scale-[0.98] active:bg-app_bg"
+              className="flex w-full items-center justify-between rounded bg-white px-2 py-4 transition-transform  focus:scale-[0.98] focus:bg-app_bg active:scale-[0.98] active:bg-app_bg"
               href={fn.link}
             >
               <span className="f16 font-medium text-text_primary">{fn.label}</span>
