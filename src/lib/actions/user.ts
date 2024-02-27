@@ -1,9 +1,23 @@
 'use server';
 
-import { Friends } from '@/lib/definitions';
+import { Friends, UserInfo } from '@/lib/definitions';
 import fetchExtended from '@/utils/fetchExtended';
 import { unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
+
+export async function getUserInfo() {
+  try {
+    const res = await fetchExtended<UserInfo>('/private', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+    });
+    return res.body;
+  } catch (e) {
+    throw new Error('내 정보를 불러오는데 실패 했습니다.');
+  }
+}
 
 export async function getFriends() {
   unstable_noStore();

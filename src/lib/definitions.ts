@@ -79,3 +79,14 @@ export type ReservationUser = {
   studentId: string;
   name: string;
 };
+export type UserInfo = {
+  studentId: string;
+  name: string;
+  departmentName: string | null;
+  os: string;
+  sejongPid: string;
+  pushToken: string | null;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+};
