@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import MenuRoulette from '@/components/roulette/iconRoulette';
+import IconRoulette from '@/components/roulette/iconRoulette';
 import Button from '@/components/common/button/button';
 import menuList from '../../components/roulette/menuList';
 // eslint-disable-next-line
@@ -41,7 +41,7 @@ export default function RoulettePage() {
         </div>
       </div>
       {_.times(3, (index) => (
-        <MenuRoulette key={index} componentKey={index} />
+        <IconRoulette key={index} componentKey={index} />
       ))}
       <div className="mb-8 flex h-full w-full items-end px-5">
         <Button

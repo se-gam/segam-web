@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 // eslint-disable-next-line
 import _ from 'lodash';
 
-export default function MenuRoulette({ componentKey }: { componentKey: number }) {
+export default function IconRoulette({ componentKey }: { componentKey: number }) {
   function getBgColorClass(index: number) {
     const colorClasses = [
       'bg-roulette_item_bg1',
