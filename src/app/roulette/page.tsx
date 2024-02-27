@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import IconRoulette from '@/components/roulette/iconRoulette';
 import Button from '@/components/common/button/button';
-import menuList from '../../components/roulette/menuList';
+import menuList from '@/components/roulette/menuList';
 // eslint-disable-next-line
 import _ from 'lodash';
 
@@ -29,7 +29,7 @@ export default function RoulettePage() {
       <div className=" f16 p-1 font-medium text-text_secondary">
         세종대 주변 58개의 맛집중에서 골랐어요
       </div>
-      <div className=" text-pri f28 mb-14 mt-16 flex h-20 w-72 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-app_bg font-bold text-text_primary">
+      <div className="f28 mb-14 mt-16 flex h-20 w-72 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-app_bg font-bold text-text_primary">
         <div className={`${isSpinning ? 'animate-slideIn' : ''} transition-all duration-1000`}>
           {isSpinning
             ? menuList.map((option, index) => (
