@@ -18,33 +18,43 @@ export async function getFriends() {
       }));
       return friends;
     })
-    .catch(() => {
-      throw new Error('친구 목록을 불러오는데 실패했습니다.');
-    });
+    .catch(() => []);
   return res;
 }
-export async function removeFriend(friendId: string) {
-  const res = await fetchExtended(`/v1/user/friend/${friendId}`, {
+
+interface AddFriendProps {
+  friendId: string;
+  friendName: string;
+  date?: Date;
+}
+export async function postAddFriend({ friendId, friendName, date }: AddFriendProps) {
+  const url = date ? '/v1/studyroom/user' : '/v1/user/friend';
+  const body = date
+    ? {
+        password: cookies().get('encrypted')?.value,
+        friendId,
+        friendName,
+        date: date?.toISOString(),
+      }
+    : {
+        password: cookies().get('encrypted')?.value,
+        studentId: friendId,
+        name: friendName,
+      };
+  await fetchExtended(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+    body,
+  });
+}
+export default async function deleteFriend({ studentId }: { studentId: string }) {
+  await fetchExtended(`/v1/user/friend/${studentId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
     },
-  })
-    .then(() => true)
-    .catch(() => false);
-  return res;
-}
-export async function addFriend(friendId: string) {
-  const res = await fetchExtended(`/v1/user/friend`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body: {
-      studentId: friendId,
-    },
-  })
-    .then(() => true)
-    .catch(() => false);
-  return res;
+  });
 }
