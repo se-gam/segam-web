@@ -92,7 +92,7 @@ const IMAGE: ImageType = {
   noodle: {
     src: '/images/noodle.png',
   },
-  seshi: {
+  sushi: {
     src: '/images/seshi.png',
   },
 };

@@ -52,22 +52,22 @@ const config: Config = {
       },
       keyframes: {
         slide: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-40%)' },
+          '0%': { transform: 'translateX(30%)' },
+          '100%': { transform: 'translateX(-30%)' },
         },
         slide_reverse: {
-          '0%': { transform: 'translateX(-10%)' },
-          '100%': { transform: 'translateX(50%)' },
+          '0%': { transform: 'translateX(-30%)' },
+          '100%': { transform: 'translateX(30%)' },
         },
         slideIn: {
           from: { transform: 'translateY(0%)' },
-          to: { transform: 'translateY(50%)' },
+          to: { transform: 'translateY(49.7%)' },
         },
       },
       animation: {
         slide: 'slide 60s infinite linear',
         slide_reverse: 'slide_reverse 60s infinite linear',
-        slideIn: 'slideIn 3s infinite',
+        slideIn: 'slideIn 3s',
       },
     },
   },

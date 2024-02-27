@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import MenuRoulette from '@/components/roulette/iconRoulette';
 import Button from '@/components/common/button/button';
 import menuList from '../../components/roulette/menuList';
@@ -13,9 +13,12 @@ export default function RoulettePage() {
 
   const handleSpinRoulette = () => {
     setIsSpinning(true);
+
+    const randomIndex = Math.floor(Math.random() * menuList.length);
+    setSelectedItem(menuList[randomIndex]);
+    [menuList[0], menuList[randomIndex]] = [menuList[randomIndex], menuList[0]];
+
     setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * menuList.length);
-      setSelectedItem(menuList[randomIndex]);
       setIsSpinning(false);
     }, 3000);
   };
