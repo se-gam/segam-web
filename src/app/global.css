@@ -4,7 +4,7 @@
 
 @layer components {
   .page {
-    height: calc(100dvh - 4.125rem);
+    min-height: calc(100vh - 4.125rem);
   }
   .f28 {
     font-size: 1.75rem;
@@ -35,4 +35,6 @@
   /* 글자 선택 막기 */
   user-select: none;
   letter-spacing: -0.015em;
+  /* 링킹 막기 */
+  -webkit-touch-callout: none;
 }
