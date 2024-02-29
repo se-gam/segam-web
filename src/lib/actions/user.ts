@@ -6,6 +6,7 @@ import { unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
 
 export async function getUserInfo() {
+  unstable_noStore();
   try {
     const res = await fetchExtended<UserInfo>('/private', {
       method: 'GET',
