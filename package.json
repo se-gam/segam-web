@@ -59,6 +59,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "husky": "^9.0.6",
     "lint-staged": "^15.2.0",
+    "lodash": "^4.17.21",
     "postcss": "^8",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
