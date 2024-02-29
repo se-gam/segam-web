@@ -51,7 +51,7 @@ export type ApiResponse<T> = {
   data: T;
 };
 export type Slot = {
-  id: number;
+  id: string;
   date: string;
   startsAt: number;
   isReserved: boolean;
@@ -66,6 +66,23 @@ export type Studyroom = {
   isCinema: boolean;
   operatingHours: string;
   slots: Slot[];
+};
+export type StudyroomList = {
+  studyrooms: Studyroom[];
+};
+export type StudyroomReservationList = {
+  reservations: Reservation[];
+};
+export type Reservation = {
+  id: number;
+  name: string;
+  date: string;
+  startsAt: number;
+  duration: number;
+  isLeader: boolean;
+  isCinema: boolean;
+  reason: string;
+  users: ReservationUser[];
 };
 export type Friend = {
   studentId: string;

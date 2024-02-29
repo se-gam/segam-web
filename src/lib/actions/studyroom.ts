@@ -1,9 +1,36 @@
 'use server';
 
-import { Studyroom } from '@/lib/definitions';
+import { StudyroomList, Studyroom, StudyroomReservationList } from '@/lib/definitions';
 import fetchExtended from '@/utils/fetchExtended';
 import { unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
+
+interface StudyroomListProps {
+  date: Date;
+  timeGte?: number;
+  timeLt?: number;
+  userCount?: number;
+}
+
+export async function getStudyroomList({ date }: StudyroomListProps): Promise<StudyroomList> {
+  unstable_noStore();
+  const query = new URLSearchParams({
+    date: date.toISOString(),
+  });
+  const url = `/v1/studyroom?${query}`;
+
+  try {
+    const data = await fetchExtended<StudyroomList>(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return data.body;
+  } catch (error) {
+    throw new Error('스터디룸 정보를 불러오는데 실패했습니다.');
+  }
+}
 
 interface StudyroomProps {
   id: number;
@@ -26,13 +53,23 @@ export async function getStudyroomInfo({ id, date }: StudyroomProps): Promise<St
 
   return data;
 }
-export async function getReservationList({ id, date }: StudyroomProps) {
-  await fetchExtended(`/v1/studyroom/${id}/reservation?date=${date}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+export async function getReservationList(): Promise<StudyroomReservationList> {
+  try {
+    const data = await fetchExtended<StudyroomReservationList>('/v1/studyroom/reservation/me', {
+      method: 'POST',
+      cache: 'force-cache',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: {
+        password: cookies().get('encrypted')?.value,
+      },
+    });
+    return data.body;
+  } catch (error) {
+    throw new Error('예약 정보를 불러오는데 실패했습니다.');
+  }
 }
 interface CheckUserProps {
   friendId: string;
