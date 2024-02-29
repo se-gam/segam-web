@@ -68,6 +68,15 @@ const IMAGE: ImageType = {
   grandMother: {
     src: '/images/grandMother.png',
   },
+  baby: {
+    src: '/images/baby.png',
+  },
+  child: {
+    src: '/images/child.png',
+  },
+  father: {
+    src: '/images/father.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (

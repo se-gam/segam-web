@@ -27,7 +27,7 @@ export default function BottomDrawer({
       styles={{
         body: {
           margin: 0,
-          padding: '0 0 8px 0',
+          padding: '0 0 16px 0',
         },
         wrapper: {
           boxShadow: 'none',
