@@ -30,6 +30,7 @@ const pretendard = localFont({
   variable: '--font-pretendard',
   display: 'swap',
 });
+
 // 줌 방지 코드
 export const viewport: Viewport = {
   width: 'device-width',
@@ -37,6 +38,7 @@ export const viewport: Viewport = {
   minimumScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: 'cover',
 };
 export const metadata: Metadata = {
   title: 'se-gam',
@@ -53,7 +55,7 @@ export default function RootLayout({
       <body
         className={clsx(
           pretendard.variable,
-          'container mx-auto h-screen overflow-hidden font-sans',
+          'safe-area container mx-auto h-dvh overflow-hidden bg-nav_bg font-sans',
         )}
       >
         <AntdRegistry>{children}</AntdRegistry>
