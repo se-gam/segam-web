@@ -79,6 +79,8 @@ export default function AddFriendModal({
           type="text"
           className="f14 e-theme_primary mb-3 h-10 w-full rounded-sm bg-button_default_bg px-3 py-2.5 font-normal text-text_primary transition-colors duration-200 placeholder:text-text_secondary focus:outline-theme_primary"
           placeholder="학번을 입력해주세요"
+          pattern="[0-9]*"
+          inputMode="numeric"
           value={friendId}
           onChange={(e) => setFriendId(e.target.value)}
         />
