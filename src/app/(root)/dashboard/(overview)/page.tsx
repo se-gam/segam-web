@@ -39,9 +39,9 @@ export default async function DashBoard() {
               return (
                 <AttendanceCard
                   key={course.id}
-                  id={course.id}
                   title={course.name}
                   iconName="studyRoom"
+                  id={course.id}
                   remainJobs={course.lecturesLeft + course.assignmentsLeft}
                 />
               );

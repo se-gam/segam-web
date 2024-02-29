@@ -36,7 +36,7 @@ function getButtonStatus({ value, cValue }: { value: number | null; cValue: numb
 
 export default function ReservationForm({ studyRoom, friendData }: ReservationFormProps) {
   const { modal } = useModal();
-  const today = new Date('2024-02-27 08:06:12.567');
+  const today = new Date('2024-02-29 08:06:12.567');
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
   const [duration, setDuration] = useState<number | null>(null);
@@ -86,23 +86,21 @@ export default function ReservationForm({ studyRoom, friendData }: ReservationFo
       });
       return;
     }
-    await reserveStudyroom({
-      studyroomId: studyRoom.id,
-      date: today,
-      startsAt: startsAt!,
-      duration: duration!,
-      reason,
-      users: users.map((u) => u.studentId),
-    })
-      .then(() => {
-        alert('예약이 완료되었습니다.');
-      })
-      .catch(() => {
-        modal({
-          title: '예약 실패',
-          content: '예약을 완료하지 못했습니다.',
-        });
+    try {
+      await reserveStudyroom({
+        studyroomId: studyRoom.id,
+        date: today,
+        startsAt: startsAt!,
+        duration: duration!,
+        reason,
+        users: users.map((u) => u.studentId),
       });
+    } catch (e) {
+      modal({
+        title: '예약 실패',
+        content: '예약에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      });
+    }
   };
   return (
     <>
@@ -261,9 +259,10 @@ export default function ReservationForm({ studyRoom, friendData }: ReservationFo
 
       <AddFriendModal
         drawerOpen={drawerOpen}
+        date={today}
+        friends={friends}
         setDrawerOpen={setDrawerOpen}
         addFriend={addFriend}
-        date={today}
       />
     </>
   );

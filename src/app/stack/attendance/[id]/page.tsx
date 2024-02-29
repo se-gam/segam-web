@@ -2,12 +2,13 @@ import AttendanceBoard from '@/components/attendance/attendanceBoard';
 import Tag from '@/components/common/tag/tag';
 import { getCourseAttendance } from '@/lib/actions/attendance';
 import { CourseAttendance } from '@/lib/definitions';
-import { dayFormatter } from '@/utils/format';
+import { dateWeekFormatter, dayFormatter } from '@/utils/format';
 
 export default async function SubjectPage({ params }: { params: { id: number } }) {
   const { courses }: CourseAttendance = await getCourseAttendance();
   const course = courses.find((c) => c.id === params.id);
   if (!course) return null;
+  const todayLabel = dateWeekFormatter(new Date());
   const updateDayLabel = course.updateDay ? `매주 ${dayFormatter(course.updateDay)}요일` : '';
   const lectureAbsencesLabel = course.lectureAbsences
     ? `강의 ${course.lectureAbsences}회 미출석`
@@ -20,11 +21,9 @@ export default async function SubjectPage({ params }: { params: { id: number } }
     totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요` : '모든 할 일을 완료했어요 🎉';
   return (
     <main className="page overflow-auto bg-white px-4 py-2.5">
-      <header className="mb-4">
-        <h1 className="f20 font-bold text-text_primary">{course.name}</h1>
-      </header>
       <section className="mb-5 space-y-2">
         <div className="space-x-2">
+          <Tag label={todayLabel} variant="default" size="md" />
           {updateDayLabel && <Tag label={updateDayLabel} variant="default" size="md" />}
           {lectureAbsencesLabel && <Tag label={lectureAbsencesLabel} variant="danger" size="md" />}
           {assignmentAbsencesLabel && (
