@@ -1,7 +1,7 @@
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 interface SendRouterEventProps {
-  type: 'push' | 'back';
+  type: 'PUSH' | 'BACK';
   screen?: string;
   path?: string;
   title?: string;
@@ -21,7 +21,7 @@ const isApp = () => {
 export const stackRouterBack = (router: AppRouterInstance) => {
   if (isApp()) {
     sendRouterEvent({
-      type: 'back',
+      type: 'BACK',
     });
   } else {
     router.back();
@@ -59,7 +59,7 @@ export const stackRouterPush = ({ router, page, title = '' }: StackRouterPushPro
     sendRouterEvent({
       title,
       screen,
-      type: 'push',
+      type: 'PUSH',
       path: url,
     });
   } else {
