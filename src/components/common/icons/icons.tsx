@@ -76,6 +76,7 @@ const IMAGE: ImageType = {
   },
   father: {
     src: '/images/father.png',
+  },
   chicken: {
     src: '/images/chicken.png',
   },
