@@ -1,57 +1,83 @@
 'use client';
 
+import Button from '@/components/common/button/button';
 import useModal from '@/hooks/useModal';
-import login from '@/lib/actions/auth';
+import { login } from '@/lib/actions/auth';
+import { Spin } from 'antd';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useState } from 'react';
 
 export default function LoginPage() {
-  const [result, formAction] = useFormState(login, null);
-  const { pending } = useFormStatus();
+  const [loading, setLoading] = useState(false);
+  const [studentId, setStudentId] = useState('');
+  const [password, setPassword] = useState('');
   const router = useRouter();
   const { modal } = useModal();
-  useEffect(() => {
-    if (result === null) return;
-    const message = result?.message;
-    switch (message) {
-      case '로그인 성공':
-        router.replace('/dashboard');
-        break;
-      default:
-        modal({
-          title: '로그인 실패',
-          content: result.message,
-        });
+
+  const handleLoginClick = async () => {
+    setLoading(true);
+    if (studentId === '') {
+      modal({
+        title: '로그인 실패',
+        content: '학번을 입력해주세요.',
+        onClick: () => {
+          setLoading(false);
+        },
+      });
+      return;
     }
-  }, [result, router]);
+    if (password === '') {
+      modal({
+        title: '로그인 실패',
+        content: '비밀번호를 입력해주세요.',
+        onClick: () => {
+          setLoading(false);
+        },
+      });
+      return;
+    }
+    try {
+      await login({
+        studentId,
+        password,
+      });
+
+      router.replace('/dashboard');
+    } catch (error) {
+      modal({
+        title: '로그인 실패',
+        content: '학번과 비밀번호를 확인해주세요.',
+        onClick: () => {
+          setLoading(false);
+        },
+      });
+    }
+  };
   return (
-    <main className="container flex h-full flex-col bg-app_bg p-4 pt-6">
-      <h1 className="f20 mb-4 font-bold text-text_primary">로그인</h1>
-      <form action={formAction}>
+    <>
+      <Spin spinning={loading} fullscreen />
+      <main className="container flex h-full flex-col bg-app_bg p-4 pt-6">
+        <h1 className="f20 mb-4 font-bold text-text_primary">로그인</h1>
         <input
-          type="text"
-          id="studentId"
-          name="studentId"
+          type="number"
+          pattern="[0-9]*"
+          inputMode="numeric"
           placeholder="학번"
           className="mb-4 h-12 w-full rounded-md px-4"
+          value={studentId}
+          onChange={(e) => setStudentId(e.target.value)}
         />
         <input
           type="password"
           id="password"
           name="password"
           placeholder="비밀번호"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="mb-4 h-12 w-full rounded-md px-4"
         />
-
-        <button
-          type="submit"
-          className="mb-4 h-12 w-full rounded-md bg-theme_primary font-medium text-white transition-opacity duration-200 active:opacity-80 aria-disabled:opacity-50"
-          aria-disabled={pending}
-        >
-          로그인
-        </button>
-      </form>
-    </main>
+        <Button label="로그인" onClick={handleLoginClick} variant="primary" size="full" />
+      </main>
+    </>
   );
 }
