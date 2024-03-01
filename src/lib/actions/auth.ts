@@ -11,13 +11,16 @@ interface LoginProps {
 }
 export async function login({ studentId, password }: LoginProps) {
   const encryptedPassword = encryptPassword(password?.toString() || '');
+  const pushToken = cookies().get('pushToken')?.value;
+  const os = cookies().get('os')?.value;
   try {
     const result = await fetchExtended<AuthResponse>('/v1/auth/signup', {
       method: 'POST',
       body: {
         studentId,
         password: encryptedPassword,
-        os: 'IOS',
+        os,
+        pushToken,
       },
     });
     const { accessToken, refreshToken } = result.body;
@@ -31,6 +34,7 @@ export async function login({ studentId, password }: LoginProps) {
     throw new Error('login failed');
   }
 }
+
 export async function withdrawal() {
   try {
     await fetchExtended('/v1/user', {
