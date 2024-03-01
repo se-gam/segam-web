@@ -137,6 +137,12 @@ const IMAGE: ImageType = {
   graduationHat: {
     src: '/images/graduationHat.png',
   },
+  alarm: {
+    src: '/images/alarm.png',
+  },
+  lock: {
+    src: '/images/lock.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
