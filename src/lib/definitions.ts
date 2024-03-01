@@ -41,9 +41,23 @@ export type CourseAttendance = {
   courses: Course[] | [];
   totalJobs: number;
   imminentDueDate: string;
+  imminentCourseName: string;
+  imminentCourseId: string;
   nextLectureDate: string;
-  imminentLectureLeft: number;
-  imminentAssignmentLeft: number;
+  nextLectureCourseName: string;
+  nextLectureCourseId: string;
+  imminentLecturesLeft: number;
+  imminentAssignmentsLeft: number;
+};
+export type AnnounceData = {
+  imminentDueDate: string;
+  imminentCourseName: string;
+  imminentCourseId: string;
+  nextLectureDate: string;
+  nextLectureCourseName: string;
+  nextLectureCourseId: string;
+  imminentLecturesLeft: number;
+  imminentAssignmentsLeft: number;
 };
 export type ApiResponse<T> = {
   status: number;

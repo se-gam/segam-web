@@ -10,6 +10,7 @@ interface ButtonProps {
   size: 'sm' | 'md' | 'ml' | 'lg' | 'full';
   className?: string;
   type?: 'button' | 'submit';
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -37,12 +38,14 @@ export default function Button({
   size,
   className = '',
   type = 'button',
+  disabled = false,
   onClick = () => {},
 }: ButtonProps) {
   return (
     <button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={cn(
         ButtonVariants({
           size,

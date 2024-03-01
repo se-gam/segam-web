@@ -95,6 +95,12 @@ const IMAGE: ImageType = {
   sushi: {
     src: '/images/sushi.png',
   },
+  bell: {
+    src: '/images/bell.png',
+  },
+  graduationHat: {
+    src: '/images/graduationHat.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
