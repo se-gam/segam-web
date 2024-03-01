@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 
 interface NavigateToProps {
   page: string;
-  title: string;
+  title?: string;
 }
 
 export default function useLink() {
