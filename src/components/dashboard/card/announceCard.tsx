@@ -8,16 +8,23 @@ interface AnnounceCardProps {
   description: string;
   iconName: string;
   link: string;
+  courseName?: string;
 }
 
-export default function AnnounceCard({ title, description, iconName, link }: AnnounceCardProps) {
+export default function AnnounceCard({
+  title,
+  description,
+  iconName,
+  link,
+  courseName = '',
+}: AnnounceCardProps) {
   const { navigateTo } = useLink();
   return (
     <button
       type="button"
       className="flex w-full items-center justify-between gap-4 rounded-2xl bg-card_bg py-5 pl-7 pr-6"
       onClick={() => {
-        navigateTo(link, link, title);
+        navigateTo(link, link, courseName);
       }}
     >
       <div className="flex items-center gap-4">

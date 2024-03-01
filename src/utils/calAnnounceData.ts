@@ -3,14 +3,15 @@ import { AnnounceData } from '@/lib/definitions';
 export default function calAnnounceData({
   imminentDueDate,
   imminentCourseId,
+  imminentCourseName,
   nextLectureDate,
   nextLectureCourseId,
+  nextLectureCourseName,
   imminentLecturesLeft,
   imminentAssignmentsLeft,
 }: AnnounceData) {
-  // ToDo: change Icon
-  const dueHour = new Date(imminentDueDate).getUTCHours();
-  const dueMinute = new Date(imminentDueDate).getUTCMinutes();
+  const dueHour = new Date(imminentDueDate).getHours();
+  const dueMinute = new Date(imminentDueDate).getMinutes();
   if (imminentDueDate) {
     let DESCRIPTION = '';
     const daysLeft = calDiffInDays(imminentDueDate);
@@ -40,6 +41,7 @@ export default function calAnnounceData({
       description: DESCRIPTION,
       iconName: 'notification',
       link: `dashboard/attendance/${imminentCourseId}`,
+      courseName: imminentCourseName,
     };
   }
   if (nextLectureDate) {
@@ -48,6 +50,7 @@ export default function calAnnounceData({
       description: `새로운 강의가 ${calDiffInDays(nextLectureDate)}일 후에 열려요.`,
       iconName: 'bell',
       link: `dashboard/attendance/${nextLectureCourseId}`,
+      couseName: nextLectureCourseName,
     };
   }
   return {
@@ -59,7 +62,7 @@ export default function calAnnounceData({
 }
 
 function calDiffInDays(date: string) {
-  const now = new Date(new Date().getTime() + 540 * 60000);
+  const now = new Date();
   const targetDate = new Date(date);
-  return targetDate.getUTCDate() - now.getUTCDate();
+  return targetDate.getDate() - now.getDate();
 }
