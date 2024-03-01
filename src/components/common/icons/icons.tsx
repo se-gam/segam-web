@@ -137,6 +137,12 @@ const IMAGE: ImageType = {
   graduationHat: {
     src: '/images/graduationHat.png',
   },
+  books: {
+    src: '/images/books.png',
+  },
+  announcement: {
+    src: '/images/announcement.png',
+  },
   alarm: {
     src: '/images/alarm.png',
   },
