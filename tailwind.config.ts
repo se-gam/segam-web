@@ -47,6 +47,30 @@ const config: Config = {
         tag_orange_bg: '#FCDDC7',
         tag_orange_text: '#8F3415',
         timeline_bg: '#DFE4E8',
+        roulette_bg: '#77C1EA',
+        roulette_item_bg1: '#EBFFE2',
+        roulette_item_bg2: '#EAF2FF',
+        roulette_item_bg3: '#FFFDD8',
+        roulette_item_bg4: '#FFE7F2',
+      },
+      keyframes: {
+        slide: {
+          '0%': { transform: 'translateX(30%)' },
+          '100%': { transform: 'translateX(-30%)' },
+        },
+        slide_reverse: {
+          '0%': { transform: 'translateX(-30%)' },
+          '100%': { transform: 'translateX(30%)' },
+        },
+        slideIn: {
+          from: { transform: 'translateY(0%)' },
+          to: { transform: 'translateY(49.65%)' },
+        },
+      },
+      animation: {
+        slide: 'slide 60s infinite linear',
+        slide_reverse: 'slide_reverse 60s infinite linear',
+        slideIn: 'slideIn 3s',
       },
     },
   },

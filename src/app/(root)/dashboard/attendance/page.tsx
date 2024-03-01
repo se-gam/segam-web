@@ -8,8 +8,8 @@ export default async function Attendance() {
   const {
     courses,
     totalJobs,
-    imminentLectureLeft,
-    imminentAssignmentLeft,
+    imminentLecturesLeft,
+    imminentAssignmentsLeft,
     imminentDueDate,
   }: CourseAttendance = await getCourseAttendance();
   const totalJobText =
@@ -25,7 +25,7 @@ export default async function Attendance() {
           <h2 className="f28 font-bold text-text_primary">{totalJobText}</h2>
           {imminentDueDate && (
             <p className="f16 font-medium text-text_secondary">{`${dayFormatByDate(imminentDueDate)}요일 까지 할 일이 ${
-              imminentLectureLeft + imminentAssignmentLeft
+              imminentLecturesLeft + imminentAssignmentsLeft
             }개가 있어요`}</p>
           )}
         </div>

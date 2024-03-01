@@ -41,9 +41,23 @@ export type CourseAttendance = {
   courses: Course[] | [];
   totalJobs: number;
   imminentDueDate: string;
+  imminentCourseName: string;
+  imminentCourseId: string;
   nextLectureDate: string;
-  imminentLectureLeft: number;
-  imminentAssignmentLeft: number;
+  nextLectureCourseName: string;
+  nextLectureCourseId: string;
+  imminentLecturesLeft: number;
+  imminentAssignmentsLeft: number;
+};
+export type AnnounceData = {
+  imminentDueDate: string;
+  imminentCourseName: string;
+  imminentCourseId: string;
+  nextLectureDate: string;
+  nextLectureCourseName: string;
+  nextLectureCourseId: string;
+  imminentLecturesLeft: number;
+  imminentAssignmentsLeft: number;
 };
 export type ApiResponse<T> = {
   status: number;
@@ -95,4 +109,15 @@ export type Friends = {
 export type ReservationUser = {
   studentId: string;
   name: string;
+};
+export type UserInfo = {
+  studentId: string;
+  name: string;
+  departmentName: string | null;
+  os: string;
+  sejongPid: string;
+  pushToken: string | null;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 };

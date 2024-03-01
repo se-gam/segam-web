@@ -5,44 +5,46 @@ import encryptPassword from '@/utils/encryptPassword';
 import fetchExtended from '@/utils/fetchExtended';
 import { cookies } from 'next/headers';
 
-export default async function login(prevState: any, formData: FormData) {
-  const studentId = formData.get('studentId');
-  const password = formData.get('password');
-
-  if (studentId === '') return { message: '학번을 입력해주세요.' };
-  if (password === '') return { message: '비밀번호를 입력해주세요.' };
+interface LoginProps {
+  studentId: string;
+  password: string;
+}
+export async function login({ studentId, password }: LoginProps) {
   const encryptedPassword = encryptPassword(password?.toString() || '');
+  const pushToken = cookies().get('pushToken')?.value;
+  const os = cookies().get('os')?.value;
   try {
     const result = await fetchExtended<AuthResponse>('/v1/auth/signup', {
       method: 'POST',
       body: {
         studentId,
         password: encryptedPassword,
-        os: 'IOS',
+        os,
+        pushToken,
       },
-    })
-      .then((response) => {
-        const { accessToken, refreshToken } = response.body;
-        cookies().set('accessToken', accessToken, { maxAge: 60 * 60 * 24 * 7, httpOnly: true });
-        cookies().set('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 168, httpOnly: true });
-        cookies().set('encrypted', encryptedPassword, {
-          maxAge: 60 * 60 * 24 * 168,
-          httpOnly: true,
-        });
-        return { message: '로그인 성공' };
-      })
-      .catch((e) => {
-        switch (e.status) {
-          case 500:
-            throw new Error('서버 오류가 발생했습니다. 다시 시도해주세요.');
-          default:
-            return {
-              message: '아이디 또는 비밀번호가 일치하지 않습니다.',
-            };
-        }
-      });
-    return result;
-  } catch (e) {
-    return { message: '서버 오류가 발생했습니다. 다시 시도해주세요.' };
+    });
+    const { accessToken, refreshToken } = result.body;
+    cookies().set('accessToken', accessToken, { maxAge: 60 * 60 * 24 * 7, httpOnly: true });
+    cookies().set('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 168, httpOnly: true });
+    cookies().set('encrypted', encryptedPassword, {
+      maxAge: 60 * 60 * 24 * 168,
+      httpOnly: true,
+    });
+  } catch (error) {
+    throw new Error('login failed');
+  }
+}
+
+export async function withdrawal() {
+  try {
+    await fetchExtended('/v1/user', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+    });
+  } catch (error) {
+    throw new Error('회원가입 실패');
   }
 }

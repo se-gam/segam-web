@@ -10,6 +10,7 @@ import { reserveStudyroom } from '@/lib/actions/studyroom';
 import CheckUser from '@/components/studyroom/reservation/checkUser';
 import useModal from '@/hooks/useModal';
 import AddFriendModal from '@/components/studyroom/reservation/addFriendModal';
+import StackHeader from '@/components/common/stackHeader/stackHeader';
 
 const RANDOM_REASON = ['졸업작품', '과제', '팀 프로젝트'];
 
@@ -36,7 +37,7 @@ function getButtonStatus({ value, cValue }: { value: number | null; cValue: numb
 
 export default function ReservationForm({ studyRoom, friendData }: ReservationFormProps) {
   const { modal } = useModal();
-  const today = new Date('2024-02-27 08:06:12.567');
+  const today = new Date('2024-02-29 08:06:12.567');
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
   const [duration, setDuration] = useState<number | null>(null);
@@ -86,184 +87,189 @@ export default function ReservationForm({ studyRoom, friendData }: ReservationFo
       });
       return;
     }
-    await reserveStudyroom({
-      studyroomId: studyRoom.id,
-      date: today,
-      startsAt: startsAt!,
-      duration: duration!,
-      reason,
-      users: users.map((u) => u.studentId),
-    })
-      .then(() => {
-        alert('예약이 완료되었습니다.');
-      })
-      .catch(() => {
-        modal({
-          title: '예약 실패',
-          content: '예약을 완료하지 못했습니다.',
-        });
+    try {
+      await reserveStudyroom({
+        studyroomId: studyRoom.id,
+        date: today,
+        startsAt: startsAt!,
+        duration: duration!,
+        reason,
+        users: users.map((u) => u.studentId),
       });
+    } catch (e) {
+      modal({
+        title: '예약 실패',
+        content: '예약에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      });
+    }
   };
   return (
     <>
-      <main className="flex h-dvh flex-col justify-between space-y-6 overflow-auto bg-white px-4 pb-9 pt-6">
+      <main className="flex h-dvh flex-col justify-between space-y-6 overflow-auto bg-white pb-4">
         <div>
-          <header className="mb-6 space-y-2">
-            <h1 className="f20 font-bold text-text_primary">{studyRoom.name}</h1>
-            <div className="flex gap-1.5">
-              <Tag label={dateWeekFormatter(today)} size="ms" variant="default" />
-              <Tag label={studyRoom.location} size="ms" variant="default" />
-              <Tag
-                label={`${studyRoom.minUsers}~${studyRoom.maxUsers}명`}
-                size="ms"
-                variant="default"
-              />
-            </div>
-          </header>
-          <section className="space-y-6">
-            <article>
-              <h2 className="f20 font-bold text-text_primary">이용시간</h2>
-              <p className="f14 mb-4 font-medium text-text_secondary">
-                하루 최대 2시간까지 이용할 수 있어요
-              </p>
-              <div className="space-y-2">
-                <div className="flex flex-wrap gap-2">
-                  {studyRoom.slots.map((slot) => {
-                    if (slot.isClosed) return null;
-                    return (
-                      <Button
-                        key={slot.id}
-                        label={`${slot.startsAt}시`}
-                        size="ml"
-                        variant={getButtonStatus({
-                          value: startsAt,
-                          cValue: slot.startsAt,
-                        })}
-                        onClick={() => {
-                          setStartsAt(slot.startsAt);
-                          setDuration(null);
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-                {startsAt && (
+          <StackHeader title="예약하기" />
+          <div className="px-4 pt-6">
+            <header className="mb-6 space-y-2">
+              <h1 className="f20 font-bold text-text_primary">{studyRoom.name}</h1>
+              <div className="flex gap-1.5">
+                <Tag label={dateWeekFormatter(today)} size="ms" variant="default" />
+                <Tag label={studyRoom.location} size="ms" variant="default" />
+                <Tag
+                  label={`${studyRoom.minUsers}~${studyRoom.maxUsers}명`}
+                  size="ms"
+                  variant="default"
+                />
+              </div>
+            </header>
+            <section className="space-y-6">
+              <article>
+                <h2 className="f20 font-bold text-text_primary">이용시간</h2>
+                <p className="f14 mb-4 font-medium text-text_secondary">
+                  하루 최대 2시간까지 이용할 수 있어요
+                </p>
+                <div className="space-y-2">
                   <div className="flex flex-wrap gap-2">
-                    {durationList.map((u) => (
+                    {studyRoom.slots.map((slot) => {
+                      if (slot.isClosed) return null;
+                      return (
+                        <Button
+                          key={slot.id}
+                          label={`${slot.startsAt}시`}
+                          size="ml"
+                          variant={getButtonStatus({
+                            value: startsAt,
+                            cValue: slot.startsAt,
+                          })}
+                          onClick={() => {
+                            setStartsAt(slot.startsAt);
+                            setDuration(null);
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+                  {startsAt && (
+                    <div className="flex flex-wrap gap-2">
+                      {durationList.map((u) => (
+                        <Button
+                          key={u.label}
+                          label={u.label}
+                          size="ml"
+                          variant={getButtonStatus({
+                            value: duration,
+                            cValue: u.value,
+                          })}
+                          onClick={() => setDuration(u.value)}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+              <article className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="f20 font-bold text-text_primary">동반 이용자 추가</h2>
+                    <p className="f14 font-medium text-text_secondary">
+                      나를 제외하고 최소 1명의 인원이 필요해요
+                    </p>
+                  </div>
+                  <Button
+                    label="추가"
+                    size="md"
+                    variant="default"
+                    onClick={() => {
+                      setDrawerOpen(true);
+                    }}
+                  />
+                </div>
+                <div className="max-h-[140px] overflow-y-auto overflow-x-hidden">
+                  {friends.map((friend) => (
+                    <CheckUser
+                      key={friend.studentId}
+                      friendId={friend.studentId}
+                      friendName={friend.name}
+                      isAdded={users.some((u) => u.studentId === friend.studentId)}
+                      date={today}
+                      onSuccess={addUser}
+                    />
+                  ))}
+                </div>
+                {users.length > 0 && (
+                  <div className="flex gap-2">
+                    {users.map((u) => (
                       <Button
-                        key={u.label}
-                        label={u.label}
+                        key={u.studentId}
+                        label={u.name}
                         size="ml"
-                        variant={getButtonStatus({
-                          value: duration,
-                          cValue: u.value,
-                        })}
-                        onClick={() => setDuration(u.value)}
+                        variant="default"
+                        onClick={() => {
+                          setUsers((prev) => prev.filter((user) => user.studentId !== u.studentId));
+                        }}
                       />
                     ))}
                   </div>
                 )}
-              </div>
-            </article>
-            <article className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="f20 font-bold text-text_primary">동반 이용자 추가</h2>
-                  <p className="f14 font-medium text-text_secondary">
-                    나를 제외하고 최소 1명의 인원이 필요해요
-                  </p>
-                </div>
-                <Button
-                  label="추가"
-                  size="md"
-                  variant="default"
-                  onClick={() => {
-                    setDrawerOpen(true);
-                  }}
-                />
-              </div>
-              <div className="max-h-[140px] overflow-y-auto overflow-x-hidden">
-                {friends.map((friend) => (
-                  <CheckUser
-                    key={friend.studentId}
-                    friendId={friend.studentId}
-                    friendName={friend.name}
-                    isAdded={users.some((u) => u.studentId === friend.studentId)}
-                    date={today}
-                    onSuccess={addUser}
+              </article>
+              <article className="space-y-3">
+                <h2 className="f20 font-bold text-text_primary">예약 사유</h2>
+                <div className="space-y-2">
+                  <textarea
+                    className="f14 e-theme_primary h-10 w-full rounded-sm bg-button_default_bg px-3 py-2.5 font-normal text-text_primary transition-colors duration-200 placeholder:text-text_secondary focus:outline-theme_primary"
+                    placeholder="500자 이내로 입력해주세요."
+                    value={reason}
+                    onChange={(e) => setReason(e.target.value)}
                   />
-                ))}
-              </div>
-              {users.length > 0 && (
-                <div className="flex gap-2">
-                  {users.map((u) => (
+                  <div className="flex gap-1">
                     <Button
-                      key={u.studentId}
-                      label={u.name}
+                      label="스터디"
                       size="ml"
                       variant="default"
                       onClick={() => {
-                        setUsers((prev) => prev.filter((user) => user.studentId !== u.studentId));
+                        setReason('스터디');
                       }}
                     />
-                  ))}
+                    <Button
+                      label="회의"
+                      size="ml"
+                      variant="default"
+                      onClick={() => {
+                        setReason('회의');
+                      }}
+                    />
+                    <Button
+                      label="랜덤 생성하기"
+                      size="ml"
+                      variant="selected"
+                      onClick={() => {
+                        const random = Math.floor(Math.random() * RANDOM_REASON.length);
+                        setReason(RANDOM_REASON[random]);
+                      }}
+                    />
+                  </div>
                 </div>
-              )}
-            </article>
-            <article className="space-y-3">
-              <h2 className="f20 font-bold text-text_primary">예약 사유</h2>
-              <div className="space-y-2">
-                <textarea
-                  className="f14 e-theme_primary h-10 w-full rounded-sm bg-button_default_bg px-3 py-2.5 font-normal text-text_primary transition-colors duration-200 placeholder:text-text_secondary focus:outline-theme_primary"
-                  placeholder="500자 이내로 입력해주세요."
-                  value={reason}
-                  onChange={(e) => setReason(e.target.value)}
-                />
-                <div className="flex gap-1">
-                  <Button
-                    label="스터디"
-                    size="ml"
-                    variant="default"
-                    onClick={() => {
-                      setReason('스터디');
-                    }}
-                  />
-                  <Button
-                    label="회의"
-                    size="ml"
-                    variant="default"
-                    onClick={() => {
-                      setReason('회의');
-                    }}
-                  />
-                  <Button
-                    label="랜덤 생성하기"
-                    size="ml"
-                    variant="selected"
-                    onClick={() => {
-                      const random = Math.floor(Math.random() * RANDOM_REASON.length);
-                      setReason(RANDOM_REASON[random]);
-                    }}
-                  />
-                </div>
-              </div>
-            </article>
-          </section>
+              </article>
+            </section>
+          </div>
         </div>
-        <Button
-          label="완료"
-          size="full"
-          variant="primary"
-          className="shrink-0"
-          onClick={handleReserveClick}
-        />
+        <div className="px-6">
+          <Button
+            label="완료"
+            size="full"
+            variant="primary"
+            className="shrink-0"
+            onClick={handleReserveClick}
+          />
+        </div>
       </main>
+      <div />
 
       <AddFriendModal
         drawerOpen={drawerOpen}
+        date={today}
+        friends={friends}
         setDrawerOpen={setDrawerOpen}
         addFriend={addFriend}
-        date={today}
       />
     </>
   );

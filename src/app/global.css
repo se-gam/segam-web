@@ -1,10 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer components {
   .page {
-    height: calc(100dvh - 4.125rem);
+    height: calc(100vh - 4.125rem);
   }
   .f28 {
     font-size: 1.75rem;
@@ -30,9 +29,26 @@
     font-size: 0.75rem;
     line-height: 1rem;
   }
+  .on-board {
+    font-size: 1rem;
+    line-height: 1.375rem;
+  }
+  .safe-area {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: calc(env(safe-area-inset-bottom) - 1rem);
+  }
+  .on-board {
+    font-size: 1rem;
+    line-height: 1.375rem;
+  }
+  .ant-carousel .slick-active {
+  }
 }
+
 * {
   /* 글자 선택 막기 */
   user-select: none;
   letter-spacing: -0.015em;
+  /* 링킹 막기 */
+  -webkit-touch-callout: none;
 }

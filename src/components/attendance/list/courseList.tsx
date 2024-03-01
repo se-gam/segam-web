@@ -33,7 +33,10 @@ export default function CourseList({ courses }: CourseListProps) {
             type="button"
             aria-label="go to detail"
             onClick={() => {
-              navigateTo(`attendance/${course.id}`, 'Detail', course.name);
+              navigateTo({
+                page: `attendance/${course.id}`,
+                title: course.name,
+              });
             }}
             className="flex w-full flex-nowrap items-center justify-between gap-9 rounded pr-1.5 text-left transition-transform active:scale-[0.98] active:bg-app_bg"
           >

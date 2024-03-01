@@ -157,37 +157,3 @@ export async function reserveStudyroom({
     },
   });
 }
-
-export async function addFriend(prevState: any, formData: FormData) {
-  const studentId = formData.get('studentId');
-  const result = await fetchExtended(`/v1/user/friend`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body: {
-      studentId,
-    },
-  })
-    .then(() => '친구 추가에 성공했습니다.')
-    .catch((e) => {
-      const error = JSON.parse(e.message);
-      switch (error.statusCode) {
-        case 404:
-          return '존재하지 않는 사용자 입니다.';
-        case 400:
-          switch (error.message) {
-            case '이미 친구로 등록된 사용자입니다.':
-              return '이미 친구로 등록된 사용자입니다.';
-            case '자기 자신을 친구로 등록할 수 없습니다.':
-              return '자기 자신을 친구로 등록할 수 없습니다.';
-            default:
-              return '알 수 없는 오류가 발생했습니다.';
-          }
-        default:
-          throw new Error('친구 추가 서버 오류');
-      }
-    });
-  return { message: result };
-}

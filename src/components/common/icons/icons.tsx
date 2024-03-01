@@ -68,6 +68,87 @@ const IMAGE: ImageType = {
   grandMother: {
     src: '/images/grandMother.png',
   },
+  baby: {
+    src: '/images/baby.png',
+  },
+  child: {
+    src: '/images/child.png',
+  },
+  father: {
+    src: '/images/father.png',
+  },
+  chicken: {
+    src: '/images/chicken.png',
+  },
+  cake: {
+    src: '/images/cake.png',
+  },
+  frenchFries: {
+    src: '/images/frenchFries.png',
+  },
+  hamburger: {
+    src: '/images/hamburger.png',
+  },
+  hotdog: {
+    src: '/images/hotdog.png',
+  },
+  pizza: {
+    src: '/images/pizza.png',
+  },
+  kebab: {
+    src: '/images/kebab.png',
+  },
+  noodle: {
+    src: '/images/noodle.png',
+  },
+  sushi: {
+    src: '/images/sushi.png',
+  },
+  bibimbab: {
+    src: '/images/bibimbab.png',
+  },
+  corndog: {
+    src: '/images/corndog.png',
+  },
+  jjigae: {
+    src: '/images/jjigae.png',
+  },
+  kimbab: {
+    src: '/images/kimbab.png',
+  },
+  pudding: {
+    src: '/images/pudding.png',
+  },
+  ramen: {
+    src: '/images/ramen.png',
+  },
+  stick: {
+    src: '/images/stick.png',
+  },
+  tteokguk: {
+    src: '/images/tteokguk.png',
+  },
+  yackgwa: {
+    src: '/images/yackgwa.png',
+  },
+  bell: {
+    src: '/images/bell.png',
+  },
+  graduationHat: {
+    src: '/images/graduationHat.png',
+  },
+  books: {
+    src: '/images/books.png',
+  },
+  announcement: {
+    src: '/images/announcement.png',
+  },
+  alarm: {
+    src: '/images/alarm.png',
+  },
+  lock: {
+    src: '/images/lock.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
@@ -88,6 +169,11 @@ const Icons = {
   ArrowDown: (props: IconProps) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
       <path d="M1.43996 3.56C1.38176 3.61805 1.33558 3.68702 1.30407 3.76295C1.27257 3.83889 1.25635 3.92029 1.25635 4.0025C1.25635 4.0847 1.27257 4.16611 1.30407 4.24204C1.33558 4.31797 1.38176 4.38694 1.43996 4.445L5.64496 8.65C5.69122 8.69635 5.74617 8.73312 5.80665 8.75821C5.86714 8.7833 5.93198 8.79622 5.99746 8.79622C6.06295 8.79622 6.12779 8.7833 6.18828 8.75821C6.24876 8.73312 6.30371 8.69635 6.34996 8.65L10.555 4.445C10.8 4.2 10.8 3.805 10.555 3.56C10.31 3.315 9.91496 3.315 9.66996 3.56L5.99996 7.23L2.32496 3.555C2.07996 3.315 1.68496 3.315 1.43996 3.56Z" />
+    </svg>
+  ),
+  ArrowLeft: (props: IconProps) => (
+    <svg {...props} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.88 2.87999C16.7639 2.76358 16.6259 2.67123 16.4741 2.60821C16.3222 2.54519 16.1594 2.51276 15.995 2.51276C15.8306 2.51276 15.6678 2.54519 15.5159 2.60821C15.364 2.67123 15.2261 2.76358 15.11 2.87999L6.69998 11.29C6.60727 11.3825 6.53372 11.4924 6.48354 11.6134C6.43336 11.7343 6.40753 11.864 6.40753 11.995C6.40753 12.126 6.43336 12.2556 6.48354 12.3766C6.53372 12.4976 6.60727 12.6075 6.69998 12.7L15.11 21.11C15.6 21.6 16.39 21.6 16.88 21.11C17.37 20.62 17.37 19.83 16.88 19.34L9.53998 12L16.89 4.64999C17.37 4.15999 17.37 3.36999 16.88 2.87999Z" />
     </svg>
   ),
   DashBoard: (props: IconProps) => (
@@ -122,7 +208,7 @@ const Icons = {
     </svg>
   ),
   ImageIcon: ({ name, width, height }: ImageIconProps) => (
-    <Image src={IMAGE[name].src} alt="icon" width={width} height={height} />
+    <Image src={IMAGE[name].src} alt="icon" width={width} height={height} priority />
   ),
 };
 
