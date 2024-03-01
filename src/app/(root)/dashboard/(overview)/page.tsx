@@ -5,6 +5,7 @@ import { getCourseAttendance } from '@/lib/actions/attendance';
 import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
 import calAnnounceData from '@/utils/calAnnounceData';
+import RouletteCard from '@/components/dashboard/card/rouletteCard';
 
 const data = [
   {
@@ -87,6 +88,7 @@ export default async function DashBoard() {
             />
           ))}
         </Board>
+        <RouletteCard />
       </div>
     </main>
   );

@@ -24,7 +24,7 @@ export default function AnnounceCard({
       type="button"
       className="flex w-full items-center justify-between gap-4 rounded-2xl bg-card_bg py-5 pl-7 pr-6"
       onClick={() => {
-        navigateTo(link, link, courseName);
+        navigateTo({ page: link, title: courseName });
       }}
     >
       <div className="flex items-center gap-4">

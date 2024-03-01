@@ -34,6 +34,15 @@ export default function IconRoulette({ componentKey }: { componentKey: number })
     'kebab',
     'noodle',
     'sushi',
+    'bibimbab',
+    'corndog',
+    'jjigae',
+    'kimbab',
+    'pudding',
+    'ramen',
+    'stick',
+    'tteokguk',
+    'yackgwa',
   ];
 
   const shuffledMenuItems = useMemo(() => shuffleArray(menuItems), []);
@@ -42,16 +51,15 @@ export default function IconRoulette({ componentKey }: { componentKey: number })
     <div
       className={`mb-5 flex w-auto ${componentKey % 2 === 0 ? 'animate-slide' : 'animate-slide_reverse'}`}
     >
-      {_.times(2, () =>
-        shuffledMenuItems.map((item, index) => (
-          <div
-            key={item + index.toString()}
-            className={`mr-4 h-20 w-20 rounded-3xl ${getBgColorClass(index)}`}
-          >
-            <Icons.ImageIcon name={`${item}`} width={80} height={80} />
-          </div>
-        )),
-      )}
+      {shuffledMenuItems.map((item, index) => (
+        <div
+          key={item + index.toString()}
+          className={`mr-4 h-20 w-20 rounded-3xl ${getBgColorClass(index)}`}
+        >
+          <Icons.ImageIcon name={`${item}`} width={80} height={80} />
+        </div>
+      ))}
+      ,
     </div>
   );
 }

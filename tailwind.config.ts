@@ -64,7 +64,7 @@ const config: Config = {
         },
         slideIn: {
           from: { transform: 'translateY(0%)' },
-          to: { transform: 'translateY(49.7%)' },
+          to: { transform: 'translateY(49.65%)' },
         },
       },
       animation: {
