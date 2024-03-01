@@ -104,6 +104,33 @@ const IMAGE: ImageType = {
   sushi: {
     src: '/images/sushi.png',
   },
+  bibimbab: {
+    src: '/images/bibimbab.png',
+  },
+  corndog: {
+    src: '/images/corndog.png',
+  },
+  jjigae: {
+    src: '/images/jjigae.png',
+  },
+  kimbab: {
+    src: '/images/kimbab.png',
+  },
+  pudding: {
+    src: '/images/pudding.png',
+  },
+  ramen: {
+    src: '/images/ramen.png',
+  },
+  stick: {
+    src: '/images/stick.png',
+  },
+  tteokguk: {
+    src: '/images/tteokguk.png',
+  },
+  yackgwa: {
+    src: '/images/yackgwa.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
@@ -153,7 +180,7 @@ const Icons = {
     </svg>
   ),
   ImageIcon: ({ name, width, height }: ImageIconProps) => (
-    <Image src={IMAGE[name].src} alt="icon" width={width} height={height} />
+    <Image src={IMAGE[name].src} alt="icon" width={width} height={height} priority />
   ),
 };
 

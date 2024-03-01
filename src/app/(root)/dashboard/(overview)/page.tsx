@@ -64,6 +64,7 @@ export default async function DashBoard() {
             />
           ))}
         </Board>
+        <Board title="점심 메뉴 추천받기" url="roulette" type="independent" />
       </div>
     </main>
   );
