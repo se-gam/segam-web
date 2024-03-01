@@ -130,6 +130,7 @@ const IMAGE: ImageType = {
   },
   yackgwa: {
     src: '/images/yackgwa.png',
+  },
   bell: {
     src: '/images/bell.png',
   },
