@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   const requestUrl = request.nextUrl.pathname;
   const isLoggedIn = hasPassword && hasAccessToken && hasRefreshToken;
   if (requestUrl === '/logout') {
-    const response = NextResponse.redirect(new URL('/', request.url));
+    const response = NextResponse.redirect(new URL('/login', request.url));
     response.cookies.delete('encrypted');
     response.cookies.delete('accessToken');
     response.cookies.delete('refreshToken');
