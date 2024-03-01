@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import BottomDrawer from '@/components/common/bottomDrawer/bottomDrawer';
 import ReservationCalendar from '../modal/reservationCalendar';
 import ReservationSlider from '../modal/reservationSlider';
@@ -8,7 +9,6 @@ import ReservationSlider from '../modal/reservationSlider';
 interface FilterModalProps {
   drawerOpen: boolean;
   filterData: any;
-  setFilterData: (data: any) => void;
   setDrawerOpen: (open: boolean) => void;
 }
 
@@ -16,9 +16,36 @@ export default function StudyroomFilterModal({
   drawerOpen,
   setDrawerOpen,
   filterData,
-  setFilterData,
 }: FilterModalProps) {
   const [data, setData] = useState(filterData);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const handleSearch = (date: Date, startsAt: number, endsAt: number) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (date) {
+      params.set('date', date.toISOString());
+    } else {
+      params.delete('date');
+    }
+
+    if (startsAt) {
+      params.set('startsAt', startsAt.toString());
+    } else {
+      params.delete('startsAt');
+    }
+
+    if (endsAt) {
+      params.set('endsAt', endsAt.toString());
+    } else {
+      params.delete('endsAt');
+    }
+
+    replace(`${pathname}?${params.toString()}`);
+  };
+
   return (
     <BottomDrawer
       openState={drawerOpen}
@@ -26,7 +53,7 @@ export default function StudyroomFilterModal({
         setDrawerOpen(false);
       }}
       onSubmit={() => {
-        setFilterData(data);
+        handleSearch(data.date, data.timeRange[0], data.timeRange[1]);
         setDrawerOpen(false);
       }}
       submitLabel="완료"

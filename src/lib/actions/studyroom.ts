@@ -2,11 +2,11 @@
 
 import { StudyroomList, Studyroom, StudyroomReservationList } from '@/lib/definitions';
 import fetchExtended from '@/utils/fetchExtended';
-import { unstable_noStore } from 'next/cache';
+import { revalidateTag, unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
 
 interface StudyroomListProps {
-  date: Date;
+  date: string;
   timeGte: number;
   timeLt: number;
 }
@@ -16,15 +16,15 @@ export async function getStudyroomList({
   timeGte,
   timeLt,
 }: StudyroomListProps): Promise<StudyroomList> {
-  unstable_noStore();
   const query = new URLSearchParams({
-    date: date.toISOString(),
+    date,
     timeGte: timeGte.toString(),
     timeLt: timeLt.toString(),
   });
   const url = `/v1/studyroom?${query}`;
 
   try {
+    unstable_noStore();
     const data = await fetchExtended<StudyroomList>(url, {
       headers: {
         'Content-Type': 'application/json',
@@ -63,6 +63,9 @@ export async function getReservationList(): Promise<StudyroomReservationList> {
     const data = await fetchExtended<StudyroomReservationList>('/v1/studyroom/reservation/me', {
       method: 'POST',
       cache: 'force-cache',
+      next: {
+        tags: ['reservationList'],
+      },
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
@@ -75,6 +78,10 @@ export async function getReservationList(): Promise<StudyroomReservationList> {
   } catch (error) {
     throw new Error('예약 정보를 불러오는데 실패했습니다.');
   }
+}
+
+export async function updateReservationList(): Promise<void> {
+  revalidateTag('reservationList');
 }
 
 export async function cancelReservation(id: number) {
