@@ -52,6 +52,7 @@ export default function RoulettePage() {
             size="full"
             label="룰렛 돌리기"
             variant={isSpinning ? 'disabled' : 'primary'}
+            disabled={isSpinning}
             onClick={handleSpinRoulette}
           />
         </div>
