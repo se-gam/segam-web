@@ -4,12 +4,13 @@ import { getUserInfo } from '@/lib/actions/user';
 
 function getUserProfileImageName(studentId: string) {
   const prefixNumber = Number(studentId.slice(0, 2));
+  const currentYear = Number(new Date().getFullYear().toString().slice(2, 4));
   switch (prefixNumber) {
-    case 24:
+    case currentYear:
       return 'baby';
-    case 23:
+    case currentYear - 1:
       return 'child';
-    case 22:
+    case currentYear - 2:
       return 'father';
     default:
       return 'grandMother';

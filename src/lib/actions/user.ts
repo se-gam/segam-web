@@ -67,7 +67,7 @@ export async function postAddFriend({ friendId, friendName, date }: AddFriendPro
     body,
   });
 }
-export default async function deleteFriend({ studentId }: { studentId: string }) {
+export async function deleteFriend({ studentId }: { studentId: string }) {
   await fetchExtended(`/v1/user/friend/${studentId}`, {
     method: 'DELETE',
     headers: {
