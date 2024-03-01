@@ -1,7 +1,7 @@
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 interface SendRouterEventProps {
-  type: 'PUSH' | 'BACK';
+  type: 'PUSH' | 'BACK' | 'PERMISSION';
   screen?: string;
   path?: string;
   title?: string;
@@ -10,7 +10,7 @@ const sendRouterEvent = ({ type, path, title, screen }: SendRouterEventProps): v
   window.ReactNativeWebView.postMessage(JSON.stringify({ type, path, title, screen }));
 };
 // react native app 환경인지 판단
-const isApp = () => {
+export const isApp = () => {
   let checkIsApp = false;
   if (typeof window !== 'undefined' && window.ReactNativeWebView) {
     checkIsApp = true;
@@ -33,7 +33,7 @@ interface StackRouterPushProps {
   page: string;
   title?: string;
 }
-const baseUrl = 'http://192.168.0.2:3000';
+const BASE_URL = process.env.NEXT_PUBLIC_FRONT_BASE_URL;
 const NOTION_URL = process.env.NEXT_PUBLIC_NOTION_URL;
 const INQUIRY_URL = process.env.NEXT_PUBLIC_INQUIRY_URL;
 // push 하는 경우
@@ -49,11 +49,11 @@ export const stackRouterPush = ({ router, page, title = '' }: StackRouterPushPro
         url = `${INQUIRY_URL}`;
         break;
       case 'roulette':
-        url = `${baseUrl}/roulette`;
+        url = `${BASE_URL}/roulette`;
         screen = 'fullStack';
         break;
       default:
-        url = `${baseUrl}/stack/${page}`;
+        url = `${BASE_URL}/stack/${page}`;
         break;
     }
     sendRouterEvent({

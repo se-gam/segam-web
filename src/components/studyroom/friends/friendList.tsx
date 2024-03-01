@@ -3,7 +3,7 @@
 import Button from '@/components/common/button/button';
 import AddFriendModal from '@/components/studyroom/reservation/addFriendModal';
 import useModal from '@/hooks/useModal';
-import deleteFriend from '@/lib/actions/user';
+import { deleteFriend } from '@/lib/actions/user';
 
 import { Friend } from '@/lib/definitions';
 import { CloseOutlined } from '@ant-design/icons';
