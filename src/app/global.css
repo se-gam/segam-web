@@ -29,6 +29,10 @@
     font-size: 0.75rem;
     line-height: 1rem;
   }
+  .on-board {
+    font-size: 1rem;
+    line-height: 1.375rem;
+  }
   .safe-area {
     padding-top: env(safe-area-inset-top);
     padding-bottom: calc(env(safe-area-inset-bottom) - 1rem);
