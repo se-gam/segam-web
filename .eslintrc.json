@@ -3,9 +3,18 @@
     "next/core-web-vitals",
     "airbnb",
     "airbnb-typescript",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "prettier"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "object-curly-newline": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "react/button-has-type": "off"
   }
 }

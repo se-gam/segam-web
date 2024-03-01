@@ -6,13 +6,29 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-pretendard)'],
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.25rem',
+        DEFAULT: '0.375rem',
+        md: '0.625rem',
+        lg: '0.75rem',
+        '2xl': '1.25rem',
+        full: '9999px',
+      },
       colors: {
         theme_primary: '#626FE5',
         theme_secondary: '#4A82EE',
         theme_tertiary: '#B0B8C1',
         theme_accent: '#191F28',
+        nav_bg: '#FCFCFC',
         text_primary: '#4E5968',
         text_secondary: '#979799',
         text_placeholder: '#B8B8B8',
@@ -31,9 +47,34 @@ const config: Config = {
         tag_orange_bg: '#FCDDC7',
         tag_orange_text: '#8F3415',
         timeline_bg: '#DFE4E8',
+        roulette_bg: '#77C1EA',
+        roulette_item_bg1: '#EBFFE2',
+        roulette_item_bg2: '#EAF2FF',
+        roulette_item_bg3: '#FFFDD8',
+        roulette_item_bg4: '#FFE7F2',
+      },
+      keyframes: {
+        slide: {
+          '0%': { transform: 'translateX(30%)' },
+          '100%': { transform: 'translateX(-30%)' },
+        },
+        slide_reverse: {
+          '0%': { transform: 'translateX(-30%)' },
+          '100%': { transform: 'translateX(30%)' },
+        },
+        slideIn: {
+          from: { transform: 'translateY(0%)' },
+          to: { transform: 'translateY(49.65%)' },
+        },
+      },
+      animation: {
+        slide: 'slide 60s infinite linear',
+        slide_reverse: 'slide_reverse 60s infinite linear',
+        slideIn: 'slideIn 3s',
       },
     },
   },
+
   plugins: [],
 };
 export default config;
