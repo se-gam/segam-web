@@ -40,7 +40,7 @@ export default function FriendList({ friends }: FriendListProps) {
 
   return (
     <>
-      <main className="container h-full  space-y-3 overflow-auto px-6 py-4">
+      <main className="container h-full  space-y-3 overflow-auto bg-white px-6 py-4">
         <header className="flex items-center justify-between">
           <h1 className="f20 font-bold text-text_primary">친구 목록 관리</h1>
           <Button

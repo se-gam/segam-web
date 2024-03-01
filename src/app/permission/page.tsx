@@ -22,7 +22,7 @@ export default function PermissionPage() {
     }
   };
   return (
-    <main className="bg-theme_background flex h-screen flex-col items-center justify-between px-6 pb-4">
+    <main className="bg-theme_background flex h-screen flex-col items-center justify-between overflow-auto px-6 pb-4">
       <div className="flex h-full flex-col items-center justify-center">
         <h1 className="f24 mb-2 font-bold text-text_primary">시작하기 앞서</h1>
         <p className="on-board font-medium text-text_secondary">더 나은 서비스 제공을 위해</p>
@@ -48,7 +48,13 @@ export default function PermissionPage() {
           <b className="font-bold text-text_primary">비밀번호</b>를 기기에 저장합니다.
         </p>
       </div>
-      <Button variant="primary" size="full" onClick={handleButtonClick} label="동의하고 시작하기" />
+      <Button
+        variant="primary"
+        size="full"
+        onClick={handleButtonClick}
+        label="동의하고 시작하기"
+        className="flex-shrink-0"
+      />
     </main>
   );
 }
