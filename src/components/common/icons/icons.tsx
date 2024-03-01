@@ -143,6 +143,12 @@ const IMAGE: ImageType = {
   announcement: {
     src: '/images/announcement.png',
   },
+  alarm: {
+    src: '/images/alarm.png',
+  },
+  lock: {
+    src: '/images/lock.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
