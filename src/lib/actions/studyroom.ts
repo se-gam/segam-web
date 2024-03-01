@@ -7,15 +7,20 @@ import { cookies } from 'next/headers';
 
 interface StudyroomListProps {
   date: Date;
-  timeGte?: number;
-  timeLt?: number;
-  userCount?: number;
+  timeGte: number;
+  timeLt: number;
 }
 
-export async function getStudyroomList({ date }: StudyroomListProps): Promise<StudyroomList> {
+export async function getStudyroomList({
+  date,
+  timeGte,
+  timeLt,
+}: StudyroomListProps): Promise<StudyroomList> {
   unstable_noStore();
   const query = new URLSearchParams({
     date: date.toISOString(),
+    timeGte: timeGte.toString(),
+    timeLt: timeLt.toString(),
   });
   const url = `/v1/studyroom?${query}`;
 
@@ -71,6 +76,25 @@ export async function getReservationList(): Promise<StudyroomReservationList> {
     throw new Error('예약 정보를 불러오는데 실패했습니다.');
   }
 }
+
+export async function cancelReservation(id: number) {
+  try {
+    await fetchExtended(`/v1/studyroom/reservation/cancel/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: {
+        password: cookies().get('encrypted')?.value,
+        cancelReason: '예약취소',
+      },
+    });
+  } catch (error) {
+    throw new Error('예약 취소에 실패했습니다.');
+  }
+}
+
 interface CheckUserProps {
   friendId: string;
   friendName: string;
