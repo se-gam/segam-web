@@ -11,7 +11,7 @@ export default function IntroPage() {
     router.push('/permission');
   };
   return (
-    <div className="flex h-full w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
+    <div className="safe-area-bottom flex h-full w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
       <ConfigProvider
         theme={{
           token: {

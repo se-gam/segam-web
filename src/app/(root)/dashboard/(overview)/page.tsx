@@ -45,12 +45,12 @@ export default async function DashBoard() {
     imminentAssignmentsLeft,
   });
   return (
-    <main className="page bg-app_bg px-4 py-3">
-      <header className="mb-4 flex w-full justify-between">
+    <main className="page bg-app_bg px-4">
+      <header className="mb-4 flex w-full justify-between pt-3">
         <h1 className="f20 font-bold text-text_primary">감자탕</h1>
         <Icons.Bell className="fill-theme_tertiary" width="1.5rem" height="1.5rem" />
       </header>
-      <div className="space-y-3">
+      <div className="space-y-3 pb-3">
         <AnnounceCard title={title} description={description} iconName={iconName} link={link} />
         <Board title="출석 현황" url="dashboard/attendance">
           {courses.length === 0 && (

@@ -21,7 +21,7 @@ export default async function MyPage() {
   const userInfo = await getUserInfo();
   const profileName = getUserProfileImageName(userInfo.studentId);
   return (
-    <main className="page overflow-auto bg-app_bg">
+    <main className="page bg-white">
       <div className="bg-white pb-6">
         <header className="mb-[1.125rem]  px-4 py-2.5">
           <h1 className="f20 font-bold text-text_primary">내 정보</h1>

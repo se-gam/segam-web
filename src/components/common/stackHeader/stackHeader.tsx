@@ -13,12 +13,14 @@ export default function StackHeader({
 }) {
   const { navigatePop } = useLink();
   return (
-    <header className={cn('flex w-full items-center justify-between bg-white px-4 py-3', bgClass)}>
-      <button type="button" onClick={() => navigatePop()} aria-label="back">
-        <Icons.ArrowLeft width="1.5rem" height="1.5rem" className=" fill-text_primary" />
-      </button>
-      <span className="f16 font-bold text-text_primary">{title}</span>
-      <div className="h-6 w-6" />
+    <header className="safe-area-top">
+      <div className={cn('flex w-full items-center justify-between bg-white px-4 py-3', bgClass)}>
+        <button type="button" onClick={() => navigatePop()} aria-label="back">
+          <Icons.ArrowLeft width="1.5rem" height="1.5rem" className=" fill-text_primary" />
+        </button>
+        <span className="f16 font-bold text-text_primary">{title}</span>
+        <div className="h-6 w-6" />
+      </div>
     </header>
   );
 }
