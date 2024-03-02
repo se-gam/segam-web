@@ -17,6 +17,7 @@ const RANDOM_REASON = ['졸업작품', '과제', '팀 프로젝트'];
 interface ReservationFormProps {
   studyRoom: Studyroom;
   friendData: Friend[];
+  date: string;
 }
 
 function getDurationList({ startsAt, slots }: { startsAt: number | null; slots: Slot[] }) {
@@ -35,9 +36,9 @@ function getButtonStatus({ value, cValue }: { value: number | null; cValue: numb
   return 'disabled';
 }
 
-export default function ReservationForm({ studyRoom, friendData }: ReservationFormProps) {
+export default function ReservationForm({ studyRoom, friendData, date }: ReservationFormProps) {
   const { modal } = useModal();
-  const today = new Date('2024-02-29 08:06:12.567');
+  const today = new Date(date);
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
   const [duration, setDuration] = useState<number | null>(null);

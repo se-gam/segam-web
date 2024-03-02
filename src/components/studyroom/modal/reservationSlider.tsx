@@ -1,5 +1,3 @@
-'use client';
-
 import { ConfigProvider, Slider } from 'antd';
 
 interface ReservationSliderProps {

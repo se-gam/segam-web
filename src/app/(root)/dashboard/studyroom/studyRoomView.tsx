@@ -33,7 +33,7 @@ export default async function StudyRoomView({ params }: StudyRoomViewProps) {
             </div>
             <StudyRoomModalButton />
           </div>
-          <StudyRoomSlotList data={studyroomListData?.studyrooms} />
+          <StudyRoomSlotList data={studyroomListData?.studyrooms} date={params.date} />
         </section>
       )}
     </div>
