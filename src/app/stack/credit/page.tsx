@@ -1,4 +1,5 @@
 import Icons from '@/components/common/icons/icons';
+import StackHeader from '@/components/common/stackHeader/stackHeader';
 
 export default function CreditPage() {
   const teamInformation = [
@@ -53,37 +54,40 @@ export default function CreditPage() {
   ];
 
   return (
-    <main className="page mt-6 overflow-x-hidden overflow-y-scroll bg-white px-4">
-      <div className="flexflex-col mb-6">
-        <p className=" f20 mb-4 font-bold text-text_primary">팀원</p>
-        {teamInformation.map((team) => (
-          <div key={team.role} className="mb-3 flex flex-col gap-1">
-            <p className=" f16 font-bold text-text_primary">{team.role}</p>
-            <div className="flex gap-2">
-              {team.members.map((member) => (
-                <div key={member.name} className="flex flex-col gap-1">
-                  <Icons.ImageIcon name={member.iconName} height={100} width={100} />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="f14 font-medium text-text_primary">{member.info}</p>
-                    <p className="f14 font-bold text-text_primary">{member.name}</p>
+    <>
+      <StackHeader title="앱 크레딧" />
+      <main className="h-dvh overflow-x-hidden overflow-y-scroll bg-white px-4">
+        <div className="mb-6 mt-6 flex flex-col">
+          <p className=" f20 mb-4 font-bold text-text_primary">팀원</p>
+          {teamInformation.map((team) => (
+            <div key={team.role} className="mb-3 flex flex-col gap-1">
+              <p className=" f16 font-bold text-text_primary">{team.role}</p>
+              <div className="flex gap-2">
+                {team.members.map((member) => (
+                  <div key={member.name} className="flex flex-col gap-1">
+                    <Icons.ImageIcon name={member.iconName} height={100} width={100} />
+                    <div className="flex flex-col items-center justify-center">
+                      <p className="f14 font-medium text-text_primary">{member.info}</p>
+                      <p className="f14 font-bold text-text_primary">{member.name}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex flex-col gap-3">
-        <p className="f20 font-bold text-text_primary">라이센스</p>
-        <div className="flex flex-col gap-1">
-          {license.map((item) => (
-            <div key={item.description} className="flex items-center gap-1 align-middle">
-              <Icons.ImageIcon name={item.iconName} height={20} width={20} />
-              <p className="f12 text-text_primary">{item.description}</p>
+                ))}
+              </div>
             </div>
           ))}
         </div>
-      </div>
-    </main>
+        <div className="flex flex-col gap-3">
+          <p className="f20 font-bold text-text_primary">라이센스</p>
+          <div className="flex flex-col gap-1">
+            {license.map((item) => (
+              <div key={item.description} className="flex items-center gap-1 align-middle">
+                <Icons.ImageIcon name={item.iconName} height={20} width={20} />
+                <p className="f12 text-text_primary">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    </>
   );
 }

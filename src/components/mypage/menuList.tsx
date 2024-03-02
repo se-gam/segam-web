@@ -28,6 +28,12 @@ export default function MenuList() {
         stackRouterPush({ router, page: 'faq' });
       },
     },
+    {
+      label: '앱 크레딧',
+      onClick: () => {
+        stackRouterPush({ router, page: 'credit', title: '앱 크레딧' });
+      },
+    },
   ];
   const auth = [
     {
