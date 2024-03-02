@@ -33,7 +33,13 @@ export default function MenuList() {
     {
       label: '로그아웃',
       onClick: () => {
-        router.replace('/logout');
+        confirmModal({
+          title: '로그아웃',
+          content: '정말 로그아웃하시겠습니까?',
+          onClick: () => {
+            router.replace('/logout');
+          },
+        });
       },
     },
     {

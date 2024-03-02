@@ -12,5 +12,5 @@ export default async function ReservationPage({
     getFriends(),
   ]);
   const [studyRoom, friends] = await data;
-  return <ReservationForm studyRoom={studyRoom} friendData={friends} />;
+  return <ReservationForm studyRoom={studyRoom} friendData={friends} date={params.date} />;
 }

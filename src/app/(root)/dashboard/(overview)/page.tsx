@@ -6,21 +6,8 @@ import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
 import calAnnounceData from '@/utils/calAnnounceData';
 import RouletteCard from '@/components/dashboard/card/rouletteCard';
-
-const data = [
-  {
-    id: 1,
-    title: '감자탕',
-    description: '1월 22일 10시~12시',
-    iconName: 'studyRoom',
-  },
-  {
-    id: 2,
-    title: '감자탕',
-    description: '1월 22일 10시~12시',
-    iconName: 'cinema',
-  },
-];
+import { getReservationList } from '@/lib/actions/studyroom';
+import calReservationData from '@/utils/calReservationData';
 
 export default async function DashBoard() {
   const {
@@ -34,6 +21,7 @@ export default async function DashBoard() {
     imminentLecturesLeft,
     imminentAssignmentsLeft,
   } = await getCourseAttendance();
+  const { reservations } = await getReservationList();
   const { title, description, iconName, link } = calAnnounceData({
     imminentDueDate,
     imminentCourseName,
@@ -44,6 +32,7 @@ export default async function DashBoard() {
     imminentLecturesLeft,
     imminentAssignmentsLeft,
   });
+  const reservationData = calReservationData(reservations);
   return (
     <main className="page bg-app_bg px-4 py-3">
       <header className="mb-4 flex w-full justify-between">
@@ -74,12 +63,12 @@ export default async function DashBoard() {
           })}
         </Board>
         <Board title="나의 예약현황" url="dashboard/studyroom">
-          {data.length === 0 && (
+          {reservationData.length === 0 && (
             <div className="flex h-20 w-full items-center justify-center rounded-lg">
               <p className="f16 font-medium text-text_secondary">예약내역이 존재하지 않습니다.</p>
             </div>
           )}
-          {data.map((item) => (
+          {reservationData.map((item) => (
             <StudyRoomCard
               key={item.id}
               title={item.title}

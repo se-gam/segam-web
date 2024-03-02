@@ -1,12 +1,69 @@
-import Link from 'next/link';
+'use client';
+
+import { Carousel, ConfigProvider } from 'antd';
+import Icons from '@/components/common/icons/icons';
+import Button from '@/components/common/button/button';
+import { useRouter } from 'next/navigation';
 
 export default function IntroPage() {
+  const router = useRouter();
+  const handleButtonClick = () => {
+    router.push('/permission');
+  };
   return (
-    <main className="bg-theme_background flex h-screen flex-col items-center justify-center">
-      <h1 className="f28 mb-4 font-bold">인트로 페이지</h1>
-      <Link href="/permission" className="f24 rounded-md bg-theme_primary px-4 py-1.5 text-white">
-        시작하기
-      </Link>
-    </main>
+    <div className="flex h-full w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
+      <ConfigProvider
+        theme={{
+          token: {
+            colorBgContainer: '#626FE5',
+          },
+          components: {
+            Carousel: {
+              dotHeight: 6,
+              dotWidth: 12,
+            },
+          },
+        }}
+      >
+        <Carousel className="pt-28">
+          <div>
+            <div className="flex h-full w-full flex-col items-center justify-between">
+              <Icons.ImageIcon name="announcement" width={306} height={360} />
+              <div className="mb-10 mt-20 flex flex-col items-center justify-center">
+                <div className="f24 mb-2 font-bold text-text_primary">온라인 출석 확인하기</div>
+                <div className="on-board text-text_secondary">
+                  마감이 임박한 과제와 온라인 강의를 한눈에!
+                </div>
+                <div className="on-board text-text_secondary">
+                  온라인 출석, 더 이상 걱정하지 마세요
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="mt-[35px] flex flex-col items-center align-bottom">
+              <Icons.ImageIcon name="books" width={302} height={324} />
+              <div className="mb-10 mt-20 flex flex-col items-center justify-center">
+                <div className="f24 mb-2 font-bold text-text_primary">스터디룸 예약하기</div>
+                <div className="on-board text-text_secondary">
+                  불편했던 학술정보원 스터디룸 조회
+                </div>
+                <div className="on-board text-text_secondary">
+                  세감에서 편하게 조회하고 예약까지 하세요
+                </div>
+              </div>
+            </div>
+          </div>
+        </Carousel>
+      </ConfigProvider>
+      <div className="mx-6 mb-4 flex">
+        <Button
+          variant="primary"
+          size="full"
+          onClick={handleButtonClick}
+          label="동의하고 시작하기"
+        />
+      </div>
+    </div>
   );
 }

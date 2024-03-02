@@ -49,7 +49,7 @@ export const stackRouterPush = ({ router, page, title = '' }: StackRouterPushPro
         url = `${INQUIRY_URL}`;
         break;
       case 'roulette':
-        url = `${BASE_URL}/roulette`;
+        url = `${BASE_URL}/stack/roulette`;
         screen = 'fullStack';
         break;
       default:
