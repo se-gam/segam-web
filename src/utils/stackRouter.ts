@@ -44,9 +44,11 @@ export const stackRouterPush = ({ router, page, title = '' }: StackRouterPushPro
     switch (page) {
       case 'faq':
         url = `${NOTION_URL}`;
+        screen = 'stack';
         break;
       case 'inquiry':
         url = `${INQUIRY_URL}`;
+        screen = 'stack';
         break;
       case 'roulette':
         url = `${BASE_URL}/stack/roulette`;
