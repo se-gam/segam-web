@@ -16,8 +16,8 @@ export default async function Page({
   const endsAt = searchParams?.endsAt || 22;
 
   return (
-    <main className="page bg-white px-4 pt-2.5">
-      <header className="mb-4">
+    <main className="page bg-white px-4">
+      <header className="mb-4 pt-2.5">
         <h1 className="f20 font-bold text-text_primary">스터디룸</h1>
       </header>
       <Suspense>

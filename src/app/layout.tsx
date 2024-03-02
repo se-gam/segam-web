@@ -55,7 +55,7 @@ export default function RootLayout({
       <body
         className={clsx(
           pretendard.variable,
-          'safe-area container mx-auto h-dvh overflow-hidden bg-nav_bg font-sans',
+          'container mx-auto h-screen overflow-hidden font-sans',
         )}
       >
         <AntdRegistry>{children}</AntdRegistry>

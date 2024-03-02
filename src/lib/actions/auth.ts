@@ -31,7 +31,7 @@ export async function login({ studentId, password }: LoginProps) {
       httpOnly: true,
     });
   } catch (error) {
-    throw new Error('login failed');
+    throw new Error('로그인 실패');
   }
 }
 
