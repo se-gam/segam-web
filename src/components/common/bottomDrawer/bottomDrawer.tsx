@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/common/button/button';
-import { useEffect, useRef } from 'react';
+import useViewportResize from '@/hooks/useViewportResize';
 
 interface DrawerProps {
   openState: boolean;
@@ -17,20 +17,7 @@ export default function BottomDrawer({
   onClose,
   onSubmit,
 }: DrawerProps) {
-  const divRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!openState) return;
-    const handleVisualViewPortResize = () => {
-      const currentVisualViewport = Number(window.visualViewport?.height);
-      if (divRef) {
-        divRef.current!.style.height = `${currentVisualViewport}px`;
-      }
-      if (window.visualViewport) {
-        window.visualViewport.onresize = handleVisualViewPortResize;
-      }
-    };
-    handleVisualViewPortResize();
-  }, [openState]);
+  const { divRef } = useViewportResize();
   if (!openState) {
     return null;
   }

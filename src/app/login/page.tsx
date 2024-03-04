@@ -1,11 +1,12 @@
 'use client';
 
-import Button from '@/components/common/button/button';
-import useModal from '@/hooks/useModal';
-import { login } from '@/lib/actions/auth';
 import { Spin } from 'antd';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import Button from '@/components/common/button/button';
+import useModal from '@/hooks/useModal';
+import useViewportResize from '@/hooks/useViewportResize';
+import { login } from '@/lib/actions/auth';
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -53,20 +54,7 @@ export default function LoginPage() {
       });
     }
   };
-  const divRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleVisualViewPortResize = () => {
-      const currentVisualViewport = Number(window.visualViewport?.height);
-      if (divRef) {
-        divRef.current!.style.height = `${currentVisualViewport}px`;
-      }
-      if (window.visualViewport) {
-        window.visualViewport.onresize = handleVisualViewPortResize;
-      }
-    };
-    handleVisualViewPortResize();
-  }, []);
+  const { divRef } = useViewportResize();
 
   return (
     <div className="safe-area-top h-full overflow-visible" ref={divRef}>
