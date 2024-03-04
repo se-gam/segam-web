@@ -16,10 +16,10 @@ export default async function StudyRoomView({ params }: StudyRoomViewProps) {
   });
 
   return (
-    <div>
+    <div className="flex h-full flex-col overflow-hidden">
       {studyroomListData && (
-        <section className="mb-5 space-y-2">
-          <div className="mb-4 flex h-8 items-center justify-between">
+        <section className="mb-5 flex h-full flex-col space-y-2 overflow-hidden">
+          <div className="mb-4 flex h-8 items-center justify-between px-4">
             <div className="flex">
               <h1 className="f24 mr-1 font-bold text-text_primary">예약하기</h1>
               <p className="f14 flex self-end font-medium text-text_secondary">
