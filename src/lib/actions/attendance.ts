@@ -20,8 +20,11 @@ export async function getCourseAttendance(): Promise<CourseAttendance> {
     .catch(() => {
       throw new Error('출석 데이터 조회에 실패했습니다. 다시 시도해주세요.');
     });
+  const sortedCourses = data.courses.sort(
+    (a, b) => b.lecturesLeft + b.assignmentsLeft - (a.lecturesLeft + a.assignmentsLeft),
+  );
   return {
-    courses: data.courses ?? [],
+    courses: sortedCourses ?? [],
     totalJobs: data.totalJobs ?? 0,
     imminentDueDate: data.imminentDueDate,
     imminentCourseName: data.imminentCourseName,
