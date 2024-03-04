@@ -30,7 +30,7 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
   const lectures = courses.flatMap((course) => course.lectures);
   const assignments = courses.flatMap((course) => course.assignments);
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col gap-3 overflow-hidden">
       <Tab
         options={TAB_OPTIONS[type]}
         value={index}
@@ -38,9 +38,11 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
           setIndex(value);
         }}
       />
-      {index === 0 && <CourseList courses={courses} />}
-      {index === 1 && <SubjectList lectures={lectures} />}
-      {index === 2 && <AssignmentList assignments={assignments} />}
+      <div className="flex flex-col overflow-hidden">
+        {index === 0 && <CourseList courses={courses} />}
+        {index === 1 && <SubjectList lectures={lectures} />}
+        {index === 2 && <AssignmentList assignments={assignments} />}
+      </div>
     </div>
   );
 }

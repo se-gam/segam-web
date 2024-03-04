@@ -25,7 +25,7 @@ export default function MenuList() {
     {
       label: 'FAQ',
       onClick: () => {
-        stackRouterPush({ router, page: 'faq' });
+        stackRouterPush({ router, page: 'notion' });
       },
     },
     {

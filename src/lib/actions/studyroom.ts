@@ -38,7 +38,7 @@ interface StudyroomProps {
 
 export async function getStudyroomInfo({ id, date }: StudyroomProps): Promise<Studyroom> {
   unstable_noStore();
-  const query = new URLSearchParams({ date: date.toISOString() });
+  const query = new URLSearchParams({ date: new Date(date).toISOString() });
   const url = `/v1/studyroom/${id}?${query}`;
   const data = await fetchExtended<Studyroom>(url, {
     headers: {

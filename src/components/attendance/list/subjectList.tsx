@@ -25,7 +25,7 @@ export default function SubjectList({ lectures }: LectureProps) {
       </div>
     );
   return (
-    <div className="space-y-1">
+    <div className="h-full space-y-1 overflow-scroll">
       {lectures.map((lecture) => (
         <ClassCard
           key={lecture.id}

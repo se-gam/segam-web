@@ -1,6 +1,5 @@
 import Board from '@/components/dashboard/board/board';
 import StudyRoomCard from '@/components/dashboard/card/studyRoomCard';
-import Icons from '@/components/common/icons/icons';
 import { getCourseAttendance } from '@/lib/actions/attendance';
 import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
@@ -34,10 +33,9 @@ export default async function DashBoard() {
   });
   const reservationData = calReservationData(reservations);
   return (
-    <main className="page bg-app_bg px-4">
+    <main className="bg-app_bg px-4">
       <header className="mb-4 flex w-full justify-between pt-3">
         <h1 className="f20 font-bold text-text_primary">감자탕</h1>
-        <Icons.Bell className="fill-theme_tertiary" width="1.5rem" height="1.5rem" />
       </header>
       <div className="space-y-3 pb-3">
         <AnnounceCard title={title} description={description} iconName={iconName} link={link} />

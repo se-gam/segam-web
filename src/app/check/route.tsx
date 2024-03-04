@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
       },
       body: {
+        // os,
         pushToken: pushToken?.value,
       },
     });
