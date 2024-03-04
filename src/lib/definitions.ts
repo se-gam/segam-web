@@ -121,3 +121,9 @@ export type UserInfo = {
   updatedAt: string;
   deletedAt: string | null;
 };
+export type Restaurants = {
+  restaurants: Restaurant[];
+};
+export type Restaurant = {
+  name: string;
+};
