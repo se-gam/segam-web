@@ -6,28 +6,28 @@ import React, { useMemo } from 'react';
 import _ from 'lodash';
 import shuffleArray from '@/utils/shuffleArray';
 
-export default function IconRoulette({ componentKey }: { componentKey: number }) {
-  const menuItems = [
-    { iconName: 'chicken', bgColor: 'bg-bg_chicken' },
-    { iconName: 'cake', bgColor: 'bg-bg_cake' },
-    { iconName: 'frenchFries', bgColor: 'bg-bg_frenchFries' },
-    { iconName: 'hamburger', bgColor: 'bg-bg_hamburger' },
-    { iconName: 'hotdog', bgColor: 'bg-bg_hotdog' },
-    { iconName: 'pizza', bgColor: 'bg-bg_pizza' },
-    { iconName: 'kebab', bgColor: 'bg-bg_kebab' },
-    { iconName: 'noodle', bgColor: 'bg-bg_noodle' },
-    { iconName: 'sushi', bgColor: 'bg-bg_sushi' },
-    { iconName: 'bibimbab', bgColor: 'bg-bg_bibimbab' },
-    { iconName: 'corndog', bgColor: 'bg-bg_corndog' },
-    { iconName: 'jjigae', bgColor: 'bg-bg_jjigae' },
-    { iconName: 'kimbab', bgColor: 'bg-bg_kimbab' },
-    { iconName: 'pudding', bgColor: 'bg-bg_pudding' },
-    { iconName: 'ramen', bgColor: 'bg-bg_ramen' },
-    { iconName: 'stick', bgColor: 'bg-bg_stick' },
-    { iconName: 'tteokguk', bgColor: 'bg-bg_tteokguk' },
-    { iconName: 'yackgwa', bgColor: 'bg-bg_yackgwa' },
-  ];
+const menuItems = [
+  { iconName: 'chicken', bgColor: 'bg-bg_chicken' },
+  { iconName: 'cake', bgColor: 'bg-bg_cake' },
+  { iconName: 'frenchFries', bgColor: 'bg-bg_frenchFries' },
+  { iconName: 'hamburger', bgColor: 'bg-bg_hamburger' },
+  { iconName: 'hotdog', bgColor: 'bg-bg_hotdog' },
+  { iconName: 'pizza', bgColor: 'bg-bg_pizza' },
+  { iconName: 'kebab', bgColor: 'bg-bg_kebab' },
+  { iconName: 'noodle', bgColor: 'bg-bg_noodle' },
+  { iconName: 'sushi', bgColor: 'bg-bg_sushi' },
+  { iconName: 'bibimbab', bgColor: 'bg-bg_bibimbab' },
+  { iconName: 'corndog', bgColor: 'bg-bg_corndog' },
+  { iconName: 'jjigae', bgColor: 'bg-bg_jjigae' },
+  { iconName: 'kimbab', bgColor: 'bg-bg_kimbab' },
+  { iconName: 'pudding', bgColor: 'bg-bg_pudding' },
+  { iconName: 'ramen', bgColor: 'bg-bg_ramen' },
+  { iconName: 'stick', bgColor: 'bg-bg_stick' },
+  { iconName: 'tteokguk', bgColor: 'bg-bg_tteokguk' },
+  { iconName: 'yackgwa', bgColor: 'bg-bg_yackgwa' },
+];
 
+export default function IconRoulette({ componentKey }: { componentKey: number }) {
   const shuffledMenuItems = useMemo(
     () => shuffleArray(menuItems),
     // eslint-disable-next-line
