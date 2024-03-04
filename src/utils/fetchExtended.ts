@@ -9,7 +9,7 @@ const returnFetchThrowingErrorByStatusCode: ReturnFetch = (args) =>
     interceptors: {
       response: async (response) => {
         if (response.status === 500) {
-          throw new Error('서버에 문제가 발생했습니다.');
+          throw new Error(await response.text());
         }
         if (response.status >= 400) {
           throw await response.text().then(Error);
