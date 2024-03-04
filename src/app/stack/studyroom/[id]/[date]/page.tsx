@@ -8,7 +8,10 @@ export default async function ReservationPage({
 }: {
   params: { id: number; date: string };
 }) {
-  const data = Promise.all([getStudyroomInfo({ id: params.id, date: params.date }), getFriends()]);
+  const data = Promise.all([
+    getStudyroomInfo({ id: params.id, date: new Date(params.date) }),
+    getFriends(),
+  ]);
   const [studyRoom, friends] = await data;
   return (
     <div className="safe-area-bottom flex h-screen flex-col overflow-hidden">
