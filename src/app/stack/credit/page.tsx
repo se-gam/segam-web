@@ -54,9 +54,9 @@ export default function CreditPage() {
   ];
 
   return (
-    <>
+    <div className="safe-area-bottom flex h-full flex-col overflow-hidden bg-black">
       <StackHeader title="앱 크레딧" />
-      <main className="h-dvh overflow-x-hidden overflow-y-scroll bg-white px-4">
+      <main className="flex h-full flex-col overflow-y-scroll bg-white px-4 pb-2">
         <div className="mb-6 mt-6 flex flex-col">
           <p className=" f20 mb-4 font-bold text-text_primary">팀원</p>
           {teamInformation.map((team) => (
@@ -85,9 +85,15 @@ export default function CreditPage() {
                 <p className="f12 text-text_primary">{item.description}</p>
               </div>
             ))}
+            {license.map((item) => (
+              <div key={item.description} className="flex items-center gap-1 align-middle">
+                <Icons.ImageIcon name={item.iconName} height={20} width={20} />
+                <p className="f12 text-text_primary">{item.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </main>
-    </>
+    </div>
   );
 }
