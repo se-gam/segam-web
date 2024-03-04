@@ -8,10 +8,9 @@ import { Studyroom } from '@/lib/definitions';
 import StudyRoomSlotItem from './studyRoomSlotItem';
 
 const filterStudyRooms = (studyRooms: Studyroom[], startsAt: number, endsAt: number) => {
-  const rooms = JSON.parse(JSON.stringify(studyRooms)); // 쿼리 좁히다가 다시 넓힐 것 대비해서 딥카피
   const adjustedEndsAt = endsAt > startsAt ? endsAt - 1 : endsAt;
 
-  return rooms.filter((room: Studyroom) => {
+  return studyRooms.filter((room: Studyroom) => {
     const hasOpenSlotsInRange = room.slots.some(
       (slot) =>
         slot.startsAt >= startsAt &&
