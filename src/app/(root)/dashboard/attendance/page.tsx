@@ -30,7 +30,6 @@ export default async function Attendance() {
           )}
         </div>
       </section>
-
       <AttendanceBoard type="dashboard" courses={courses} />
     </main>
   );
