@@ -1,5 +1,7 @@
 'use server';
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { StudyroomList, Studyroom, StudyroomReservationList } from '@/lib/definitions';
 import fetchExtended from '@/utils/fetchExtended';
 import { revalidateTag, unstable_noStore } from 'next/cache';
@@ -7,19 +9,11 @@ import { cookies } from 'next/headers';
 
 interface StudyroomListProps {
   date: string;
-  timeGte: number;
-  timeLt: number;
 }
 
-export async function getStudyroomList({
-  date,
-  timeGte,
-  timeLt,
-}: StudyroomListProps): Promise<StudyroomList> {
+export async function getStudyroomList({ date }: StudyroomListProps): Promise<StudyroomList> {
   const query = new URLSearchParams({
     date,
-    timeGte: timeGte.toString(),
-    timeLt: timeLt.toString(),
   });
   const url = `/v1/studyroom?${query}`;
 

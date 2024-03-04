@@ -7,17 +7,42 @@ import useLink from '@/hooks/useLink';
 import { Studyroom } from '@/lib/definitions';
 import StudyRoomSlotItem from './studyRoomSlotItem';
 
+const filterStudyRooms = (studyRooms: Studyroom[], startsAt: number, endsAt: number) => {
+  const adjustedEndsAt = endsAt > startsAt ? endsAt - 1 : endsAt;
+
+  return studyRooms.filter((room: Studyroom) => {
+    const hasOpenSlotsInRange = room.slots.some(
+      (slot) =>
+        slot.startsAt >= startsAt &&
+        slot.startsAt <= adjustedEndsAt &&
+        !slot.isReserved &&
+        !slot.isClosed,
+    );
+
+    return hasOpenSlotsInRange;
+  });
+};
+
 interface StudyRoomSlotListProps {
   date: string;
   data: Studyroom[];
+  startsAt: number;
+  endsAt: number;
 }
 
-export default function StudyRoomSlotList({ date, data }: StudyRoomSlotListProps) {
+export default function StudyRoomSlotList({
+  date,
+  data,
+  startsAt,
+  endsAt,
+}: StudyRoomSlotListProps) {
   const { navigateTo } = useLink();
   const dateString = new Date(date).toISOString().split('T')[0];
+  const filteredData = filterStudyRooms(data, startsAt, endsAt);
+
   return (
     <div className="flex flex-col">
-      {data.map((studyroom) => (
+      {filteredData.map((studyroom: Studyroom) => (
         <div
           onClick={() => {
             navigateTo({
@@ -25,6 +50,7 @@ export default function StudyRoomSlotList({ date, data }: StudyRoomSlotListProps
               title: studyroom.name,
             });
           }}
+          key={studyroom.id}
         >
           <StudyRoomSlotItem key={studyroom.id} data={studyroom} />
         </div>

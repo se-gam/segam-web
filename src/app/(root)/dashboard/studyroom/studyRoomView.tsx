@@ -13,8 +13,6 @@ interface StudyRoomViewProps {
 export default async function StudyRoomView({ params }: StudyRoomViewProps) {
   const studyroomListData = await getStudyroomList({
     date: new Date(params.date).toISOString(),
-    timeGte: params.startsAt,
-    timeLt: params.endsAt,
   });
 
   return (
@@ -33,7 +31,12 @@ export default async function StudyRoomView({ params }: StudyRoomViewProps) {
             </div>
             <StudyRoomModalButton />
           </div>
-          <StudyRoomSlotList data={studyroomListData?.studyrooms} date={params.date} />
+          <StudyRoomSlotList
+            data={studyroomListData?.studyrooms}
+            date={params.date}
+            startsAt={params.startsAt}
+            endsAt={params.endsAt}
+          />
         </section>
       )}
     </div>
