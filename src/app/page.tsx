@@ -57,12 +57,7 @@ export default function IntroPage() {
         </Carousel>
       </ConfigProvider>
       <div className="mx-6 mb-4 flex">
-        <Button
-          variant="primary"
-          size="full"
-          onClick={handleButtonClick}
-          label="동의하고 시작하기"
-        />
+        <Button variant="primary" size="full" onClick={handleButtonClick} label="시작하기" />
       </div>
     </div>
   );
