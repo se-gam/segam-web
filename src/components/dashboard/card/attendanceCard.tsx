@@ -27,9 +27,10 @@ export default function AttendanceCard({ title, iconName, remainJobs, id }: Atte
         <div className="rounded-md bg-icons_bg p-0.5">
           <Icons.ImageIcon name={iconName} width={36} height={36} />
         </div>
-        <p className="f16 font-bold text-text_primary">{title}</p>
+        <p className="f16 text-left font-bold text-text_primary">{title}</p>
       </div>
       <Tag
+        className="flex-shrink-0"
         size="sm"
         variant={remainJobs ? 'warning' : 'done'}
         label={remainJobs ? `${remainJobs}개` : '완료'}
