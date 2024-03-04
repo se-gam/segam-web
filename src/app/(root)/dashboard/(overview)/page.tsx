@@ -33,7 +33,7 @@ export default async function DashBoard() {
   });
   const reservationData = calReservationData(reservations);
   return (
-    <main className="page bg-app_bg px-4">
+    <main className="bg-app_bg px-4">
       <header className="mb-4 flex w-full justify-between pt-3">
         <h1 className="f20 font-bold text-text_primary">감자탕</h1>
       </header>

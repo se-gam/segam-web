@@ -19,7 +19,7 @@ export default function CourseList({ courses }: CourseListProps) {
       </div>
     );
   return (
-    <div className="space-y-1">
+    <div className="h-full space-y-1 overflow-scroll">
       {courses.map((course) => {
         const lectureDone = course.lecturesLeft <= 0;
         const assignmentDone = course.assignmentsLeft <= 0;

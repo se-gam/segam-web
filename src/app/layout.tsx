@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import '@/app/global.css';
 import clsx from 'clsx';
+import 'react-notion-x/src/styles.css';
 
 const pretendard = localFont({
   src: [

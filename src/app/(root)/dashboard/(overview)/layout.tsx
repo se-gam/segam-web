@@ -1,21 +1,30 @@
 'use client';
 
+import PullToRefresh from 'react-simple-pull-to-refresh';
 import { updateCourseAttendance } from '@/lib/actions/attendance';
-import { PullToRefresh } from 'antd-mobile';
+import { Spin } from 'antd';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const onRefresh = async () => {
     await updateCourseAttendance();
   };
   return (
-    <PullToRefresh
-      onRefresh={onRefresh}
-      refreshingText="Refreshing..."
-      completeText="Refresh complete"
-      canReleaseText="Release to refresh"
-      pullingText="Pull down to refresh"
-    >
-      {children}
-    </PullToRefresh>
+    <div className="page container bg-app_bg pb-0">
+      <PullToRefresh
+        onRefresh={onRefresh}
+        pullingContent={
+          <div className="mt-2 flex w-full items-center justify-center">
+            <Spin />
+          </div>
+        }
+        refreshingContent={
+          <div className="mt-2 flex w-full items-center justify-center">
+            <Spin />
+          </div>
+        }
+      >
+        <div>{children}</div>
+      </PullToRefresh>
+    </div>
   );
 }
