@@ -18,6 +18,7 @@ export default function AnnounceCard({
   link,
   courseName = '',
 }: AnnounceCardProps) {
+  console.log(link);
   const { navigateTo } = useLink();
   return (
     <button
