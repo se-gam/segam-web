@@ -5,7 +5,7 @@ import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
   const pushToken = req.cookies.get('pushToken');
-  const os = req.cookies.get('os');
+  // const os = req.cookies.get('os');
   try {
     await fetchExtended('/v1/user/push-token', {
       method: 'PUT',
@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
       },
       body: {
-        os,
+        // os,
         pushToken: pushToken?.value,
       },
     });

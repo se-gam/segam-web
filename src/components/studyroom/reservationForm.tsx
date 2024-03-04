@@ -259,13 +259,15 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
           onClick={handleReserveClick}
         />
       </div>
-      <AddFriendModal
-        drawerOpen={drawerOpen}
-        date={today}
-        friends={friends}
-        setDrawerOpen={setDrawerOpen}
-        addFriend={addFriend}
-      />
+      {drawerOpen && (
+        <AddFriendModal
+          drawerOpen={drawerOpen}
+          date={today}
+          friends={friends}
+          setDrawerOpen={setDrawerOpen}
+          addFriend={addFriend}
+        />
+      )}
     </main>
   );
 }

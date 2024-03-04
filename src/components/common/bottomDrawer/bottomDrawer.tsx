@@ -19,6 +19,7 @@ export default function BottomDrawer({
 }: DrawerProps) {
   const divRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    if (!openState) return;
     const handleVisualViewPortResize = () => {
       const currentVisualViewport = Number(window.visualViewport?.height);
       if (divRef) {
@@ -29,7 +30,7 @@ export default function BottomDrawer({
       }
     };
     handleVisualViewPortResize();
-  }, []);
+  }, [openState]);
   if (!openState) {
     return null;
   }
