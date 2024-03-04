@@ -25,7 +25,7 @@ export default function AssignmentList({ assignments }: AssignmentListProps) {
       </div>
     );
   return (
-    <div className="space-y-1">
+    <div className="h-full space-y-1 overflow-scroll">
       {assignments.map((assignment) => (
         <ClassCard
           key={assignment.id}

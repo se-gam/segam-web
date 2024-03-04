@@ -1,8 +1,9 @@
 'use client';
 
 import { updateReservationList } from '@/lib/actions/studyroom';
-import { PullToRefresh } from 'antd-mobile';
+import { Spin } from 'antd';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import PullToRefresh from 'react-simple-pull-to-refresh';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
@@ -25,12 +26,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <PullToRefresh
       onRefresh={onRefresh}
-      refreshingText="Refreshing..."
-      completeText="Refresh complete"
-      canReleaseText="Release to refresh"
-      pullingText="Pull down to refresh"
+      pullingContent={
+        <div className="mt-2 flex w-full items-center justify-center">
+          <Spin />
+        </div>
+      }
+      refreshingContent={
+        <div className="mt-2 flex w-full items-center justify-center">
+          <Spin />
+        </div>
+      }
     >
-      {children}
+      <div className="flex h-full flex-col overflow-hidden">{children}</div>
     </PullToRefresh>
   );
 }

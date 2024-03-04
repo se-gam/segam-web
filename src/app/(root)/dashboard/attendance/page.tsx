@@ -15,7 +15,7 @@ export default async function Attendance() {
   const totalJobText =
     totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요` : '모든 할 일을 완료했어요 🎉';
   return (
-    <main className="page bg-white px-4">
+    <main className="flex flex-col overflow-hidden px-4">
       <header className="mb-4 pt-2.5">
         <h1 className="f20 font-bold text-text_primary">이러닝</h1>
       </header>
@@ -30,6 +30,7 @@ export default async function Attendance() {
           )}
         </div>
       </section>
+
       <AttendanceBoard type="dashboard" courses={courses} />
     </main>
   );
