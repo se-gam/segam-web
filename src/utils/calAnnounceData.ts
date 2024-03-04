@@ -20,20 +20,20 @@ export default function calAnnounceData({
         DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour}시 ${dueMinute}분까지 할 일이 ${imminentLecturesLeft + imminentAssignmentsLeft}개 있어요`;
       }
       if (imminentLecturesLeft) {
-        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour}시 ${dueMinute}분까지 마감인 강의가 ${imminentLecturesLeft}개 있어요`;
+        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour}시 ${dueMinute}분 마감 강의가 ${imminentLecturesLeft}개 있어요`;
       }
       if (imminentAssignmentsLeft) {
-        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour}시 ${dueMinute}분까지 마감인 과제가 ${imminentAssignmentsLeft}개 있어요`;
+        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour}시 ${dueMinute}분 마감 과제가 ${imminentAssignmentsLeft}개 있어요`;
       }
     } else {
       if (imminentAssignmentsLeft && imminentLecturesLeft) {
         DESCRIPTION = `${calDiffInDays(imminentDueDate)}일 후 까지 할 일이 ${imminentLecturesLeft + imminentAssignmentsLeft}개 있어요`;
       }
       if (imminentLecturesLeft) {
-        DESCRIPTION = `${calDiffInDays(imminentDueDate)}일 후 마감인 강의가 ${imminentLecturesLeft}개 있어요`;
+        DESCRIPTION = `${calDiffInDays(imminentDueDate)}일 후 마감 강의가 ${imminentLecturesLeft}개 있어요`;
       }
       if (imminentAssignmentsLeft) {
-        DESCRIPTION = `${calDiffInDays(imminentDueDate)}일 후 마감인 과제가 ${imminentAssignmentsLeft}개 있어요`;
+        DESCRIPTION = `${calDiffInDays(imminentDueDate)}일 후 마감 과제가 ${imminentAssignmentsLeft}개 있어요`;
       }
     }
     return {

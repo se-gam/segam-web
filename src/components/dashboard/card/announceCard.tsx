@@ -18,17 +18,16 @@ export default function AnnounceCard({
   link,
   courseName = '',
 }: AnnounceCardProps) {
-  console.log(link);
   const { navigateTo } = useLink();
   return (
     <button
       type="button"
-      className="flex w-full items-center justify-between gap-4 rounded-2xl bg-card_bg py-5 pl-7 pr-6"
+      className="flex w-full items-center justify-between gap-2 rounded-2xl bg-card_bg py-5 pl-4 pr-6"
       onClick={() => {
         navigateTo({ page: link, title: courseName });
       }}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <div className="rounded-md p-0.5">
           <Icons.ImageIcon name={iconName} width={42} height={42} />
         </div>
