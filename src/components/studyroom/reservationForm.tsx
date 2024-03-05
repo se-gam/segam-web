@@ -9,6 +9,7 @@ import { Friend, ReservationUser, Slot, Studyroom } from '@/lib/definitions';
 import { reserveStudyroom } from '@/lib/actions/studyroom';
 import CheckUser from '@/components/studyroom/reservation/checkUser';
 import useModal from '@/hooks/useModal';
+import useLink from '@/hooks/useLink';
 import AddFriendModal from '@/components/studyroom/reservation/addFriendModal';
 
 const RANDOM_REASON = ['졸업작품', '과제', '팀 프로젝트'];
@@ -37,6 +38,7 @@ function getButtonStatus({ value, cValue }: { value: number | null; cValue: numb
 
 export default function ReservationForm({ studyRoom, friendData, date }: ReservationFormProps) {
   const { modal } = useModal();
+  const { navigatePop } = useLink();
   const today = new Date(date);
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
@@ -96,6 +98,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
         reason,
         users: users.map((u) => u.studentId),
       });
+      navigatePop();
     } catch (e) {
       modal({
         title: '예약 실패',

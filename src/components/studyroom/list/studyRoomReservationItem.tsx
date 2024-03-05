@@ -71,7 +71,7 @@ export default function StudyRoomReservationItem({
           aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
         >
           <Icons.ArrowDown
-            className={`ml-1 transform fill-theme_tertiary transition-transform
+            className={`ml-1 transform fill-theme_tertiary transition-transform 
             ${isExpanded ? 'rotate-180' : 'rotate-0'}`}
             width="0.8rem"
             height="0.8rem"
