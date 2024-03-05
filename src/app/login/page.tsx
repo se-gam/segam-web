@@ -1,5 +1,6 @@
 'use client';
 
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import { Spin } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ import useViewportResize from '@/hooks/useViewportResize';
 import { login } from '@/lib/actions/auth';
 
 export default function LoginPage() {
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const [loading, setLoading] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +19,7 @@ export default function LoginPage() {
 
   const handleLoginClick = async () => {
     setLoading(true);
+    trackAmplitudeEvent('click_로그인_btn');
     if (studentId === '') {
       modal({
         title: '로그인 실패',
@@ -66,7 +69,7 @@ export default function LoginPage() {
             계정으로 시작하기
           </h1>
           <p className="on-board mb-9 font-medium text-text_secondary">
-            세종대학교 포털 계정으로 로그인해주세요.
+            계정 비밀번호는 서버에 저장되지 않아요
           </p>
           <p className="f14 font-bold text-text_secondary">포털 아이디</p>
           <input
