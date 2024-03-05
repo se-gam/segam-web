@@ -5,7 +5,7 @@ import CourseList from '@/components/attendance/list/courseList';
 import SubjectList from '@/components/attendance/list/subjectList';
 import Tab from '@/components/common/tab/tab';
 import { Course } from '@/lib/definitions';
-import { getSortedAssignments, getSortedLectures } from '@/utils/getsortedCourseData';
+import { getSortedAssignments, getSortedLectures } from '@/utils/getSortedCourseData';
 
 import { useState } from 'react';
 
