@@ -1,12 +1,18 @@
+'use client';
+
 import Button from '@/components/common/button/button';
 import Icons from '@/components/common/icons/icons';
+import useModal from '@/hooks/useModal';
+import { cancelReservation } from '@/lib/actions/studyroom';
 
 interface StudyRoomCardProps {
+  id: number;
   title: string;
   description: string;
   iconName: string;
 }
-export default function StudyRoomCard({ title, iconName, description }: StudyRoomCardProps) {
+export default function StudyRoomCard({ id, title, iconName, description }: StudyRoomCardProps) {
+  const { confirmModal } = useModal();
   return (
     <div className="flex w-full items-center justify-between gap-4 rounded-md p-3">
       <div className="flex items-center gap-4">
@@ -18,7 +24,20 @@ export default function StudyRoomCard({ title, iconName, description }: StudyRoo
           <p className="f12 font-medium text-text_secondary">{description}</p>
         </div>
       </div>
-      <Button size="lg" variant="default" label="취소" />
+      <Button
+        size="lg"
+        variant="default"
+        label="취소"
+        onClick={() => {
+          confirmModal({
+            title: '예약 취소',
+            content: '예약을 취소하시겠습니까?',
+            onClick: () => {
+              cancelReservation(id);
+            },
+          });
+        }}
+      />
     </div>
   );
 }
