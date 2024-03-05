@@ -26,16 +26,18 @@ export default function Tab({ value, onChange, options }: TabProps) {
         },
       }}
     >
-      <Segmented
-        value={value}
-        onChange={onChange}
-        options={options.map((option) => ({
-          label: <span className="f16 font-bold ">{option.label}</span>,
-          value: option.value,
-        }))}
-        size="large"
-        block
-      />
+      <div className="w-full px-4">
+        <Segmented
+          value={value}
+          onChange={onChange}
+          options={options.map((option) => ({
+            label: <span className="f16 font-bold ">{option.label}</span>,
+            value: option.value,
+          }))}
+          size="large"
+          block
+        />
+      </div>
     </ConfigProvider>
   );
 }

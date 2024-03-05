@@ -24,12 +24,12 @@ const tagLabel = (endDate: string) => {
 export default function SubjectList({ lectures }: LectureProps) {
   if (lectures.length === 0)
     return (
-      <div className="flex h-20 w-full items-center justify-center rounded-lg">
+      <div className="flex h-20 w-full items-center justify-center rounded-lg px-4">
         <p className="f16 font-medium text-text_secondary">업데이트 된 강의가 없습니다.</p>
       </div>
     );
   return (
-    <div className="h-full space-y-1 overflow-scroll">
+    <div className="h-full space-y-1 overflow-scroll px-4">
       {lectures.map((lecture) => (
         <ClassCard
           key={lecture.id}

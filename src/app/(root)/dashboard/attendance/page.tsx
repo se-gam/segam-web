@@ -15,11 +15,11 @@ export default async function Attendance() {
   const totalJobText =
     totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요` : '모든 할 일을 완료했어요 🎉';
   return (
-    <main className="flex flex-col overflow-hidden px-4">
-      <header className="mb-4 pt-2.5">
+    <main className="flex flex-col overflow-hidden">
+      <header className="mb-4 px-4  pt-2.5">
         <h1 className="f20 font-bold text-text_primary">이러닝</h1>
       </header>
-      <section className="mb-5 space-y-2">
+      <section className="mb-5 space-y-2  px-4">
         <Tag label={`${dateWeekFormatter(new Date())} · 1주차`} variant="default" size="md" />
         <div>
           <h2 className="f28 font-bold text-text_primary">{totalJobText}</h2>

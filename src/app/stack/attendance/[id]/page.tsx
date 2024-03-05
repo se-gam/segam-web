@@ -23,8 +23,8 @@ export default async function SubjectPage({ params }: { params: { id: number } }
   return (
     <>
       <StackHeader title={course.name} />
-      <main className="page overflow-auto bg-white px-4 py-2.5">
-        <section className="mb-5 space-y-2">
+      <main className="page overflow-auto bg-white py-2.5">
+        <section className="mb-5 space-y-2  px-4 ">
           <div className="space-x-2">
             <Tag label={todayLabel} variant="default" size="md" />
             {updateDayLabel && <Tag label={updateDayLabel} variant="default" size="md" />}
