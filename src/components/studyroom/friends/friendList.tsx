@@ -13,7 +13,7 @@ interface FriendListProps {
   friends: Friend[];
 }
 export default function FriendList({ friends }: FriendListProps) {
-  const { modal } = useModal();
+  const { modal, confirmModal } = useModal();
   const [friendList, setFriendList] = useState<Friend[]>(friends);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const addFriend = (friend: Friend) => {
@@ -27,15 +27,21 @@ export default function FriendList({ friends }: FriendListProps) {
     setFriendList([...friendList, friend]);
   };
   const handleDeleteClick = async ({ studentId }: { studentId: string }) => {
-    try {
-      await deleteFriend({ studentId });
-      setFriendList(friendList.filter((friend) => friend.studentId !== studentId));
-    } catch (e) {
-      modal({
-        title: '친구 삭제 실패',
-        content: '친구 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
-      });
-    }
+    confirmModal({
+      title: '친구 삭제',
+      content: '정말 삭제하시겠습니까?',
+      onClick: async () => {
+        try {
+          await deleteFriend({ studentId });
+          setFriendList(friendList.filter((friend) => friend.studentId !== studentId));
+        } catch (e) {
+          modal({
+            title: '친구 삭제 실패',
+            content: '친구 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
+          });
+        }
+      },
+    });
   };
 
   return (
