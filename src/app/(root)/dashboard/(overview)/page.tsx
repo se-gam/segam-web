@@ -7,6 +7,7 @@ import calAnnounceData from '@/utils/calAnnounceData';
 import RouletteCard from '@/components/dashboard/card/rouletteCard';
 import { getReservationList } from '@/lib/actions/studyroom';
 import calReservationData from '@/utils/calReservationData';
+import getIconNameFromCourseId from '@/utils/getIconNameFromId';
 
 export default async function DashBoard() {
   const {
@@ -51,7 +52,7 @@ export default async function DashBoard() {
                 <AttendanceCard
                   key={course.id}
                   title={course.name}
-                  iconName="studyRoom"
+                  iconName={getIconNameFromCourseId(course.id)}
                   id={course.id}
                   remainJobs={course.lecturesLeft + course.assignmentsLeft}
                 />
