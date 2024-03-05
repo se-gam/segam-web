@@ -41,7 +41,7 @@ export default function StudyRoomSlotList({
   const filteredData = filterStudyRooms(data, startsAt, endsAt);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full flex-col overflow-auto px-4 ">
       {filteredData.map((studyroom: Studyroom) => (
         <div
           onClick={() => {

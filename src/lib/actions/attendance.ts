@@ -24,16 +24,8 @@ export async function getCourseAttendance(): Promise<CourseAttendance> {
     (a, b) => b.lecturesLeft + b.assignmentsLeft - (a.lecturesLeft + a.assignmentsLeft),
   );
   return {
+    ...data,
     courses: sortedCourses ?? [],
-    totalJobs: data.totalJobs ?? 0,
-    imminentDueDate: data.imminentDueDate,
-    imminentCourseName: data.imminentCourseName,
-    imminentCourseId: data.imminentCourseId,
-    nextLectureDate: data.nextLectureDate,
-    nextLectureCourseName: data.nextLectureCourseName,
-    nextLectureCourseId: data.nextLectureCourseId,
-    imminentLecturesLeft: data.imminentLecturesLeft,
-    imminentAssignmentsLeft: data.imminentAssignmentsLeft,
   };
 }
 export async function updateCourseAttendance(): Promise<void> {

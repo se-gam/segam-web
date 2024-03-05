@@ -12,8 +12,12 @@ const tagLabel = (endDate: string) => {
   const diff = end.getTime() - todayDate.getTime();
   const day = 1000 * 60 * 60 * 24;
   const remainDay = Math.floor(diff / day);
+
   if (remainDay < 0) {
     return '미완료';
+  }
+  if (remainDay === 0) {
+    return '임박';
   }
   return `${remainDay}일 남음`;
 };
