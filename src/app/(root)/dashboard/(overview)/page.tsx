@@ -60,7 +60,7 @@ export default async function DashBoard() {
             return null;
           })}
         </Board>
-        <Board title="나의 예약현황" url="dashboard/studyroom">
+        <Board title="내 예약현황" url="dashboard/studyroom">
           {reservationData.length === 0 && (
             <div className="flex h-20 w-full items-center justify-center rounded-lg">
               <p className="f16 font-medium text-text_secondary">예약내역이 존재하지 않습니다.</p>
@@ -72,6 +72,7 @@ export default async function DashBoard() {
               title={item.title}
               description={item.description}
               iconName={item.iconName}
+              id={item.id}
             />
           ))}
         </Board>

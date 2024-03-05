@@ -91,6 +91,7 @@ export async function cancelReservation(id: number) {
         cancelReason: '예약취소',
       },
     });
+    revalidateTag('reservationList');
   } catch (error) {
     throw new Error('예약 취소에 실패했습니다.');
   }
@@ -134,20 +135,25 @@ export async function reserveStudyroom({
   users,
 }: ReserveStudyroomProps) {
   const password = cookies().get('encrypted')?.value;
-  await fetchExtended(`/v1/studyroom/reservation`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body: {
-      studyroomId,
-      password,
-      startsAt,
-      duration,
-      reason,
-      users,
-      date: date.toISOString(),
-    },
-  });
+  try {
+    await fetchExtended(`/v1/studyroom/reservation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: {
+        studyroomId,
+        password,
+        startsAt,
+        duration,
+        reason,
+        users,
+        date: date.toISOString(),
+      },
+    });
+    revalidateTag('reservationList');
+  } catch (error) {
+    throw new Error('스터디룸 예약에 실패했습니다.');
+  }
 }
