@@ -5,6 +5,7 @@ import CourseList from '@/components/attendance/list/courseList';
 import SubjectList from '@/components/attendance/list/subjectList';
 import Tab from '@/components/common/tab/tab';
 import { Course } from '@/lib/definitions';
+import { getSortedAssignments, getSortedLectures } from '@/utils/getsortedCourseData';
 
 import { useState } from 'react';
 
@@ -29,6 +30,8 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
   const [index, setIndex] = useState<number>(TAB_OPTIONS[type][0].value);
   const lectures = courses.flatMap((course) => course.lectures);
   const assignments = courses.flatMap((course) => course.assignments);
+  const sortedLectures = getSortedLectures(lectures);
+  const sortedAssignments = getSortedAssignments(assignments);
   return (
     <div className="flex flex-col gap-3 overflow-hidden">
       <Tab
@@ -40,8 +43,8 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
       />
       <div className="flex flex-col overflow-hidden">
         {index === 0 && <CourseList courses={courses} />}
-        {index === 1 && <SubjectList lectures={lectures} />}
-        {index === 2 && <AssignmentList assignments={assignments} />}
+        {index === 1 && <SubjectList lectures={sortedLectures} />}
+        {index === 2 && <AssignmentList assignments={sortedAssignments} />}
       </div>
     </div>
   );

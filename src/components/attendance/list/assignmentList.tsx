@@ -15,6 +15,9 @@ const tagLabel = (endDate: string) => {
   if (remainDay < 0) {
     return '미완료';
   }
+  if (remainDay === 0) {
+    return '임박';
+  }
   return `${remainDay}일 남음`;
 };
 export default function AssignmentList({ assignments }: AssignmentListProps) {
