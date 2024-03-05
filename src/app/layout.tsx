@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import '@/app/global.css';
 import clsx from 'clsx';
 import 'react-notion-x/src/styles.css';
+import AmplitudeContextProvider from '@/context/amplitudeContext';
 
 const pretendard = localFont({
   src: [
@@ -59,7 +60,9 @@ export default function RootLayout({
           'container mx-auto h-screen overflow-hidden font-sans',
         )}
       >
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <AmplitudeContextProvider>{children}</AmplitudeContextProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
