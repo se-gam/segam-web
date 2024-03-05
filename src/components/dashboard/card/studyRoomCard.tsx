@@ -14,7 +14,7 @@ interface StudyRoomCardProps {
 export default function StudyRoomCard({ id, title, iconName, description }: StudyRoomCardProps) {
   const { confirmModal } = useModal();
   return (
-    <div className="flex w-full items-center justify-between gap-4 rounded-md p-3">
+    <div className="flex w-full items-center justify-between gap-4 rounded-md p-3 transition-transform active:scale-[0.98] active:bg-app_bg">
       <div className="flex items-center gap-4">
         <div className="rounded-md bg-icons_bg p-0.5">
           <Icons.ImageIcon name={iconName} width={36} height={36} />
