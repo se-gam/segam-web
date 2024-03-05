@@ -5,14 +5,15 @@ export default async function ReservationView() {
   const reservationListData = await getReservationList();
   return (
     <div>
-      {reservationListData && reservationListData.reservations.length > 0 && (
-        <section className="mb-5 space-y-2">
-          <h1 className="f24 font-bold text-text_primary">내 예약 현황</h1>
-          <StudyRoomReservationList
-            data={reservationListData.reservations}
-            onCancel={cancelReservation}
-          />
-        </section>
+      {reservationListData && reservationListData.reservations.length > 0 ? (
+        <StudyRoomReservationList
+          data={reservationListData.reservations}
+          onCancel={cancelReservation}
+        />
+      ) : (
+        <div className="flex h-10 items-center justify-center">
+          <p className="f16 font-medium text-text_secondary">예약 내역이 없습니다.</p>
+        </div>
       )}
     </div>
   );

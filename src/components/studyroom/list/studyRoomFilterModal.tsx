@@ -26,7 +26,7 @@ export default function StudyroomFilterModal({
     const params = new URLSearchParams(searchParams);
 
     if (date) {
-      params.set('date', date.toISOString());
+      params.set('date', new Date(date).toISOString());
     } else {
       params.delete('date');
     }
@@ -61,7 +61,7 @@ export default function StudyroomFilterModal({
       <div className="px-4">
         <h2 className="f20 mb-3 font-bold text-text_primary">날짜</h2>
         <ReservationCalendar
-          day={data.date}
+          day={new Date(data.date)}
           setSelectedDay={(date: Date) => {
             setData({ ...data, date });
           }}
