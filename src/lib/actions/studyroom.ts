@@ -1,10 +1,8 @@
 'use server';
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { StudyroomList, Studyroom, StudyroomReservationList } from '@/lib/definitions';
 import fetchExtended from '@/utils/fetchExtended';
-import { revalidateTag, unstable_noStore } from 'next/cache';
+import { revalidatePath, revalidateTag, unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
 
 interface StudyroomListProps {
@@ -92,6 +90,7 @@ export async function cancelReservation(id: number) {
       },
     });
     revalidateTag('reservationList');
+    revalidatePath('/dashboard/studyroom', 'page');
   } catch (error) {
     throw new Error('예약 취소에 실패했습니다.');
   }
