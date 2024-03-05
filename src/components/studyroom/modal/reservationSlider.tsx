@@ -11,12 +11,19 @@ export default function ReservationSlider({ value, onChange }: ReservationSlider
       <div className="mt-2 flex w-full px-1">
         <ConfigProvider
           theme={{
+            token: {
+              colorPrimaryBorderHover: '#626FE5',
+            },
             components: {
               Slider: {
                 railBg: '#E5E5E5',
+                railHoverBg: '#E5E5E5',
                 trackBg: '#626FE5',
+                trackBgDisabled: '#626FE5',
                 handleColor: '#626FE5',
                 handleActiveColor: '#626FE5',
+                handleColorDisabled: '#626FE5',
+                colorBorder: '#626FE5',
               },
             },
           }}
