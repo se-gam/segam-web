@@ -1,11 +1,12 @@
 'use client';
 
-import Button from '@/components/common/button/button';
-import useModal from '@/hooks/useModal';
-import { login } from '@/lib/actions/auth';
 import { Spin } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Button from '@/components/common/button/button';
+import useModal from '@/hooks/useModal';
+import useViewportResize from '@/hooks/useViewportResize';
+import { login } from '@/lib/actions/auth';
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
@@ -53,12 +54,13 @@ export default function LoginPage() {
       });
     }
   };
+  const { divRef } = useViewportResize();
+
   return (
-    <>
-      <Spin spinning={loading} fullscreen />
-      <main className="container flex h-full flex-col justify-between bg-white p-4">
+    <div className="safe-area-top h-full overflow-visible" ref={divRef}>
+      <main className="safe-area-bottom container flex h-full flex-col justify-between overflow-scroll bg-white px-4">
         <div>
-          <h1 className="f28 mb-2 mt-8 font-bold text-text_primary">
+          <h1 className="f28 mb-2 mt-4 font-bold text-text_primary">
             세종대학교 포털
             <br />
             계정으로 시작하기
@@ -76,6 +78,7 @@ export default function LoginPage() {
             value={studentId}
             onChange={(e) => setStudentId(e.target.value)}
           />
+
           <p className="f14 font-bold text-text_secondary">포탈 비밀번호</p>
           <input
             type="password"
@@ -87,10 +90,11 @@ export default function LoginPage() {
             className="f18 mb-6 h-12 w-full border-b-2 border-button_default_bg bg-transparent text-text_primary placeholder:font-medium placeholder:text-text_secondary focus:border-theme_secondary focus:outline-none"
           />
         </div>
-        <div className="px-2">
+        <div className="mb-4 px-2">
+          <Spin spinning={loading} fullscreen />
           <Button label="로그인" onClick={handleLoginClick} variant="primary" size="full" />
         </div>
       </main>
-    </>
+    </div>
   );
 }

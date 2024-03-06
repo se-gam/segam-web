@@ -21,14 +21,14 @@ const links = [
 export default function NavLinks() {
   const pathname = usePathname();
   return (
-    <nav className="flex items-center justify-around bg-nav_bg px-2.5 pb-4 pt-2.5">
+    <nav className="safe-area-bottom flex w-full items-center justify-around bg-nav_bg px-2.5 pt-2.5">
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
           <Link
             key={link.name}
             href={link.href}
-            className="flex h-10 w-14 flex-col items-center justify-center gap-1"
+            className="mb-2 flex h-10 w-14 flex-col items-center justify-center gap-1"
           >
             <LinkIcon
               className={cn('fill-theme_tertiary', {

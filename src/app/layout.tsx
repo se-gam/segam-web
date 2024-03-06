@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import '@/app/global.css';
 import clsx from 'clsx';
+import 'react-notion-x/src/styles.css';
 
 const pretendard = localFont({
   src: [
@@ -53,10 +54,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={clsx(
-          pretendard.variable,
-          'safe-area container mx-auto h-dvh overflow-hidden bg-nav_bg font-sans',
-        )}
+        className={clsx(pretendard.variable, 'container mx-auto h-dvh overflow-hidden font-sans')}
       >
         <AntdRegistry>{children}</AntdRegistry>
       </body>

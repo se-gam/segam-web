@@ -11,7 +11,7 @@ export default function IntroPage() {
     router.push('/permission');
   };
   return (
-    <div className="flex h-full w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
+    <div className="safe-area-bottom flex h-full w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
       <ConfigProvider
         theme={{
           token: {
@@ -57,12 +57,7 @@ export default function IntroPage() {
         </Carousel>
       </ConfigProvider>
       <div className="mx-6 mb-4 flex">
-        <Button
-          variant="primary"
-          size="full"
-          onClick={handleButtonClick}
-          label="동의하고 시작하기"
-        />
+        <Button variant="primary" size="full" onClick={handleButtonClick} label="시작하기" />
       </div>
     </div>
   );

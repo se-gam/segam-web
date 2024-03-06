@@ -2,25 +2,25 @@
 
 import { StudyroomList, Studyroom, StudyroomReservationList } from '@/lib/definitions';
 import fetchExtended from '@/utils/fetchExtended';
-import { revalidateTag, unstable_noStore } from 'next/cache';
+import { revalidatePath, revalidateTag, unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
 
 interface StudyroomListProps {
   date: string;
-  timeGte: number;
-  timeLt: number;
 }
 
-export async function getStudyroomList({
-  date,
-  timeGte,
-  timeLt,
-}: StudyroomListProps): Promise<StudyroomList> {
-  const query = new URLSearchParams({
-    date,
-    timeGte: timeGte.toString(),
-    timeLt: timeLt.toString(),
+export async function getStudyroomList({ date }: StudyroomListProps): Promise<StudyroomList> {
+  const queryDate = new Date(date).toLocaleDateString('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'Asia/Seoul',
   });
+
+  const query = new URLSearchParams({
+    date: queryDate,
+  });
+
   const url = `/v1/studyroom?${query}`;
 
   try {
@@ -44,7 +44,13 @@ interface StudyroomProps {
 
 export async function getStudyroomInfo({ id, date }: StudyroomProps): Promise<Studyroom> {
   unstable_noStore();
-  const query = new URLSearchParams({ date: date.toISOString() });
+  const queryDate = new Date(date).toLocaleDateString('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'Asia/Seoul',
+  });
+  const query = new URLSearchParams({ date: queryDate });
   const url = `/v1/studyroom/${id}?${query}`;
   const data = await fetchExtended<Studyroom>(url, {
     headers: {
@@ -97,6 +103,8 @@ export async function cancelReservation(id: number) {
         cancelReason: '예약취소',
       },
     });
+    revalidateTag('reservationList');
+    revalidatePath('/dashboard/studyroom', 'page');
   } catch (error) {
     throw new Error('예약 취소에 실패했습니다.');
   }
@@ -140,20 +148,25 @@ export async function reserveStudyroom({
   users,
 }: ReserveStudyroomProps) {
   const password = cookies().get('encrypted')?.value;
-  await fetchExtended(`/v1/studyroom/reservation`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body: {
-      studyroomId,
-      password,
-      startsAt,
-      duration,
-      reason,
-      users,
-      date: date.toISOString(),
-    },
-  });
+  try {
+    await fetchExtended(`/v1/studyroom/reservation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: {
+        studyroomId,
+        password,
+        startsAt,
+        duration,
+        reason,
+        users,
+        date: date.toISOString(),
+      },
+    });
+    revalidateTag('reservationList');
+  } catch (error) {
+    throw new Error('스터디룸 예약에 실패했습니다.');
+  }
 }

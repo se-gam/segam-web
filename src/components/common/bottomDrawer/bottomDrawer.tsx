@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/common/button/button';
-import { Drawer } from 'antd';
+import useViewportResize from '@/hooks/useViewportResize';
 
 interface DrawerProps {
   openState: boolean;
@@ -17,32 +17,29 @@ export default function BottomDrawer({
   onClose,
   onSubmit,
 }: DrawerProps) {
+  const { divRef } = useViewportResize();
+  if (!openState) {
+    return null;
+  }
   return (
-    <Drawer
-      placement="bottom"
-      height="auto"
-      onClose={onClose}
-      open={openState}
-      closeIcon={null}
-      styles={{
-        body: {
-          margin: '0 0 8px 0',
-          padding: '0 0 env(safe-area-inset-bottom) 0',
-        },
-        wrapper: {
-          boxShadow: 'none',
-        },
-        content: {
-          backgroundColor: 'transparent',
-        },
-      }}
+    <div
+      ref={divRef}
+      className="safe-area-bottom fixed left-0 top-0 z-10 h-dvh w-full bg-transparent"
     >
-      <div className="mx-4 rounded-[18px] bg-white pb-2 pt-7">
-        {children}
-        <div className="px-2 pt-3">
-          <Button size="full" label={submitLabel} variant="primary" onClick={onSubmit} />
+      <button
+        type="button"
+        className="fixed left-0 top-0 z-10 h-dvh w-full bg-black bg-opacity-40"
+        aria-label="backdrop"
+        onClick={onClose}
+      />
+      <div className="safe-area-bottom absolute bottom-0 z-20 mb-2 w-full px-4">
+        <div className="rounded-[18px] bg-white pb-2 pt-7">
+          {children}
+          <div className="px-2 pt-3">
+            <Button size="full" label={submitLabel} variant="primary" onClick={onSubmit} />
+          </div>
         </div>
       </div>
-    </Drawer>
+    </div>
   );
 }

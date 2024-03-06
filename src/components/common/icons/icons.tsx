@@ -149,6 +149,27 @@ const IMAGE: ImageType = {
   lock: {
     src: '/images/lock.png',
   },
+  licenseGithub: {
+    src: '/images/licenseGithub.png',
+  },
+  licenseH: {
+    src: '/images/licenseH.png',
+  },
+  hong: {
+    src: '/images/hong.png',
+  },
+  lee: {
+    src: '/images/lee.png',
+  },
+  jung: {
+    src: '/images/jung.png',
+  },
+  kim: {
+    src: '/images/kim.png',
+  },
+  choi: {
+    src: '/images/choi.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (

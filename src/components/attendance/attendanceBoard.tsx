@@ -1,12 +1,11 @@
 'use client';
 
-import AssignmentList from '@/components/attendance/list/assignmentList';
-import CourseList from '@/components/attendance/list/courseList';
-import SubjectList from '@/components/attendance/list/subjectList';
-import Tab from '@/components/common/tab/tab';
-import { Course } from '@/lib/definitions';
-
 import { useState } from 'react';
+import Tab from '@/components/common/tab/tab';
+import ClassList from '@/components/attendance/list/classList';
+import { Course } from '@/lib/definitions';
+import getSortedClassData from '@/utils/getSortedCourseData';
+import CourseList from '@/components/attendance/list/courseList';
 
 const TAB_OPTIONS = {
   dashboard: [
@@ -29,8 +28,10 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
   const [index, setIndex] = useState<number>(TAB_OPTIONS[type][0].value);
   const lectures = courses.flatMap((course) => course.lectures);
   const assignments = courses.flatMap((course) => course.assignments);
+  const sortedLectures = getSortedClassData(lectures);
+  const sortedAssignments = getSortedClassData(assignments);
   return (
-    <div className="space-y-3">
+    <div className="flex flex-col gap-3 overflow-hidden">
       <Tab
         options={TAB_OPTIONS[type]}
         value={index}
@@ -38,9 +39,11 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
           setIndex(value);
         }}
       />
-      {index === 0 && <CourseList courses={courses} />}
-      {index === 1 && <SubjectList lectures={lectures} />}
-      {index === 2 && <AssignmentList assignments={assignments} />}
+      <div className="flex flex-col overflow-hidden">
+        {index === 0 && <CourseList courses={courses} />}
+        {index === 1 && <ClassList items={sortedLectures} />}
+        {index === 2 && <ClassList items={sortedAssignments} />}
+      </div>
     </div>
   );
 }

@@ -3,8 +3,11 @@
 import Icons from '@/components/common/icons/icons';
 import useModal from '@/hooks/useModal';
 import { withdrawal } from '@/lib/actions/auth';
-import { stackRouterPush } from '@/utils/stackRouter';
+import { updateToken } from '@/lib/actions/user';
+import { isApp, stackRouterPush } from '@/utils/stackRouter';
 import { useRouter } from 'next/navigation';
+
+const BASE_URL = process.env.NEXT_PUBLIC_FRONT_BASE_URL;
 
 export default function MenuList() {
   const router = useRouter();
@@ -25,7 +28,13 @@ export default function MenuList() {
     {
       label: 'FAQ',
       onClick: () => {
-        stackRouterPush({ router, page: 'faq' });
+        stackRouterPush({ router, page: 'notion' });
+      },
+    },
+    {
+      label: '앱 크레딧',
+      onClick: () => {
+        stackRouterPush({ router, page: 'credit', title: '앱 크레딧' });
       },
     },
   ];
@@ -36,7 +45,16 @@ export default function MenuList() {
         confirmModal({
           title: '로그아웃',
           content: '정말 로그아웃하시겠습니까?',
-          onClick: () => {
+          onClick: async () => {
+            await updateToken();
+            if (isApp()) {
+              window.ReactNativeWebView.postMessage(
+                JSON.stringify({
+                  type: 'LOGOUT',
+                  path: `${BASE_URL}`,
+                }),
+              );
+            }
             router.replace('/logout');
           },
         });
@@ -51,6 +69,14 @@ export default function MenuList() {
           onClick: async () => {
             try {
               await withdrawal();
+              if (isApp()) {
+                window.ReactNativeWebView.postMessage(
+                  JSON.stringify({
+                    type: 'LOGOUT',
+                    path: `${BASE_URL}`,
+                  }),
+                );
+              }
               router.replace('/logout');
             } catch (e) {
               modal({

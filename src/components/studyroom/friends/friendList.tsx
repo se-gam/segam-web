@@ -13,7 +13,7 @@ interface FriendListProps {
   friends: Friend[];
 }
 export default function FriendList({ friends }: FriendListProps) {
-  const { modal } = useModal();
+  const { modal, confirmModal } = useModal();
   const [friendList, setFriendList] = useState<Friend[]>(friends);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const addFriend = (friend: Friend) => {
@@ -27,21 +27,35 @@ export default function FriendList({ friends }: FriendListProps) {
     setFriendList([...friendList, friend]);
   };
   const handleDeleteClick = async ({ studentId }: { studentId: string }) => {
-    try {
-      await deleteFriend({ studentId });
-      setFriendList(friendList.filter((friend) => friend.studentId !== studentId));
-    } catch (e) {
-      modal({
-        title: '친구 삭제 실패',
-        content: '친구 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
-      });
-    }
+    confirmModal({
+      title: '친구 삭제',
+      content: '정말 삭제하시겠습니까?',
+      onClick: async () => {
+        try {
+          await deleteFriend({ studentId });
+          setFriendList(friendList.filter((friend) => friend.studentId !== studentId));
+        } catch (e) {
+          modal({
+            title: '친구 삭제 실패',
+            content: '친구 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
+          });
+        }
+      },
+    });
   };
 
   return (
     <>
-      <main className="container h-full  space-y-3 overflow-auto bg-white px-6 py-4">
-        <header className="flex items-center justify-between">
+      {drawerOpen && (
+        <AddFriendModal
+          drawerOpen={drawerOpen}
+          friends={friendList}
+          setDrawerOpen={setDrawerOpen}
+          addFriend={addFriend}
+        />
+      )}
+      <main className="container relative flex h-full flex-col gap-3 overflow-hidden bg-white py-4">
+        <header className="flex items-center justify-between px-6 ">
           <h1 className="f20 font-bold text-text_primary">친구 목록 관리</h1>
           <Button
             label="추가"
@@ -52,7 +66,7 @@ export default function FriendList({ friends }: FriendListProps) {
             }}
           />
         </header>
-        <section>
+        <section className="flex flex-col overflow-auto px-6 ">
           {friendList.map((friend) => (
             <div key={friend.studentId} className="flex items-center justify-between py-3">
               <p className="f16 text-text_primary">
@@ -71,14 +85,6 @@ export default function FriendList({ friends }: FriendListProps) {
           ))}
         </section>
       </main>
-      {drawerOpen && (
-        <AddFriendModal
-          drawerOpen={drawerOpen}
-          friends={friendList}
-          setDrawerOpen={setDrawerOpen}
-          addFriend={addFriend}
-        />
-      )}
     </>
   );
 }
