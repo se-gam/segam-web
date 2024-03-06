@@ -8,6 +8,7 @@ import RouletteCard from '@/components/dashboard/card/rouletteCard';
 import { getReservationList } from '@/lib/actions/studyroom';
 import calReservationData from '@/utils/calReservationData';
 import getIconNameFromCourseId from '@/utils/getIconNameFromId';
+import TimeTest from '@/components/timeTest';
 
 export default async function DashBoard() {
   const {
@@ -33,8 +34,22 @@ export default async function DashBoard() {
     imminentAssignmentsLeft,
   });
   const reservationData = calReservationData(reservations);
+  const now = new Date();
+  const todayLabel = now.toLocaleDateString('ko-KR', {
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'short',
+  });
+
   return (
     <main className="bg-app_bg px-4">
+      <p>
+        서버 컴포넌트 : {todayLabel} {now.getTime()}
+      </p>
+      <TimeTest />
       <header className="mb-4 flex w-full justify-between pt-3">
         <h1 className="f20 font-bold text-text_primary">감자탕</h1>
       </header>
