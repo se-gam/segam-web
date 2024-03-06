@@ -17,7 +17,7 @@ const RANDOM_REASON = ['졸업작품', '과제', '팀 프로젝트'];
 interface ReservationFormProps {
   studyRoom: Studyroom;
   friendData: Friend[];
-  date: string;
+  date: Date;
 }
 
 function getDurationList({ startsAt, slots }: { startsAt: number | null; slots: Slot[] }) {
