@@ -11,7 +11,7 @@ export default function IntroPage() {
     router.push('/permission');
   };
   return (
-    <div className="safe-area-bottom flex h-full w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
+    <div className=" safe-area-bottom flex h-screen w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
       <ConfigProvider
         theme={{
           token: {
@@ -25,11 +25,11 @@ export default function IntroPage() {
           },
         }}
       >
-        <Carousel className="pt-28">
+        <Carousel className="responsive-onboard-image pt-28">
           <div>
             <div className="flex h-full w-full flex-col items-center justify-between">
               <Icons.ImageIcon name="announcement" width={306} height={360} />
-              <div className="mb-10 mt-20 flex flex-col items-center justify-center">
+              <div className="responsive-onboard-text-margin mb-10 mt-20 flex flex-col items-center justify-center">
                 <div className="f24 mb-2 font-bold text-text_primary">온라인 출석 확인하기</div>
                 <div className="on-board text-text_secondary">
                   마감이 임박한 과제와 온라인 강의를 한눈에!
@@ -43,7 +43,7 @@ export default function IntroPage() {
           <div>
             <div className="mt-[35px] flex flex-col items-center align-bottom">
               <Icons.ImageIcon name="books" width={302} height={324} />
-              <div className="mb-10 mt-20 flex flex-col items-center justify-center">
+              <div className="responsive-onboard-text-margin mb-10 mt-20 flex flex-col items-center justify-center">
                 <div className="f24 mb-2 font-bold text-text_primary">스터디룸 예약하기</div>
                 <div className="on-board text-text_secondary">
                   불편했던 학술정보원 스터디룸 조회
