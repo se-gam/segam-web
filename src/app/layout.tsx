@@ -54,7 +54,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={clsx(pretendard.variable, 'container mx-auto h-dvh overflow-hidden font-sans')}
+        className={clsx(
+          pretendard.variable,
+          'container mx-auto h-screen overflow-hidden font-sans',
+        )}
       >
         <AntdRegistry>{children}</AntdRegistry>
       </body>
