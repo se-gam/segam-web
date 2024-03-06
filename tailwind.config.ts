@@ -84,6 +84,7 @@ const config: Config = {
       animation: {
         slide: 'slide 60s infinite linear',
         slide_reverse: 'slide_reverse 60s infinite linear',
+        slide_forever: 'slideIn 300s infinite linear',
         slideIn: 'slideIn 3s',
       },
     },

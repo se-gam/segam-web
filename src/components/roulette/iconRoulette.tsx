@@ -36,7 +36,7 @@ export default function IconRoulette({ componentKey }: { componentKey: number })
 
   return (
     <div
-      className={`mb-5 flex w-auto ${componentKey % 2 === 0 ? 'animate-slide' : 'animate-slide_reverse'}`}
+      className={`mb-5 flex w-auto ${componentKey % 2 === 0 ? 'animate-slide' : 'animate-slide_reverse'} ${componentKey >= 2 && 'responsive-roulette-image-div'}`}
     >
       {shuffledMenuItems.map((item, index) => (
         <div key={item + index.toString()} className={`mr-4 h-20 w-20 rounded-3xl ${item.bgColor}`}>

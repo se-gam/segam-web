@@ -69,4 +69,7 @@ input {
   .responsive-onboard-text-margin {
     margin-top: 0px;
   }
+  .responsive-roulette-image-div {
+    display: none;
+  }
 }
