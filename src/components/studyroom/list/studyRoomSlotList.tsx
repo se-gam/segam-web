@@ -37,7 +37,7 @@ export default function StudyRoomSlotList({
   endsAt,
 }: StudyRoomSlotListProps) {
   const { navigateTo } = useLink();
-  const dateString = new Date(date).toISOString().split('T')[0];
+  const dateTime = new Date(date).getTime();
   const filteredData = filterStudyRooms(data, startsAt, endsAt);
 
   return (
@@ -46,7 +46,7 @@ export default function StudyRoomSlotList({
         <div
           onClick={() => {
             navigateTo({
-              page: `studyroom/${studyroom.id}/${dateString}`,
+              page: `studyroom/${studyroom.id}/${dateTime}`,
               title: studyroom.name,
             });
           }}

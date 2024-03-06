@@ -8,7 +8,7 @@ export default async function RoulettePage() {
   return (
     <>
       <div className="absolute -z-10 h-full w-full bg-gradient-to-b from-roulette_bg to-white" />
-      <main className="container flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-scroll bg-transparent">
+      <div className="flex h-full flex-col overflow-hidden">
         <StackHeader bgClass="bg-transparent" />
         <Tag
           label="세감의 랜덤 점메추"

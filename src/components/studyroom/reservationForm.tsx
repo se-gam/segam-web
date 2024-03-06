@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Tag from '@/components/common/tag/tag';
-import { dateWeekFormatter } from '@/utils/format';
 import Button from '@/components/common/button/button';
 import { Friend, ReservationUser, Slot, Studyroom } from '@/lib/definitions';
 import { reserveStudyroom } from '@/lib/actions/studyroom';
@@ -18,7 +17,7 @@ const RANDOM_REASON = ['졸업작품', '과제', '팀 프로젝트'];
 interface ReservationFormProps {
   studyRoom: Studyroom;
   friendData: Friend[];
-  date: string;
+  date: Date;
 }
 
 function getDurationList({ startsAt, slots }: { startsAt: number | null; slots: Slot[] }) {
@@ -119,7 +118,15 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
               <header className="mb-6 space-y-2">
                 <h1 className="f20 font-bold text-text_primary">{studyRoom.name}</h1>
                 <div className="flex gap-1.5">
-                  <Tag label={dateWeekFormatter(today)} size="ms" variant="default" />
+                  <Tag
+                    label={today.toLocaleDateString('ko-KR', {
+                      month: 'long',
+                      day: 'numeric',
+                      timeZone: 'Asia/Seoul',
+                    })}
+                    size="ms"
+                    variant="default"
+                  />
                   <Tag label={studyRoom.location} size="ms" variant="default" />
                   <Tag
                     label={`${studyRoom.minUsers}~${studyRoom.maxUsers}명`}

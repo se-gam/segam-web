@@ -24,11 +24,11 @@ export default function BottomDrawer({
   return (
     <div
       ref={divRef}
-      className="safe-area-bottom fixed left-0 top-0 z-10 h-screen w-full bg-transparent"
+      className="safe-area-bottom fixed left-0 top-0 z-10 h-dvh w-full bg-transparent"
     >
       <button
         type="button"
-        className="fixed left-0 top-0 z-10 h-screen w-full bg-black bg-opacity-40"
+        className="fixed left-0 top-0 z-10 h-dvh w-full bg-black bg-opacity-40"
         aria-label="backdrop"
         onClick={onClose}
       />
