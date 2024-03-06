@@ -36,6 +36,7 @@ const config: Config = {
         button_default_bg: '#F2F4F6',
         button_default_text: '#D9D9D9',
         tag_blue_bg: '#D6E6FD',
+        tag_deep_blue_bg: '#B5D9FF',
         tag_blue_text: '#3281F7',
         tag_red_bg: '#FCDADC',
         tag_red_text: '#F04452',
@@ -84,6 +85,7 @@ const config: Config = {
       animation: {
         slide: 'slide 60s infinite linear',
         slide_reverse: 'slide_reverse 60s infinite linear',
+        slide_forever: 'slideIn 300s infinite linear',
         slideIn: 'slideIn 3s',
       },
     },

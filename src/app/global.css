@@ -61,3 +61,15 @@ input {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
 }
+
+@media (max-width: 376px) {
+  .responsive-onboard-image {
+    padding-top: 80px;
+  }
+  .responsive-onboard-text-margin {
+    margin-top: 0px;
+  }
+  .responsive-roulette-image-div {
+    display: none;
+  }
+}
