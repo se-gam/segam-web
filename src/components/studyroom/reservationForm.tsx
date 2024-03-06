@@ -109,7 +109,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
   const { divRef, focusRef } = useViewportResize();
 
   return (
-    <div className="safe-area-bottom flex h-screen flex-col overflow-hidden" ref={divRef}>
+    <div className="safe-area-bottom flex h-dvh flex-col overflow-hidden" ref={divRef}>
       <StackHeader title="예약하기" />
       <div className="h-full overflow-auto">
         <main className="flex h-full flex-col justify-between">

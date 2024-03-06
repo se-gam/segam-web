@@ -85,12 +85,6 @@ export default function CreditPage() {
                 <p className="f12 text-text_primary">{item.description}</p>
               </div>
             ))}
-            {license.map((item) => (
-              <div key={item.description} className="flex items-center gap-1 align-middle">
-                <Icons.ImageIcon name={item.iconName} height={20} width={20} />
-                <p className="f12 text-text_primary">{item.description}</p>
-              </div>
-            ))}
           </div>
         </div>
       </main>
