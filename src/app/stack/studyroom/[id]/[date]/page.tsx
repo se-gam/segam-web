@@ -5,12 +5,10 @@ import { getFriends } from '@/lib/actions/user';
 export default async function ReservationPage({
   params,
 }: {
-  params: { id: number; date: string };
+  params: { id: number; date: number };
 }) {
-  const data = Promise.all([
-    getStudyroomInfo({ id: params.id, date: new Date(params.date) }),
-    getFriends(),
-  ]);
+  const date = new Date(Number(params.date));
+  const data = Promise.all([getStudyroomInfo({ id: params.id, date }), getFriends()]);
   const [studyRoom, friends] = await data;
-  return <ReservationForm studyRoom={studyRoom} friendData={friends} date={params.date} />;
+  return <ReservationForm studyRoom={studyRoom} friendData={friends} date={date} />;
 }

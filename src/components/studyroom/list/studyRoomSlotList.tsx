@@ -39,7 +39,7 @@ export default function StudyRoomSlotList({
 }: StudyRoomSlotListProps) {
   const { navigateTo } = useLink();
   const { trackAmplitudeEvent } = useAmplitudeContext();
-  const dateString = new Date(date).toISOString().split('T')[0];
+  const dateTime = new Date(date).getTime();
   const filteredData = filterStudyRooms(data, startsAt, endsAt);
 
   return (
@@ -49,7 +49,7 @@ export default function StudyRoomSlotList({
           onClick={() => {
             trackAmplitudeEvent('click_스터디룸_개별스터디룸_list');
             navigateTo({
-              page: `studyroom/${studyroom.id}/${dateString}`,
+              page: `studyroom/${studyroom.id}/${dateTime}`,
               title: studyroom.name,
             });
           }}

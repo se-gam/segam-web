@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority';
 interface TagProps {
   label: string;
   size: 'sm' | 'ms' | 'md';
-  variant: 'default' | 'done' | 'warning' | 'orange' | 'yellow' | 'danger';
+  variant: 'default' | 'done' | 'warning' | 'orange' | 'yellow' | 'danger' | 'message';
   className?: string;
 }
 
@@ -17,6 +17,7 @@ const TagVariants = cva('font-semibold rounded', {
       orange: 'bg-tag_orange_bg text-tag_orange_text',
       yellow: 'bg-tag_yellow_bg text-tag_yellow_text',
       danger: 'bg-button_default_bg text-error',
+      message: 'bg-tag_deep_blue_bg text-tag_blue_text',
     },
     size: {
       sm: 'f12 px-2 py-1',

@@ -25,6 +25,7 @@ export default async function StudyRoomView({ params }: StudyRoomViewProps) {
               {new Date(params.date).toLocaleDateString('ko-KR', {
                 month: 'long',
                 day: 'numeric',
+                timeZone: 'Asia/Seoul',
               })}
             </p>
           </div>

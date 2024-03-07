@@ -8,6 +8,7 @@ export default function calReservationData(reservations: Reservation[]) {
     const formattedDate = date.toLocaleDateString('ko-KR', {
       month: 'long',
       day: 'numeric',
+      timeZone: 'Asia/Seoul',
     });
 
     return {
