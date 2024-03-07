@@ -2,6 +2,7 @@
 
 import BottomDrawer from '@/components/common/bottomDrawer/bottomDrawer';
 import useModal from '@/hooks/useModal';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import { postAddFriend } from '@/lib/actions/user';
 import { Friend } from '@/lib/definitions';
 import { useState } from 'react';
@@ -21,10 +22,12 @@ export default function AddFriendModal({
   setDrawerOpen,
   addFriend,
 }: AddFriendModalProps) {
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const [friendId, setFriendId] = useState<string>('');
   const [friendName, setFriendName] = useState<string>('');
   const { modal } = useModal();
   const handleSubmitClick = async () => {
+    trackAmplitudeEvent('click_스터디룸_예약_모달_동반이용자_추가_btn');
     if (friendId === '') {
       modal({
         title: '오류',

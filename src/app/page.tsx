@@ -8,7 +8,6 @@ import Button from '@/components/common/button/button';
 
 export default function IntroPage() {
   const { trackAmplitudeEvent } = useAmplitudeContext();
-
   const router = useRouter();
   const handleButtonClick = () => {
     trackAmplitudeEvent('click_온보딩_시작하기_btn');

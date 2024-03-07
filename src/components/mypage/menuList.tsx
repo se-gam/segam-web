@@ -2,35 +2,41 @@
 
 import Icons from '@/components/common/icons/icons';
 import useModal from '@/hooks/useModal';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import { withdrawal } from '@/lib/actions/auth';
 import { stackRouterPush } from '@/utils/stackRouter';
 import { useRouter } from 'next/navigation';
 
 export default function MenuList() {
   const router = useRouter();
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const { confirmModal, modal } = useModal();
   const settings = [
     {
       label: '친구 관리',
       onClick: () => {
+        trackAmplitudeEvent('click_마이페이지_친구목록_list');
         stackRouterPush({ router, page: 'friends', title: '스터디룸 친구 목록' });
       },
     },
     {
       label: '앱 사용 문의',
       onClick: () => {
+        trackAmplitudeEvent('click_마이페이지_문의_list');
         stackRouterPush({ router, page: 'inquiry' });
       },
     },
     {
       label: 'FAQ',
       onClick: () => {
+        trackAmplitudeEvent('click_마이페이지_FAQ_list');
         stackRouterPush({ router, page: 'notion' });
       },
     },
     {
       label: '앱 크레딧',
       onClick: () => {
+        trackAmplitudeEvent('click_마이페이지_크레딧_list');
         stackRouterPush({ router, page: 'credit', title: '앱 크레딧' });
       },
     },
@@ -43,6 +49,7 @@ export default function MenuList() {
           title: '로그아웃',
           content: '정말 로그아웃하시겠습니까?',
           onClick: () => {
+            trackAmplitudeEvent('click_마이페이지_로그아웃_list');
             router.replace('/logout');
           },
         });
@@ -55,6 +62,7 @@ export default function MenuList() {
           title: '회원 탈퇴',
           content: '정말 탈퇴하시겠습니까?',
           onClick: async () => {
+            trackAmplitudeEvent('click_마이페이지_회원탈퇴_list');
             try {
               await withdrawal();
               router.replace('/logout');

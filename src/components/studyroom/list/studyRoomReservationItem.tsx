@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Button from '@/components/common/button/button';
 import Icons from '@/components/common/icons/icons';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import useModal from '@/hooks/useModal';
 
 interface ReservationProps {
@@ -28,6 +29,7 @@ export default function StudyRoomReservationItem({
   onCancel,
 }: ReservationProps) {
   const { confirmModal } = useModal();
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const [isExpanded, setIsExpanded] = useState(false);
   const formattedDate = new Date(date).toLocaleDateString('ko-KR', {
     month: 'long',
@@ -39,6 +41,7 @@ export default function StudyRoomReservationItem({
   const userNames = users.map((user) => `${user.studentId} ${user.name}`).join(' ');
 
   const handleExpand = () => {
+    trackAmplitudeEvent('dropdown_스터디룸_동반이용자_btn');
     setIsExpanded((prev) => !prev);
   };
 
@@ -52,6 +55,7 @@ export default function StudyRoomReservationItem({
           size="sm"
           type="button"
           onClick={() => {
+            trackAmplitudeEvent('click_스터디룸_취소_btn');
             confirmModal({
               title: '예약 취소',
               content: '예약을 취소하시겠습니까?',

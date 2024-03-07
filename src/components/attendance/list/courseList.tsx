@@ -1,5 +1,6 @@
 'use client';
 
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import ClassCard from '@/components/attendance/card/classCard';
 import Tag from '@/components/common/tag/tag';
 import useLink from '@/hooks/useLink';
@@ -11,6 +12,7 @@ interface CourseListProps {
   courses: Course[];
 }
 export default function CourseList({ courses }: CourseListProps) {
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const { navigateTo } = useLink();
   if (courses.length === 0)
     return (
@@ -33,6 +35,7 @@ export default function CourseList({ courses }: CourseListProps) {
             type="button"
             aria-label="go to detail"
             onClick={() => {
+              trackAmplitudeEvent('click_이러닝_개별과목_list');
               navigateTo({
                 page: `attendance/${course.id}`,
                 title: course.name,

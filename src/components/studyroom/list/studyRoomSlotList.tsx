@@ -4,6 +4,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */ // 모바일 온리 사용으로 해제
 
 import useLink from '@/hooks/useLink';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import { Studyroom } from '@/lib/definitions';
 import StudyRoomSlotItem from './studyRoomSlotItem';
 
@@ -37,6 +38,7 @@ export default function StudyRoomSlotList({
   endsAt,
 }: StudyRoomSlotListProps) {
   const { navigateTo } = useLink();
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const dateString = new Date(date).toISOString().split('T')[0];
   const filteredData = filterStudyRooms(data, startsAt, endsAt);
 
@@ -45,6 +47,7 @@ export default function StudyRoomSlotList({
       {filteredData.map((studyroom: Studyroom) => (
         <div
           onClick={() => {
+            trackAmplitudeEvent('click_스터디룸_개별스터디룸_list');
             navigateTo({
               page: `studyroom/${studyroom.id}/${dateString}`,
               title: studyroom.name,
