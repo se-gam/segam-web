@@ -13,14 +13,19 @@ export const AmplitudeContext = createContext<AmplitudeContextValue>({
   trackAmplitudeEvent: () => {},
 });
 
-function AmplitudeContextProvider({ children }: any) {
+interface AmplitudeContextProviderProps {
+  children: React.ReactNode;
+  userId: string;
+}
+
+function AmplitudeContextProvider({ userId, children }: AmplitudeContextProviderProps) {
   useEffect(() => {
-    init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY as string, undefined, {
+    init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY as string, userId, {
       defaultTracking: {
         sessions: true,
       },
     });
-  }, []);
+  }, [userId]);
 
   const trackAmplitudeEvent = (eventName: any, eventProperties: any) => {
     track(eventName, eventProperties);
