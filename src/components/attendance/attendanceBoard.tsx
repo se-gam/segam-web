@@ -1,9 +1,10 @@
 'use client';
 
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
+import { Course } from '@/lib/definitions';
 import { useState } from 'react';
 import Tab from '@/components/common/tab/tab';
 import ClassList from '@/components/attendance/list/classList';
-import { Course } from '@/lib/definitions';
 import getSortedClassData from '@/utils/getSortedCourseData';
 import CourseList from '@/components/attendance/list/courseList';
 
@@ -25,6 +26,7 @@ interface AttendanceBoardProps {
 }
 
 export default function AttendanceBoard({ type, courses }: AttendanceBoardProps) {
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const [index, setIndex] = useState<number>(TAB_OPTIONS[type][0].value);
   const lectures = courses.flatMap((course) => course.lectures);
   const assignments = courses.flatMap((course) => course.assignments);
@@ -36,6 +38,7 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
         options={TAB_OPTIONS[type]}
         value={index}
         onChange={(value) => {
+          trackAmplitudeEvent(`click_이러닝_${value}_btn`);
           setIndex(value);
         }}
       />

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import Tag from '@/components/common/tag/tag';
 import Button from '@/components/common/button/button';
 import { Friend, ReservationUser, Slot, Studyroom } from '@/lib/definitions';
@@ -39,6 +40,7 @@ function getButtonStatus({ value, cValue }: { value: number | null; cValue: numb
 export default function ReservationForm({ studyRoom, friendData, date }: ReservationFormProps) {
   const { modal } = useModal();
   const { navigatePop } = useLink();
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const today = new Date(date);
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
@@ -61,6 +63,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
     addUser({ studentId, name });
   };
   const handleReserveClick = async () => {
+    trackAmplitudeEvent('click_스터디룸_예약_완료_btn');
     if (!startsAt) {
       modal({
         title: '시작 시간을 선택해주세요',
@@ -155,6 +158,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                               cValue: slot.startsAt,
                             })}
                             onClick={() => {
+                              trackAmplitudeEvent('click_스터디룸_예약_이용시간_btn');
                               setStartsAt(slot.startsAt);
                               setDuration(null);
                             }}
@@ -173,7 +177,10 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                               value: duration,
                               cValue: u.value,
                             })}
-                            onClick={() => setDuration(u.value)}
+                            onClick={() => {
+                              trackAmplitudeEvent('click_스터디룸_예약_이용기간_btn');
+                              setDuration(u.value);
+                            }}
                           />
                         ))}
                       </div>
@@ -193,6 +200,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                       size="md"
                       variant="default"
                       onClick={() => {
+                        trackAmplitudeEvent('click_스터디룸_예약_동반이용자추가_모달_btn');
                         setDrawerOpen(true);
                       }}
                     />
@@ -218,6 +226,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                           size="ml"
                           variant="default"
                           onClick={() => {
+                            trackAmplitudeEvent('click_스터디룸_예약_동반이용자추가_list');
                             setUsers((prev) =>
                               prev.filter((user) => user.studentId !== u.studentId),
                             );
