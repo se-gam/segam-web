@@ -36,10 +36,13 @@ const getDescription = (item: Lecture | Assignment) => {
 };
 
 export default function ClassList({ items }: { items: Lecture[] | Assignment[] }) {
+  const isLecture = 'startsAt' in items[0];
   if (items.length === 0)
     return (
       <div className="flex h-20 w-full items-center justify-center rounded-lg px-4">
-        <p className="f16 font-medium text-text_secondary">업데이트 된 강의가 없습니다.</p>
+        <p className="f16 font-medium text-text_secondary">
+          업데이트 된 {isLecture ? '강의' : '과제'}가 없습니다.
+        </p>
       </div>
     );
   return (
