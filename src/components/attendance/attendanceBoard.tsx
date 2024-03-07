@@ -2,14 +2,11 @@
 
 import { useState } from 'react';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
-import AssignmentList from '@/components/attendance/list/assignmentList';
 import CourseList from '@/components/attendance/list/courseList';
-import SubjectList from '@/components/attendance/list/subjectList';
 import Tab from '@/components/common/tab/tab';
 import ClassList from '@/components/attendance/list/classList';
 import { Course } from '@/lib/definitions';
 import getSortedClassData from '@/utils/getSortedCourseData';
-import CourseList from '@/components/attendance/list/courseList';
 
 const TAB_OPTIONS = {
   dashboard: [
