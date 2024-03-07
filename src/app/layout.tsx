@@ -1,9 +1,12 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata, Viewport } from 'next';
+import { cookies } from 'next/headers';
 import localFont from 'next/font/local';
 import '@/app/global.css';
 import clsx from 'clsx';
 import 'react-notion-x/src/styles.css';
+import AmplitudeContextProvider from '@/context/amplitudeContext';
+import getIdfromToken from '@/utils/getIdfromToken';
 
 const pretendard = localFont({
   src: [
@@ -51,6 +54,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userId = getIdfromToken(cookies().get('accessToken')?.value as string);
   return (
     <html lang="ko">
       <body
@@ -59,7 +63,9 @@ export default function RootLayout({
           'container mx-auto h-screen overflow-hidden font-sans',
         )}
       >
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <AmplitudeContextProvider userId={userId}>{children}</AmplitudeContextProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

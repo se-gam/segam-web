@@ -1,15 +1,19 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Carousel, ConfigProvider } from 'antd';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import Icons from '@/components/common/icons/icons';
 import Button from '@/components/common/button/button';
-import { useRouter } from 'next/navigation';
 
 export default function IntroPage() {
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const router = useRouter();
   const handleButtonClick = () => {
+    trackAmplitudeEvent('click_온보딩_시작하기_btn');
     router.push('/permission');
   };
+
   return (
     <div className=" safe-area-bottom flex h-screen w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
       <ConfigProvider
@@ -25,7 +29,7 @@ export default function IntroPage() {
           },
         }}
       >
-        <Carousel className="responsive-onboard-image pt-28">
+        <Carousel className="responsive-onboard-image pt-28 onSwipe={() => trackAmplitudeEvent('swipe_온보딩_설명')}">
           <div>
             <div className="flex h-full w-full flex-col items-center justify-between">
               <Icons.ImageIcon name="announcement" width={306} height={360} />

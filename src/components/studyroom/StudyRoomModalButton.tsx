@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import Button from '@/components/common/button/button';
 import StudyroomFilterModal from '@/components/studyroom/list/studyRoomFilterModal';
 
 export default function StudyRoomModalButton() {
   const searchParams = useSearchParams();
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const filterData = {
     date: searchParams.get('date') || new Date(),
@@ -14,6 +16,7 @@ export default function StudyRoomModalButton() {
   };
 
   const handleDrawerOpen = () => {
+    trackAmplitudeEvent('click_스터디룸_필터_btn');
     setDrawerOpen(true);
   };
   return (

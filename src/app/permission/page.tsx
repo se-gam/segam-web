@@ -1,5 +1,6 @@
 'use client';
 
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import Button from '@/components/common/button/button';
 import Icons from '@/components/common/icons/icons';
 import { isApp } from '@/utils/stackRouter';
@@ -8,8 +9,10 @@ import { useRouter } from 'next/navigation';
 const BASE_URL = process.env.NEXT_PUBLIC_FRONT_BASE_URL;
 
 export default function PermissionPage() {
+  const { trackAmplitudeEvent } = useAmplitudeContext();
   const router = useRouter();
   const handleButtonClick = () => {
+    trackAmplitudeEvent('click_온보딩_동의_btn');
     if (isApp()) {
       window.ReactNativeWebView.postMessage(
         JSON.stringify({

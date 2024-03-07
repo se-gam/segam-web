@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import BottomDrawer from '@/components/common/bottomDrawer/bottomDrawer';
 import ReservationCalendar from '../modal/reservationCalendar';
 import ReservationSlider from '../modal/reservationSlider';
@@ -17,10 +18,11 @@ export default function StudyroomFilterModal({
   setDrawerOpen,
   filterData,
 }: FilterModalProps) {
-  const [data, setData] = useState(filterData);
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
   const { replace } = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { trackAmplitudeEvent } = useAmplitudeContext();
+  const [data, setData] = useState(filterData);
 
   const handleSearch = (date: Date, startsAt: number, endsAt: number) => {
     const params = new URLSearchParams(searchParams);
@@ -63,6 +65,7 @@ export default function StudyroomFilterModal({
         <ReservationCalendar
           day={new Date(data.date)}
           setSelectedDay={(date: Date) => {
+            trackAmplitudeEvent('click_스터디룸_필터모달_날짜_btn');
             setData({ ...data, date });
           }}
         />
@@ -75,6 +78,7 @@ export default function StudyroomFilterModal({
         <ReservationSlider
           value={data.timeRange}
           onChange={(timeRange: number[]) => {
+            trackAmplitudeEvent('click_스터디룸_필터모달_시간_btn');
             setData({ ...data, timeRange });
           }}
         />
