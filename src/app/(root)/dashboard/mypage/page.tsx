@@ -4,7 +4,9 @@ import { getUserInfo } from '@/lib/actions/user';
 
 function getUserProfileImageName(studentId: string) {
   const prefixNumber = Number(studentId.slice(0, 2));
-  const currentYear = Number(new Date().getFullYear().toString().slice(2, 4));
+  const currentYear = Number(
+    new Date().toLocaleDateString('ko-KR', { year: '2-digit', timeZone: 'Asia/Seoul' }),
+  );
   switch (prefixNumber) {
     case currentYear:
       return 'baby';

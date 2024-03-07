@@ -3,8 +3,9 @@
 @tailwind utilities;
 @layer components {
   .page {
-    min-height: calc(100vh - 3.625rem - env(safe-area-inset-bottom));
-    padding-top: env(safe-area-inset-top);
+    /* min-height: calc(100vh - 3.625rem - env(safe-area-inset-bottom));
+    padding-top: env(safe-area-inset-top); */
+    min-height: calc(100dvh - 3.625rem);
   }
   .f28 {
     font-size: 1.75rem;
@@ -60,4 +61,16 @@
 input {
   -webkit-appearance: none;
   -webkit-border-radius: 0;
+}
+
+@media (max-width: 376px) {
+  .responsive-onboard-image {
+    padding-top: 80px;
+  }
+  .responsive-onboard-text-margin {
+    margin-top: 0px;
+  }
+  .responsive-roulette-image-div {
+    display: none;
+  }
 }

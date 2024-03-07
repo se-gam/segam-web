@@ -3,14 +3,20 @@ import StackHeader from '@/components/common/stackHeader/stackHeader';
 import Tag from '@/components/common/tag/tag';
 import { getCourseAttendance } from '@/lib/actions/attendance';
 import { CourseAttendance } from '@/lib/definitions';
-import { dateWeekFormatter, dayFormatter } from '@/utils/format';
+import { getDayLabelByNumber } from '@/utils/format';
 
 export default async function SubjectPage({ params }: { params: { id: number } }) {
   const { courses }: CourseAttendance = await getCourseAttendance();
   const course = courses.find((c) => c.id === params.id);
   if (!course) return null;
-  const todayLabel = dateWeekFormatter(new Date());
-  const updateDayLabel = course.updateDay ? `매주 ${dayFormatter(course.updateDay)}요일` : '';
+  const todayLabel = new Date().toLocaleDateString('ko-KR', {
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Asia/Seoul',
+  });
+  const updateDayLabel = course.updateDay
+    ? `매주 ${getDayLabelByNumber(course.updateDay)}요일`
+    : '';
   const lectureAbsencesLabel = course.lectureAbsences
     ? `강의 ${course.lectureAbsences}회 미출석`
     : '';
@@ -23,8 +29,8 @@ export default async function SubjectPage({ params }: { params: { id: number } }
   return (
     <>
       <StackHeader title={course.name} />
-      <main className="page overflow-auto bg-white px-4 py-2.5">
-        <section className="mb-5 space-y-2">
+      <main className="page overflow-auto bg-white py-2.5">
+        <section className="mb-5 space-y-2  px-4 ">
           <div className="space-x-2">
             <Tag label={todayLabel} variant="default" size="md" />
             {updateDayLabel && <Tag label={updateDayLabel} variant="default" size="md" />}

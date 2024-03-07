@@ -10,9 +10,17 @@ interface StudyroomListProps {
 }
 
 export async function getStudyroomList({ date }: StudyroomListProps): Promise<StudyroomList> {
-  const query = new URLSearchParams({
-    date,
+  const queryDate = new Date(date).toLocaleDateString('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'Asia/Seoul',
   });
+
+  const query = new URLSearchParams({
+    date: queryDate,
+  });
+
   const url = `/v1/studyroom?${query}`;
 
   try {
@@ -36,7 +44,13 @@ interface StudyroomProps {
 
 export async function getStudyroomInfo({ id, date }: StudyroomProps): Promise<Studyroom> {
   unstable_noStore();
-  const query = new URLSearchParams({ date: new Date(date).toISOString() });
+  const queryDate = new Date(date).toLocaleDateString('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'Asia/Seoul',
+  });
+  const query = new URLSearchParams({ date: queryDate });
   const url = `/v1/studyroom/${id}?${query}`;
   const data = await fetchExtended<Studyroom>(url, {
     headers: {

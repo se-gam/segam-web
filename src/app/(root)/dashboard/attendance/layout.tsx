@@ -13,12 +13,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <PullToRefresh
         onRefresh={onRefresh}
         pullingContent={
-          <div className="mt-2 flex w-full items-center justify-center">
+          <div className="flex w-full items-center justify-center p-4">
             <Spin />
           </div>
         }
         refreshingContent={
-          <div className="mt-2 flex w-full items-center justify-center">
+          <div className="flex w-full items-center justify-center p-4">
             <Spin />
           </div>
         }

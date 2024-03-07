@@ -35,6 +35,7 @@ export default function StudyRoomReservationItem({
     month: 'long',
     day: 'numeric',
     weekday: 'long',
+    timeZone: 'Asia/Seoul',
   });
 
   const endTime = startsAt + duration;

@@ -75,3 +75,19 @@ export async function deleteFriend({ studentId }: { studentId: string }) {
     },
   });
 }
+export async function updateToken() {
+  try {
+    await fetchExtended('/v1/user/push-token', {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: {
+        os: 'IOS',
+        pushToken: '',
+      },
+    });
+  } catch (e) {
+    throw new Error('푸시 토큰 초기화의 실패했습니다.');
+  }
+}
