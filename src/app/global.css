@@ -3,9 +3,8 @@
 @tailwind utilities;
 @layer components {
   .page {
-    /* min-height: calc(100vh - 3.625rem - env(safe-area-inset-bottom));
-    padding-top: env(safe-area-inset-top); */
-    min-height: calc(100dvh - 3.625rem);
+    min-height: calc(100vh - 3.625rem - env(safe-area-inset-bottom));
+    padding-top: env(safe-area-inset-top);
   }
   .f28 {
     font-size: 1.75rem;
