@@ -1,7 +1,6 @@
 'use client';
 
 import Button from '@/components/common/button/button';
-import useViewportResize from '@/hooks/useViewportResize';
 
 interface DrawerProps {
   openState: boolean;
@@ -17,15 +16,11 @@ export default function BottomDrawer({
   onClose,
   onSubmit,
 }: DrawerProps) {
-  const { divRef } = useViewportResize();
   if (!openState) {
     return null;
   }
   return (
-    <div
-      ref={divRef}
-      className="safe-area-bottom fixed left-0 top-0 z-10 h-screen w-full bg-transparent"
-    >
+    <div className="safe-area-bottom fixed left-0 top-0 z-10 h-screen w-full bg-transparent">
       <button
         type="button"
         className="fixed left-0 top-0 z-10 h-screen w-full bg-black bg-opacity-40"

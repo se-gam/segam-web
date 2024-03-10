@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from '@/components/common/button/button';
 import useModal from '@/hooks/useModal';
-import useViewportResize from '@/hooks/useViewportResize';
+
 import { login } from '@/lib/actions/auth';
 
 export default function LoginPage() {
@@ -57,10 +57,9 @@ export default function LoginPage() {
       });
     }
   };
-  const { divRef } = useViewportResize();
 
   return (
-    <div className="safe-area-top h-full overflow-visible" ref={divRef}>
+    <div className="safe-area-top h-full overflow-visible">
       <main className="safe-area-bottom container flex h-full flex-col justify-between overflow-scroll bg-white px-4">
         <div>
           <h1 className="f28 mb-2 mt-4 font-bold text-text_primary">
