@@ -106,11 +106,13 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
         users: users.map((u) => u.studentId),
       });
       navigatePop();
-    } catch (e) {
-      modal({
-        title: '예약 실패',
-        content: '예약에 실패했습니다. 잠시 후 다시 시도해주세요.',
-      });
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        modal({
+          title: '예약 실패',
+          content: e.message,
+        });
+      }
     }
   };
   const { divRef, focusRef } = useViewportResize();

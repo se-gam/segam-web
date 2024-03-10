@@ -28,7 +28,8 @@ export default function StudyRoomReservationItem({
   users,
   onCancel,
 }: ReservationProps) {
-  const { confirmModal } = useModal();
+  const { confirmModal, modal } = useModal();
+
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const [isExpanded, setIsExpanded] = useState(false);
   const formattedDate = new Date(date).toLocaleDateString('ko-KR', {
@@ -45,25 +46,34 @@ export default function StudyRoomReservationItem({
     trackAmplitudeEvent('dropdown_스터디룸_동반이용자_btn');
     setIsExpanded((prev) => !prev);
   };
-
+  const handleCancel = () => {
+    trackAmplitudeEvent('click_스터디룸_취소_btn');
+    confirmModal({
+      title: '예약 취소',
+      content: '예약을 취소하시겠습니까?',
+      onClick: async () => {
+        try {
+          await onCancel(id);
+          modal({
+            title: '예약 취소',
+            content: '예약이 취소되었습니다.',
+          });
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+            modal({
+              title: '예약 실패',
+              content: e.message,
+            });
+          }
+        }
+      },
+    });
+  };
   return (
     <div className="mb-2 flex flex-col">
       <div className="flex justify-between">
         <span className="f16 font-bold text-text_primary">{name}</span>
-        <Button
-          label="취소"
-          variant="default"
-          size="sm"
-          type="button"
-          onClick={() => {
-            trackAmplitudeEvent('click_스터디룸_취소_btn');
-            confirmModal({
-              title: '예약 취소',
-              content: '예약을 취소하시겠습니까?',
-              onClick: () => onCancel(id),
-            });
-          }}
-        />
+        <Button label="취소" variant="default" size="sm" type="button" onClick={handleCancel} />
       </div>
       <div className="flex">
         <span className="f14 font-semibold text-text_secondary">

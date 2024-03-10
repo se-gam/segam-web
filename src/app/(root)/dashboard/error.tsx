@@ -2,7 +2,7 @@
 
 export default function Error({ error }: { error: Error & { digest?: string } }) {
   const reset = () => {
-    window.location.href = '/logout';
+    window.location.reload();
   };
   return (
     <main className="flex h-full flex-col items-center justify-center">
@@ -14,7 +14,7 @@ export default function Error({ error }: { error: Error & { digest?: string } })
         className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
         onClick={() => reset()}
       >
-        돌아가기
+        다시 시도하기
       </button>
     </main>
   );
