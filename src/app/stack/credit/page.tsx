@@ -54,7 +54,7 @@ export default function CreditPage() {
   ];
 
   return (
-    <div className="safe-area-bottom flex h-full flex-col overflow-hidden bg-black">
+    <div className="safe-area-bottom flex h-screen flex-col overflow-hidden bg-white">
       <StackHeader title="앱 크레딧" />
       <main className="flex h-full flex-col overflow-y-scroll bg-white px-4 pb-2">
         <div className="mb-6 mt-6 flex flex-col">
