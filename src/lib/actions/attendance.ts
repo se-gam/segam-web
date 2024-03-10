@@ -25,26 +25,31 @@ export async function getCourseAttendance(): Promise<CourseAttendance> {
   );
   return {
     ...data,
-    courses: sortedCourses ?? [],
+    courses: sortedCourses,
   };
 }
 export async function updateCourseAttendance(): Promise<void> {
-  const password = cookies().get('encrypted')?.value;
-
-  await fetchExtended<CourseAttendance>('/v1/attendance/update', {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    method: 'POST',
-    body: {
-      password,
-    },
-  })
-    .then((response) => response.body)
-    .catch(() => {
-      throw new Error('출석 업데이트에 실패했습니다. 다시 시도해주세요.');
+  try {
+    const password = cookies().get('encrypted')?.value;
+    await fetchExtended<CourseAttendance>('/v1/attendance/update', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      method: 'POST',
+      body: {
+        password,
+      },
     });
+  } catch (e) {
+    switch (e) {
+      case '강의 정보를 가져오는데 실패했습니다. 다시 시도해주세요.':
+        updateCourseAttendance();
+        break;
+      default:
+        throw new Error('출석 업데이트에 실패했습니다. 다시 시도해주세요.');
+    }
+  }
   revalidateTag('courseAttendance');
 }
 

@@ -1,16 +1,12 @@
 'use client';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function Error({ error }: { error: Error & { digest?: string } }) {
+  const reset = () => {
+    window.location.href = '/logout';
+  };
   return (
     <main className="flex h-full flex-col items-center justify-center">
       <h2 className="text-center">{error.digest}</h2>
-      <h2 className="text-center">{error.message}</h2>
       <h2 className="text-center">서버 오류가 발생했습니다.</h2>
       <button
         type="button"

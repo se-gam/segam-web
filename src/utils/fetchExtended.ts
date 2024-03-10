@@ -9,10 +9,12 @@ const returnFetchThrowingErrorByStatusCode: ReturnFetch = (args) =>
     interceptors: {
       response: async (response) => {
         if (response.status === 500) {
-          throw new Error(await response.text());
+          const msg = JSON.parse(await response.text());
+          throw await new Error(msg.message);
         }
         if (response.status >= 400) {
-          throw await response.text().then(Error);
+          const msg = JSON.parse(await response.text());
+          throw await new Error(msg.message);
         }
         return response;
       },
