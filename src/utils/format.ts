@@ -8,7 +8,7 @@ export function dateDotFormatter(date: string) {
     day: '2-digit',
     hour: 'numeric',
     minute: 'numeric',
-    hour12: false,
+    hourCycle: 'h23',
     timeZone: 'Asia/Seoul',
   });
   return d;

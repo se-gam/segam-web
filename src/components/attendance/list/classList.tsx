@@ -35,32 +35,40 @@ const getDescription = (item: Lecture | Assignment) => {
   return `${dateDotFormatter(item.endsAt)}`;
 };
 
-export default function ClassList({ items }: { items: Lecture[] | Assignment[] }) {
-  const isLecture = 'startsAt' in items[0];
+export default function ClassList({
+  items,
+  type,
+}: {
+  items: Lecture[] | Assignment[] | [];
+  type: 'lecture' | 'assignment';
+}) {
   if (items.length === 0)
     return (
       <div className="flex h-20 w-full items-center justify-center rounded-lg px-4">
         <p className="f16 font-medium text-text_secondary">
-          업데이트 된 {isLecture ? '강의' : '과제'}가 없습니다.
+          업데이트 된 {type === 'assignment' ? '강의' : '과제'}가 없습니다.
         </p>
       </div>
     );
   return (
     <div className="h-full space-y-1 overflow-scroll px-4">
-      {items.map((item) => (
-        <ClassCard
-          key={item.id}
-          title={item.name}
-          description={getDescription(item)}
-          tag={
-            <Tag
-              label={item.isDone ? '완료' : tagLabel(item.endsAt)}
-              variant={item.isDone ? 'done' : tagStatus(item.endsAt)}
-              size="sm"
-            />
-          }
-        />
-      ))}
+      {items.map((item) => {
+        const description = getDescription(item);
+        return (
+          <ClassCard
+            key={item.id}
+            title={item.name}
+            description={description}
+            tag={
+              <Tag
+                label={item.isDone ? '완료' : tagLabel(item.endsAt)}
+                variant={item.isDone ? 'done' : tagStatus(item.endsAt)}
+                size="sm"
+              />
+            }
+          />
+        );
+      })}
     </div>
   );
 }
