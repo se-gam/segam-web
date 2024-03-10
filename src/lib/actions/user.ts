@@ -61,32 +61,22 @@ export async function postAddFriend({ friendId, friendName, date }: AddFriendPro
   });
 }
 export async function deleteFriend({ studentId }: { studentId: string }) {
-  try {
-    await fetchExtended(`/v1/user/friend/${studentId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-      },
-    });
-    return null;
-  } catch (e) {
-    return e;
-  }
+  await fetchExtended(`/v1/user/friend/${studentId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+  });
 }
 export async function updateToken() {
-  try {
-    await fetchExtended('/v1/user/push-token', {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-      },
-      body: {
-        os: 'IOS',
-        pushToken: '',
-      },
-    });
-    return null;
-  } catch (e) {
-    return e;
-  }
+  await fetchExtended('/v1/user/push-token', {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+    body: {
+      os: 'IOS',
+      pushToken: '',
+    },
+  });
 }

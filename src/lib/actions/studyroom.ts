@@ -98,24 +98,19 @@ interface CheckUserProps {
   date: Date;
 }
 export async function checkUser({ friendId, friendName, date }: CheckUserProps) {
-  try {
-    await fetchExtended(`/v1/studyroom/user`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-      },
-      body: {
-        password: cookies().get('encrypted')?.value,
-        friendId,
-        friendName,
-        date: date.toISOString(),
-      },
-    });
-    return null;
-  } catch (error) {
-    return error;
-  }
+  await fetchExtended(`/v1/studyroom/user`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+    body: {
+      password: cookies().get('encrypted')?.value,
+      friendId,
+      friendName,
+      date: date.toISOString(),
+    },
+  });
 }
 
 interface ReserveStudyroomProps {
@@ -135,26 +130,22 @@ export async function reserveStudyroom({
   users,
 }: ReserveStudyroomProps) {
   const password = cookies().get('encrypted')?.value;
-  try {
-    await fetchExtended(`/v1/studyroom/reservation`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-      },
-      body: {
-        studyroomId,
-        password,
-        startsAt,
-        duration,
-        reason,
-        users,
-        date: date.toISOString(),
-      },
-    });
-    revalidateTag('reservationList');
-    return null;
-  } catch (error) {
-    return error;
-  }
+
+  await fetchExtended(`/v1/studyroom/reservation`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+    },
+    body: {
+      studyroomId,
+      password,
+      startsAt,
+      duration,
+      reason,
+      users,
+      date: date.toISOString(),
+    },
+  });
+  revalidateTag('reservationList');
 }
