@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import Tag from '@/components/common/tag/tag';
 import Button from '@/components/common/button/button';
@@ -8,10 +9,10 @@ import { Friend, ReservationUser, Slot, Studyroom } from '@/lib/definitions';
 import { reserveStudyroom } from '@/lib/actions/studyroom';
 import CheckUser from '@/components/studyroom/reservation/checkUser';
 import useModal from '@/hooks/useModal';
-import useLink from '@/hooks/useLink';
 import AddFriendModal from '@/components/studyroom/reservation/addFriendModal';
 import StackHeader from '@/components/common/stackHeader/stackHeader';
 import useViewportResize from '@/hooks/useViewportResize';
+import { isApp } from '@/utils/stackRouter';
 
 const RANDOM_REASON = ['졸업작품', '과제', '팀 프로젝트'];
 
@@ -39,13 +40,14 @@ function getButtonStatus({ value, cValue }: { value: number | null; cValue: numb
 
 export default function ReservationForm({ studyRoom, friendData, date }: ReservationFormProps) {
   const { modal } = useModal();
-  const { navigatePop } = useLink();
+
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const today = new Date(date);
   const day = today.toLocaleDateString('ko-KR', {
     weekday: 'long',
     timeZone: 'Asia/Seoul',
   });
+  const router = useRouter();
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
   const [duration, setDuration] = useState<number | null>(null);
@@ -66,6 +68,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
     });
     addUser({ studentId, name });
   };
+
   const handleReserveClick = async () => {
     trackAmplitudeEvent('click_스터디룸_예약_완료_btn');
     if (!startsAt) {
@@ -105,7 +108,15 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
         reason,
         users: users.map((u) => u.studentId),
       });
-      navigatePop();
+      if (isApp()) {
+        window.ReactNativeWebView.postMessage(
+          JSON.stringify({
+            type: 'UPDATE',
+          }),
+        );
+      } else {
+        router.back();
+      }
     } catch (e: unknown) {
       if (e instanceof Error) {
         modal({
