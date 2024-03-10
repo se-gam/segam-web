@@ -46,7 +46,7 @@ export default function ClassList({
     return (
       <div className="flex h-20 w-full items-center justify-center rounded-lg px-4">
         <p className="f16 font-medium text-text_secondary">
-          업데이트 된 {type === 'assignment' ? '강의' : '과제'}가 없습니다.
+          업데이트 된 {type === 'lecture' ? '강의' : '과제'}가 없습니다.
         </p>
       </div>
     );
