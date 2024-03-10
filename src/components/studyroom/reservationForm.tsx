@@ -42,6 +42,10 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
   const { navigatePop } = useLink();
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const today = new Date(date);
+  const day = today.toLocaleDateString('ko-KR', {
+    weekday: 'long',
+    timeZone: 'Asia/Seoul',
+  });
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
   const [duration, setDuration] = useState<number | null>(null);
@@ -148,6 +152,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                     <div className="flex flex-wrap gap-2">
                       {studyRoom.slots.map((slot) => {
                         if (slot.isClosed) return null;
+                        if (day === '토요일' && slot.startsAt >= 16) return null;
                         return (
                           <Button
                             key={slot.id}
