@@ -42,12 +42,12 @@ export default function Button({
   disabled = false,
   loading = false,
   onClick = () => {},
-}: ButtonProps) {
-  return loading ? (
+}: Readonly<ButtonProps>) {
+  return (
     <button
       type={type}
-      onClick={onClick}
-      disabled
+      onClick={!loading ? onClick : undefined}
+      disabled={disabled || loading}
       className={cn(
         ButtonVariants({
           size,
@@ -56,22 +56,7 @@ export default function Button({
         className,
       )}
     >
-      처리중...
-    </button>
-  ) : (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={cn(
-        ButtonVariants({
-          size,
-          variant,
-        }),
-        className,
-      )}
-    >
-      {label}
+      {loading ? '처리중...' : label}
     </button>
   );
 }
