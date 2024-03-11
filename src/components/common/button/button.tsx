@@ -11,6 +11,7 @@ interface ButtonProps {
   className?: string;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  loading?: boolean;
   onClick?: () => void;
 }
 
@@ -39,9 +40,25 @@ export default function Button({
   className = '',
   type = 'button',
   disabled = false,
+  loading = false,
   onClick = () => {},
 }: ButtonProps) {
-  return (
+  return loading ? (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled
+      className={cn(
+        ButtonVariants({
+          size,
+          variant,
+        }),
+        className,
+      )}
+    >
+      처리중...
+    </button>
+  ) : (
     <button
       type={type}
       onClick={onClick}
