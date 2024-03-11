@@ -55,7 +55,7 @@ export default function StudyRoomSlotList({
           }}
           key={studyroom.id}
         >
-          <StudyRoomSlotItem key={studyroom.id} data={studyroom} />
+          <StudyRoomSlotItem key={studyroom.id} data={studyroom} date={date} />
         </div>
       ))}
     </div>
