@@ -30,15 +30,7 @@ export default function MenuRoulette({ menus }: { menus: Restaurant[] }) {
   return (
     <>
       <div className="f28 mb-14 mt-16 flex h-20 w-72 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-app_bg font-bold text-text_primary">
-        {!selectedItem.length && (
-          <div className="animate-slide_forever text-center transition-all duration-1000">
-            {menus.map((option) => (
-              <div key={option.name} className="h-20 text-center">
-                {option.name}
-              </div>
-            ))}
-          </div>
-        )}
+        {!selectedItem.length && <div className="text-center">돌려 돌려 돌림판😵‍💫</div>}
         <div
           className={`${isSpinning && 'animate-slideIn'} text-center transition-all duration-1000`}
         >
