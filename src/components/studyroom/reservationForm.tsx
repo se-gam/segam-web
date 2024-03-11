@@ -47,6 +47,17 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
     weekday: 'long',
     timeZone: 'Asia/Seoul',
   });
+  const hour = parseInt(
+    today
+      .toLocaleDateString('ko-KR', {
+        hour: 'numeric',
+        hour12: false,
+        timeZone: 'Asia/Seoul',
+      })
+      .split(' ')[3]
+      .replace('시', ''),
+    10,
+  );
   const router = useRouter();
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
@@ -165,8 +176,12 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                     <div className="space-y-2">
                       <div className="flex flex-wrap gap-2">
                         {studyRoom.slots.map((slot) => {
-                          if (slot.isClosed) return null;
-                          if (day === '토요일' && slot.startsAt >= 16) return null;
+                          if (
+                            slot.isClosed ||
+                            hour >= slot.startsAt ||
+                            (day === '토요일' && slot.startsAt >= 16)
+                          )
+                            return null;
                           return (
                             <Button
                               key={slot.id}

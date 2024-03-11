@@ -6,11 +6,21 @@ import Icons from '@/components/common/icons/icons';
 
 interface StudyRoomSlotItemProps {
   data: Studyroom;
+  date: string;
 }
 
-export default function StudyRoomSlotItem({ data }: StudyRoomSlotItemProps) {
+export default function StudyRoomSlotItem({ data, date }: StudyRoomSlotItemProps) {
   const { name, location, minUsers, maxUsers, operatingHours, slots } = data;
-  const [startTime, endTime] = operatingHours.split('~').map((time) => parseInt(time, 10));
+  const today = new Date(date);
+  const day = today.toLocaleDateString('ko-KR', {
+    weekday: 'long',
+    timeZone: 'Asia/Seoul',
+  });
+  const [startTime, endTimeInitial] = operatingHours.split('~').map((time) => parseInt(time, 10));
+  let endTime = endTimeInitial;
+  if (day === '토요일') {
+    endTime = 16;
+  }
   const hoursRange = Array.from({ length: endTime - startTime + 1 }, (_, i) => startTime + i);
 
   const getTagVariant = (min: number) => {
@@ -44,7 +54,7 @@ export default function StudyRoomSlotItem({ data }: StudyRoomSlotItemProps) {
             const slot = slots.find((s) => s.startsAt === hour);
             const isClosed = slot ? slot.isClosed : true;
             const isReserved = slot ? slot.isReserved : true;
-            const bgColor = isClosed || isReserved ? 'bg-error' : 'bg-timeline_bg'; // TODO: refactor with cn @kmsu44
+            const bgColor = isClosed || isReserved ? 'bg-timeline_bg' : 'bg-error'; // TODO: refactor with cn @kmsu44
             return <div key={hour} className={`h-1 w-full ${bgColor}`} />;
           })}
         </div>
