@@ -8,7 +8,7 @@ import cn from '@/utils/cn';
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: '홈', href: '/dashboard', icon: Icons.DashBoard },
+  { name: '대시보드', href: '/dashboard', icon: Icons.DashBoard },
   {
     name: '이러닝',
     href: '/dashboard/attendance',

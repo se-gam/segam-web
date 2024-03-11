@@ -3,6 +3,7 @@
 import { Studyroom } from '@/lib/definitions';
 import Tag from '@/components/common/tag/tag';
 import Icons from '@/components/common/icons/icons';
+import cn from '@/utils/cn';
 
 interface StudyRoomSlotItemProps {
   data: Studyroom;
@@ -44,8 +45,15 @@ export default function StudyRoomSlotItem({ data }: StudyRoomSlotItemProps) {
             const slot = slots.find((s) => s.startsAt === hour);
             const isClosed = slot ? slot.isClosed : true;
             const isReserved = slot ? slot.isReserved : true;
-            const bgColor = isClosed || isReserved ? 'bg-error' : 'bg-timeline_bg'; // TODO: refactor with cn @kmsu44
-            return <div key={hour} className={`h-1 w-full ${bgColor}`} />;
+            return (
+              <div
+                key={hour}
+                className={cn('h-1 w-full', {
+                  'bg-theme_primary': isClosed || isReserved,
+                  'bg-timeline_bg': !(isClosed || isReserved),
+                })}
+              />
+            );
           })}
         </div>
         <div className="mt-1 flex w-full justify-between">
