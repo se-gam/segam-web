@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@/components/common/button/button';
 import { Modal } from 'antd';
 
