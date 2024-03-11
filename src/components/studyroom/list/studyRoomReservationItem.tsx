@@ -32,6 +32,7 @@ export default function StudyRoomReservationItem({
 
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const formattedDate = new Date(date).toLocaleDateString('ko-KR', {
     month: 'long',
     day: 'numeric',
@@ -53,12 +54,14 @@ export default function StudyRoomReservationItem({
       content: '예약을 취소하시겠습니까?',
       onClick: async () => {
         try {
+          setIsLoading(true);
           await onCancel(id);
           modal({
             title: '예약 취소',
             content: '예약이 취소되었습니다.',
           });
         } catch (e: unknown) {
+          setIsLoading(false);
           if (e instanceof Error) {
             modal({
               title: '예약 실패',
@@ -73,7 +76,14 @@ export default function StudyRoomReservationItem({
     <div className="mb-2 flex flex-col">
       <div className="flex justify-between">
         <span className="f16 font-bold text-text_primary">{name}</span>
-        <Button label="취소" variant="default" size="sm" type="button" onClick={handleCancel} />
+        <Button
+          label="취소"
+          variant="default"
+          size="sm"
+          type="button"
+          loading={isLoading}
+          onClick={handleCancel}
+        />
       </div>
       <div className="flex">
         <span className="f14 font-semibold text-text_secondary">
