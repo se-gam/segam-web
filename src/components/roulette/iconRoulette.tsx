@@ -47,7 +47,6 @@ export default function IconRoulette({ componentKey }: { componentKey: number })
           </div>
         )),
       )}
-      ,
     </div>
   );
 }
