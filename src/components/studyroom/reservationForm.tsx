@@ -14,7 +14,17 @@ import StackHeader from '@/components/common/stackHeader/stackHeader';
 import useViewportResize from '@/hooks/useViewportResize';
 import { isApp } from '@/utils/stackRouter';
 
-const RANDOM_REASON = ['졸업작품', '과제', '팀 프로젝트'];
+const RANDOM_REASON = [
+  '졸업작품',
+  '과제',
+  '팀 프로젝트',
+  '면접준비',
+  '취업준비',
+  '공부',
+  '휴식',
+  '기타',
+  '커피챗',
+];
 
 interface ReservationFormProps {
   studyRoom: Studyroom;
