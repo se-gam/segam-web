@@ -14,7 +14,17 @@ import StackHeader from '@/components/common/stackHeader/stackHeader';
 import useViewportResize from '@/hooks/useViewportResize';
 import { isApp } from '@/utils/stackRouter';
 
-const RANDOM_REASON = ['졸업작품', '과제', '팀 프로젝트'];
+const RANDOM_REASON = [
+  '졸업작품',
+  '과제',
+  '팀 프로젝트',
+  '면접준비',
+  '취업준비',
+  '공부',
+  '휴식',
+  '기타',
+  '커피챗',
+];
 
 interface ReservationFormProps {
   studyRoom: Studyroom;
@@ -47,18 +57,8 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
     weekday: 'long',
     timeZone: 'Asia/Seoul',
   });
-  const hour = parseInt(
-    today
-      .toLocaleDateString('ko-KR', {
-        hour: 'numeric',
-        hour12: false,
-        timeZone: 'Asia/Seoul',
-      })
-      .split(' ')[3]
-      .replace('시', ''),
-    10,
-  );
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [friends, setFriends] = useState(friendData);
   const [startsAt, setStartsAt] = useState<number | null>(null);
   const [duration, setDuration] = useState<number | null>(null);
@@ -111,11 +111,12 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
       return;
     }
     try {
+      setIsLoading(true);
       await reserveStudyroom({
         studyroomId: studyRoom.id,
         date: today,
-        startsAt: startsAt!,
-        duration: duration!,
+        startsAt,
+        duration,
         reason,
         users: users.map((u) => u.studentId),
       });
@@ -129,6 +130,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
         router.back();
       }
     } catch (e: unknown) {
+      setIsLoading(false);
       if (e instanceof Error) {
         modal({
           title: '예약 실패',
@@ -176,11 +178,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                     <div className="space-y-2">
                       <div className="flex flex-wrap gap-2">
                         {studyRoom.slots.map((slot) => {
-                          if (
-                            slot.isClosed ||
-                            hour >= slot.startsAt ||
-                            (day === '토요일' && slot.startsAt >= 16)
-                          )
+                          if (slot.isClosed || (day === '토요일' && slot.startsAt >= 16))
                             return null;
                           return (
                             <Button
@@ -316,6 +314,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                   size="full"
                   variant="primary"
                   className="shrink-0"
+                  loading={isLoading}
                   onClick={handleReserveClick}
                 />
               </div>

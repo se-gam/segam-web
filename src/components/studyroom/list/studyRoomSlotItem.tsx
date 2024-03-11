@@ -59,8 +59,8 @@ export default function StudyRoomSlotItem({ data, date }: StudyRoomSlotItemProps
               <div
                 key={hour}
                 className={cn('h-1 w-full', {
-                  'bg-theme_primary': isClosed || isReserved,
-                  'bg-timeline_bg': !(isClosed || isReserved),
+                  'bg-theme_primary': !(isClosed || isReserved),
+                  'bg-timeline_bg': isClosed || isReserved,
                 })}
               />
             );

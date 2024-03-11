@@ -11,6 +11,7 @@ interface ButtonProps {
   className?: string;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  loading?: boolean;
   onClick?: () => void;
 }
 
@@ -39,13 +40,14 @@ export default function Button({
   className = '',
   type = 'button',
   disabled = false,
+  loading = false,
   onClick = () => {},
-}: ButtonProps) {
+}: Readonly<ButtonProps>) {
   return (
     <button
       type={type}
-      onClick={onClick}
-      disabled={disabled}
+      onClick={!loading ? onClick : undefined}
+      disabled={disabled || loading}
       className={cn(
         ButtonVariants({
           size,
@@ -54,7 +56,7 @@ export default function Button({
         className,
       )}
     >
-      {label}
+      {loading ? '처리중...' : label}
     </button>
   );
 }
