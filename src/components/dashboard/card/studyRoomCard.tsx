@@ -14,7 +14,7 @@ interface StudyRoomCardProps {
 }
 export default function StudyRoomCard({ id, title, iconName, description }: StudyRoomCardProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const { confirmModal } = useModal();
+  const { confirmModal, modal } = useModal();
   return (
     <div className="flex w-full items-center justify-between gap-4 rounded-md p-3">
       <div className="flex items-center gap-4">
@@ -41,6 +41,12 @@ export default function StudyRoomCard({ id, title, iconName, description }: Stud
                 await cancelReservation(id);
               } catch (e) {
                 setIsLoading(false);
+                if (e instanceof Error) {
+                  modal({
+                    title: '예약 실패',
+                    content: e.message,
+                  });
+                }
               }
             },
           });
