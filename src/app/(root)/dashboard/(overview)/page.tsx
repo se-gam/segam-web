@@ -36,7 +36,7 @@ export default async function DashBoard() {
   return (
     <main className="bg-app_bg px-4">
       <header className="mb-4 flex w-full justify-between pt-3">
-        <h1 className="f20 font-bold text-text_primary">감자탕</h1>
+        <h1 className="f20 font-bold text-text_primary">대시보드</h1>
       </header>
       <div className="space-y-3 pb-3">
         <AnnounceCard title={title} description={description} iconName={iconName} link={link} />
