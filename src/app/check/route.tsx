@@ -1,11 +1,12 @@
-import fetchExtended from '@/utils/fetchExtended';
+import { fetchExtended } from '@/utils/fetchExtended';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  const pushToken = req.cookies.get('pushToken');
-  const os = req.cookies.get('os');
+  const pushToken = req.cookies.get('pushToken')?.value;
+  const os = req.cookies.get('os')?.value;
+
   try {
     await fetchExtended('/v1/user/push-token', {
       method: 'PUT',
@@ -14,7 +15,7 @@ export async function GET(req: NextRequest) {
       },
       body: {
         os,
-        pushToken: pushToken?.value,
+        pushToken,
       },
     });
   } catch (e) {

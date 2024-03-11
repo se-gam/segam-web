@@ -1,12 +1,12 @@
 'use client';
 
-import useAmplitudeContext from '@/hooks/useAmplitudeContext';
-import { Course } from '@/lib/definitions';
 import { useState } from 'react';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
+import CourseList from '@/components/attendance/list/courseList';
 import Tab from '@/components/common/tab/tab';
 import ClassList from '@/components/attendance/list/classList';
 import getSortedClassData from '@/utils/getSortedCourseData';
-import CourseList from '@/components/attendance/list/courseList';
+import { Course } from '@/lib/definitions';
 
 const TAB_OPTIONS = {
   dashboard: [
@@ -44,8 +44,8 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
       />
       <div className="flex flex-col overflow-hidden">
         {index === 0 && <CourseList courses={courses} />}
-        {index === 1 && <ClassList items={sortedLectures} />}
-        {index === 2 && <ClassList items={sortedAssignments} />}
+        {index === 1 && <ClassList items={sortedLectures} type="lecture" />}
+        {index === 2 && <ClassList items={sortedAssignments} type="assignment" />}
       </div>
     </div>
   );

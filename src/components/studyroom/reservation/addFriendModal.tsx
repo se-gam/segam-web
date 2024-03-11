@@ -57,11 +57,13 @@ export default function AddFriendModal({
       });
       addFriend({ studentId: friendId, name: friendName });
       setDrawerOpen(false);
-    } catch (e) {
-      modal({
-        title: '오류',
-        content: '학번과 이름을 확인해주세요.',
-      });
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        modal({
+          title: '오류',
+          content: e.message,
+        });
+      }
     }
   };
   return (

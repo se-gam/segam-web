@@ -15,8 +15,8 @@ export default function StudyRoomSlotItem({ data }: StudyRoomSlotItemProps) {
 
   const getTagVariant = (min: number) => {
     if (min <= 2) return 'done';
-    if (min <= 3) return 'yellow';
-    if (min <= 6) return 'orange';
+    if (min <= 3) return 'orange';
+    if (min <= 6) return 'yellow';
     return 'warning';
   };
 
@@ -44,7 +44,7 @@ export default function StudyRoomSlotItem({ data }: StudyRoomSlotItemProps) {
             const slot = slots.find((s) => s.startsAt === hour);
             const isClosed = slot ? slot.isClosed : true;
             const isReserved = slot ? slot.isReserved : true;
-            const bgColor = isClosed || isReserved ? 'bg-timeline_bg' : 'bg-text_primary'; // TODO: refactor with cn @kmsu44
+            const bgColor = isClosed || isReserved ? 'bg-error' : 'bg-timeline_bg'; // TODO: refactor with cn @kmsu44
             return <div key={hour} className={`h-1 w-full ${bgColor}`} />;
           })}
         </div>

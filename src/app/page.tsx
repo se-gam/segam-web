@@ -15,7 +15,7 @@ export default function IntroPage() {
   };
 
   return (
-    <div className=" safe-area-bottom flex h-dvh w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
+    <div className=" safe-area-bottom flex h-screen w-full flex-col justify-between overflow-x-hidden overflow-y-scroll bg-white">
       <ConfigProvider
         theme={{
           token: {
