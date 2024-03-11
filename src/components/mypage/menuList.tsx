@@ -53,6 +53,7 @@ export default function MenuList() {
           content: '정말 로그아웃하시겠습니까?',
           onClick: async () => {
             trackAmplitudeEvent('click_마이페이지_로그아웃_list');
+            trackAmplitudeEvent('click_마이페이지_로그아웃_list');
             await updateToken();
             if (isApp()) {
               window.ReactNativeWebView.postMessage(

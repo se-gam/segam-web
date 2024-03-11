@@ -29,7 +29,10 @@ export default function IntroPage() {
           },
         }}
       >
-        <Carousel className="responsive-onboard-image pt-28 onSwipe={() => trackAmplitudeEvent('swipe_온보딩_설명')}">
+        <Carousel
+          className="responsive-onboard-image pt-28"
+          onSwipe={() => trackAmplitudeEvent('swipe_온보딩_설명')}
+        >
           <div>
             <div className="flex h-full w-full flex-col items-center justify-between">
               <Icons.ImageIcon name="announcement" width={306} height={360} />

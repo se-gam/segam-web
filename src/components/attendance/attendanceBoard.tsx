@@ -5,8 +5,8 @@ import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import CourseList from '@/components/attendance/list/courseList';
 import Tab from '@/components/common/tab/tab';
 import ClassList from '@/components/attendance/list/classList';
-import { Course } from '@/lib/definitions';
 import getSortedClassData from '@/utils/getSortedCourseData';
+import { Course } from '@/lib/definitions';
 
 const TAB_OPTIONS = {
   dashboard: [
