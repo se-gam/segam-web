@@ -44,8 +44,8 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
       />
       <div className="flex flex-col overflow-hidden">
         {index === 0 && <CourseList courses={courses} />}
-        {index === 1 && <ClassList items={sortedLectures} />}
-        {index === 2 && <ClassList items={sortedAssignments} />}
+        {index === 1 && <ClassList items={sortedLectures} type="lecture" />}
+        {index === 2 && <ClassList items={sortedAssignments} type="assignment" />}
       </div>
     </div>
   );

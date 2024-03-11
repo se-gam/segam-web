@@ -54,7 +54,7 @@ export default function CreditPage() {
   ];
 
   return (
-    <div className="safe-area-bottom flex h-full flex-col overflow-hidden bg-black">
+    <div className="safe-area-bottom flex h-screen flex-col overflow-hidden bg-white">
       <StackHeader title="앱 크레딧" />
       <main className="flex h-full flex-col overflow-y-scroll bg-white px-4 pb-2">
         <div className="mb-6 mt-6 flex flex-col">
@@ -79,12 +79,6 @@ export default function CreditPage() {
         <div className="flex flex-col gap-3">
           <p className="f20 font-bold text-text_primary">라이센스</p>
           <div className="flex flex-col gap-1">
-            {license.map((item) => (
-              <div key={item.description} className="flex items-center gap-1 align-middle">
-                <Icons.ImageIcon name={item.iconName} height={20} width={20} />
-                <p className="f12 text-text_primary">{item.description}</p>
-              </div>
-            ))}
             {license.map((item) => (
               <div key={item.description} className="flex items-center gap-1 align-middle">
                 <Icons.ImageIcon name={item.iconName} height={20} width={20} />
