@@ -170,6 +170,9 @@ const IMAGE: ImageType = {
   choi: {
     src: '/images/choi.png',
   },
+  segam: {
+    src: '/images/segam.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (

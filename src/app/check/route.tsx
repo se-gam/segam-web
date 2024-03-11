@@ -4,9 +4,6 @@ import { redirect } from 'next/navigation';
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  const pushToken = req.cookies.get('pushToken')?.value;
-  const os = req.cookies.get('os')?.value;
-
   try {
     await fetchExtended('/v1/user/push-token', {
       method: 'PUT',
@@ -14,14 +11,14 @@ export async function GET(req: NextRequest) {
         Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
       },
       body: {
-        os,
-        pushToken,
+        os: req.cookies.get('os')?.value,
+        pushToken: req.cookies.get('pushToken')?.value,
       },
     });
+    redirect('/dashboard');
   } catch (e) {
-    throw new Error('푸시 토큰 등록에 실패했습니다.');
+    redirect('/dashboard');
   }
-  redirect('/dashboard');
 }
 export async function POST() {
   redirect('/dashboard');
