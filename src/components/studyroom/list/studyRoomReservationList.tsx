@@ -22,6 +22,7 @@ export default function StudyRoomReservationList({
           date={reservation.date}
           startsAt={reservation.startsAt}
           duration={reservation.duration}
+          isLeader={reservation.isLeader}
           users={reservation.users}
           onCancel={onCancel}
         />
