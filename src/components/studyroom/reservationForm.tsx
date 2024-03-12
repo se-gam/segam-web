@@ -110,33 +110,30 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
       });
       return;
     }
-    try {
-      setIsLoading(true);
-      await reserveStudyroom({
-        studyroomId: studyRoom.id,
-        date: today,
-        startsAt,
-        duration,
-        reason,
-        users: users.map((u) => u.studentId),
+    setIsLoading(true);
+    const result = await reserveStudyroom({
+      studyroomId: studyRoom.id,
+      date: today,
+      startsAt,
+      duration,
+      reason,
+      users: users.map((u) => u.studentId),
+    });
+    setIsLoading(false);
+    if (result) {
+      modal({
+        title: '예약 취소 실패',
+        content: result,
       });
+    } else {
       if (isApp()) {
         window.ReactNativeWebView.postMessage(
           JSON.stringify({
             type: 'UPDATE',
           }),
         );
-      } else {
-        router.back();
       }
-    } catch (e: unknown) {
-      setIsLoading(false);
-      if (e instanceof Error) {
-        modal({
-          title: '예약 실패',
-          content: e.message,
-        });
-      }
+      router.back();
     }
   };
   const { divRef, focusRef } = useViewportResize();

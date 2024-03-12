@@ -32,11 +32,18 @@ export async function login({ studentId, password }: LoginProps) {
 }
 
 export async function withdrawal() {
-  await fetchExtended('/v1/user', {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-  });
+  try {
+    await fetchExtended('/v1/user', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+    });
+  } catch (e) {
+    if (e instanceof Error) {
+      return e.message;
+    }
+  }
+  return null;
 }

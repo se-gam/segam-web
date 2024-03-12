@@ -5,7 +5,7 @@ import StudyRoomReservationItem from './studyRoomReservationItem';
 
 interface StudyRoomReservationListProps {
   data: Reservation[];
-  onCancel: (id: number) => void;
+  onCancel: (id: number) => Promise<null | string>;
 }
 
 export default function StudyRoomReservationList({

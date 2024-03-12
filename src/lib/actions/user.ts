@@ -51,32 +51,53 @@ export async function postAddFriend({ friendId, friendName, date }: AddFriendPro
         studentId: friendId,
         name: friendName,
       };
-  await fetchExtended(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body,
-  });
+  try {
+    await fetchExtended(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body,
+    });
+  } catch (e) {
+    if (e instanceof Error) {
+      return e.message;
+    }
+  }
+  return null;
 }
 export async function deleteFriend({ studentId }: { studentId: string }) {
-  await fetchExtended(`/v1/user/friend/${studentId}`, {
-    method: 'DELETE',
-    headers: {
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-  });
+  try {
+    await fetchExtended(`/v1/user/friend/${studentId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+    });
+  } catch (e) {
+    if (e instanceof Error) {
+      return e.message;
+    }
+  }
+  return null;
 }
 export async function updateToken() {
-  await fetchExtended('/v1/user/push-token', {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body: {
-      os: 'IOS',
-      pushToken: '',
-    },
-  });
+  try {
+    await fetchExtended('/v1/user/push-token', {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: {
+        os: 'IOS',
+        pushToken: '',
+      },
+    });
+  } catch (e) {
+    if (e instanceof Error) {
+      return e.message;
+    }
+  }
+  return null;
 }
