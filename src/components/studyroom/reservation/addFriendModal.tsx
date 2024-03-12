@@ -49,22 +49,21 @@ export default function AddFriendModal({
       });
       return;
     }
-    try {
-      await postAddFriend({
-        friendId,
-        friendName,
-        date,
+
+    const res = await postAddFriend({
+      friendId,
+      friendName,
+      date,
+    });
+    if (res) {
+      modal({
+        title: '오류',
+        content: res,
       });
+    } else {
       addFriend({ studentId: friendId, name: friendName });
-      setDrawerOpen(false);
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        modal({
-          title: '오류',
-          content: e.message,
-        });
-      }
     }
+    setDrawerOpen(false);
   };
   return (
     <BottomDrawer

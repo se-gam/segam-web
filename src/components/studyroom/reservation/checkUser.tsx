@@ -1,5 +1,6 @@
 'use client';
 
+import useModal from '@/hooks/useModal';
 import { postAddFriend } from '@/lib/actions/user';
 import cn from '@/utils/cn';
 import { CloseOutlined, LoadingOutlined } from '@ant-design/icons';
@@ -23,24 +24,27 @@ export default function CheckUser({
 }: CheckUserProps) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<boolean | null>(null);
+  const { modal } = useModal();
   const handleCheckUserClick = async () => {
     setLoading(true);
     setResult(null);
-    try {
-      await postAddFriend({
-        friendId,
-        friendName,
-        date,
+    const res = await postAddFriend({
+      friendId,
+      friendName,
+      date,
+    });
+    if (res) {
+      modal({
+        title: '친구 추가 실패',
+        content: res,
       });
-      setResult(true);
+    } else {
       onSuccess({
         studentId: friendId,
         name: friendName,
       });
-    } catch (e) {
-      setResult(false);
     }
-
+    setResult(true);
     setLoading(false);
   };
 

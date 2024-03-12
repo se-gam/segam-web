@@ -16,7 +16,7 @@ interface ReservationProps {
     studentId: string;
     name: string;
   }[];
-  onCancel: (id: number) => void;
+  onCancel: (id: number) => Promise<null | string>;
 }
 
 export default function StudyRoomReservationItem({
@@ -53,22 +53,19 @@ export default function StudyRoomReservationItem({
       title: '예약 취소',
       content: '예약을 취소하시겠습니까?',
       onClick: async () => {
-        try {
-          setIsLoading(true);
-          await onCancel(id);
+        setIsLoading(true);
+        const res = await onCancel(id);
+        setIsLoading(false);
+        if (res) {
           modal({
-            title: '예약 취소',
-            content: '예약이 취소되었습니다.',
+            title: '예약 실패',
+            content: res,
           });
-        } catch (e: unknown) {
-          setIsLoading(false);
-          if (e instanceof Error) {
-            modal({
-              title: '예약 실패',
-              content: e.message,
-            });
-          }
         }
+        modal({
+          title: '예약 취소',
+          content: '예약이 취소되었습니다.',
+        });
       },
     });
   };

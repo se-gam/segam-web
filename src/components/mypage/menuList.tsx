@@ -53,18 +53,23 @@ export default function MenuList() {
           content: '정말 로그아웃하시겠습니까?',
           onClick: async () => {
             trackAmplitudeEvent('click_마이페이지_로그아웃_list');
-            trackAmplitudeEvent('click_마이페이지_로그아웃_list');
-            await updateToken();
-            if (isApp()) {
-              window.ReactNativeWebView.postMessage(
-                JSON.stringify({
-                  type: 'LOGOUT',
-                  path: `${BASE_URL}`,
-                }),
-              );
+            const res = await updateToken();
+            if (res) {
+              modal({
+                title: '로그아웃 실패',
+                content: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
+              });
+            } else {
+              if (isApp()) {
+                window.ReactNativeWebView.postMessage(
+                  JSON.stringify({
+                    type: 'LOGOUT',
+                    path: `${BASE_URL}`,
+                  }),
+                );
+              }
+              router.replace('/logout');
             }
-
-            router.replace('/logout');
           },
         });
       },
@@ -77,8 +82,13 @@ export default function MenuList() {
           content: '정말 탈퇴하시겠습니까?',
           onClick: async () => {
             trackAmplitudeEvent('click_마이페이지_회원탈퇴_list');
-            try {
-              await withdrawal();
+            const res = await withdrawal();
+            if (res) {
+              modal({
+                title: '회원 탈퇴 실패',
+                content: '회원 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요.',
+              });
+            } else {
               if (isApp()) {
                 window.ReactNativeWebView.postMessage(
                   JSON.stringify({
@@ -88,11 +98,6 @@ export default function MenuList() {
                 );
               }
               router.replace('/logout');
-            } catch (e) {
-              modal({
-                title: '회원 탈퇴 실패',
-                content: '회원 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요.',
-              });
             }
           },
         });

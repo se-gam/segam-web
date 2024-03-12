@@ -77,40 +77,26 @@ export async function updateReservationList(): Promise<void> {
 }
 
 export async function cancelReservation(id: number) {
-  await fetchExtended(`/v1/studyroom/reservation/cancel/${id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body: {
-      password: cookies().get('encrypted')?.value,
-      cancelReason: '예약취소',
-    },
-  });
+  try {
+    await fetchExtended(`/v1/studyroom/reservation/cancel/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: {
+        password: cookies().get('encrypted')?.value,
+        cancelReason: '예약취소',
+      },
+    });
+  } catch (e) {
+    if (e instanceof Error) {
+      return e.message;
+    }
+  }
   revalidateTag('reservationList');
   revalidatePath('/dashboard/studyroom', 'page');
-}
-
-interface CheckUserProps {
-  friendId: string;
-  friendName: string;
-  date: Date;
-}
-export async function checkUser({ friendId, friendName, date }: CheckUserProps) {
-  await fetchExtended(`/v1/studyroom/user`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body: {
-      password: cookies().get('encrypted')?.value,
-      friendId,
-      friendName,
-      date: date.toISOString(),
-    },
-  });
+  return null;
 }
 
 interface ReserveStudyroomProps {
@@ -130,22 +116,28 @@ export async function reserveStudyroom({
   users,
 }: ReserveStudyroomProps) {
   const password = cookies().get('encrypted')?.value;
-
-  await fetchExtended(`/v1/studyroom/reservation`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
-    },
-    body: {
-      studyroomId,
-      password,
-      startsAt,
-      duration,
-      reason,
-      users,
-      date: date.toISOString(),
-    },
-  });
+  try {
+    await fetchExtended(`/v1/studyroom/reservation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      },
+      body: {
+        studyroomId,
+        password,
+        startsAt,
+        duration,
+        reason,
+        users,
+        date: date.toISOString(),
+      },
+    });
+  } catch (e) {
+    if (e instanceof Error) {
+      return e.message;
+    }
+  }
   revalidateTag('reservationList');
+  return null;
 }
