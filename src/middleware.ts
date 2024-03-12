@@ -23,7 +23,7 @@ export function middleware(request: NextRequest) {
       requestUrl.includes('/reservation') ||
       requestUrl.includes('/check'))
   ) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/', request.url));
   }
   return NextResponse.next();
 }
