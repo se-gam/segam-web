@@ -12,6 +12,7 @@ interface ReservationProps {
   date: string;
   startsAt: number;
   duration: number;
+  isLeader: boolean;
   users: {
     studentId: string;
     name: string;
@@ -25,6 +26,7 @@ export default function StudyRoomReservationItem({
   date,
   startsAt,
   duration,
+  isLeader,
   users,
   onCancel,
 }: ReservationProps) {
@@ -74,10 +76,11 @@ export default function StudyRoomReservationItem({
       <div className="flex justify-between">
         <span className="f16 font-bold text-text_primary">{name}</span>
         <Button
-          label="취소"
+          label={isLeader ? '취소' : '동반이용'}
           variant="default"
           size="sm"
           type="button"
+          disabled={!isLeader}
           loading={isLoading}
           onClick={handleCancel}
         />

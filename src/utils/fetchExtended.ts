@@ -15,10 +15,14 @@ const returnFetchThrowingErrorByStatusCode: ReturnFetch = (args) =>
         }
         if (response.status === 401) {
           const msg = JSON.parse(await response.text()).message;
-          if (msg.message === '학번 또는 비밀번호가 올바르지 않습니다.') {
+
+          if (msg === '학번 또는 비밀번호가 올바르지 않습니다.') {
             throw new Error('학번 또는 비밀번호가 올바르지 않습니다.');
           }
           redirect('/expire');
+        }
+        if (response.status === 429) {
+          throw new Error('Too Many Requests');
         }
         if (response.status >= 400) {
           const msg = JSON.parse(await response.text());
