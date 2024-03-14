@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from '@/components/common/button/button';
 import useModal from '@/hooks/useModal';
-
 import { login } from '@/lib/actions/auth';
 
 export default function LoginPage() {
@@ -45,8 +44,7 @@ export default function LoginPage() {
         studentId,
         password,
       });
-
-      router.replace('/dashboard');
+      router.replace('/update');
     } catch (error) {
       modal({
         title: '로그인 실패',

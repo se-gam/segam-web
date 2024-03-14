@@ -6,7 +6,9 @@ import PullToRefresh from 'react-simple-pull-to-refresh';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const onRefresh = async () => {
-    await updateCourseAttendance();
+    await updateCourseAttendance({
+      refresh: true,
+    });
   };
   return (
     <div className="page container pb-0">

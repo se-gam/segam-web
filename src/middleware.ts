@@ -14,14 +14,15 @@ export function middleware(request: NextRequest) {
     response.cookies.delete('refreshToken');
     return response;
   }
-  if (isLoggedIn && (requestUrl === '/' || requestUrl === '/login')) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+  if (
+    isLoggedIn &&
+    (requestUrl === '/' || requestUrl === '/permission' || requestUrl === '/login')
+  ) {
+    return NextResponse.redirect(new URL('/update', request.url));
   }
   if (
-    !isLoggedIn &&
-    (requestUrl.includes('/dashboard') ||
-      requestUrl.includes('/reservation') ||
-      requestUrl.includes('/check'))
+    (!isLoggedIn && (requestUrl.includes('/dashboard') || requestUrl.includes('/check'))) ||
+    requestUrl.includes('/update')
   ) {
     return NextResponse.redirect(new URL('/', request.url));
   }
@@ -29,5 +30,13 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/login', '/dashboard/:path*', '/', '/logout', '/reservation/:path*', '/check'],
+  matcher: [
+    '/login',
+    '/dashboard/:path*',
+    '/',
+    '/logout',
+    '/reservation/:path*',
+    '/check',
+    '/update',
+  ],
 };

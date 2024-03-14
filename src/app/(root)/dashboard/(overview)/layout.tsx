@@ -3,13 +3,14 @@
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { updateCourseAttendance } from '@/lib/actions/attendance';
 import { Spin } from 'antd';
-import { updateReservationList } from '@/lib/actions/studyroom';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const onRefresh = async () => {
-    await updateCourseAttendance();
-    await updateReservationList();
+    await updateCourseAttendance({
+      refresh: true,
+    });
   };
+
   return (
     <div className="page container bg-app_bg pb-0">
       <PullToRefresh

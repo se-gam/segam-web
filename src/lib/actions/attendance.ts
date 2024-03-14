@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { CourseAttendance, Restaurants } from '@/lib/definitions';
 import { fetchExtended, retryFetchExtended } from '@/utils/fetchExtended';
 import { revalidateTag } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 export async function getCourseAttendance(): Promise<CourseAttendance> {
   const data = await fetchExtended<CourseAttendance>('/v1/attendance/course', {
@@ -25,7 +26,8 @@ export async function getCourseAttendance(): Promise<CourseAttendance> {
     courses: sortedCourses,
   };
 }
-export async function updateCourseAttendance(): Promise<void> {
+
+export async function updateCourseAttendance({ refresh }: { refresh: boolean }): Promise<void> {
   const password = cookies().get('encrypted')?.value;
   await retryFetchExtended<CourseAttendance>('/v1/attendance/update', {
     headers: {
@@ -37,7 +39,11 @@ export async function updateCourseAttendance(): Promise<void> {
       password,
     },
   });
-  revalidateTag('courseAttendance');
+  if (refresh) {
+    revalidateTag('courseAttendance');
+  } else {
+    redirect('/dashboard');
+  }
 }
 
 export async function getRestaurants(): Promise<Restaurants> {

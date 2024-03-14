@@ -5,6 +5,11 @@ import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
+    const os = req.cookies.get('os')?.value;
+    const pushToken = req.cookies.get('pushToken')?.value;
+    if (!os || !pushToken) {
+      redirect('/update');
+    }
     await fetchExtended('/v1/user/push-token', {
       method: 'PUT',
       headers: {
@@ -15,11 +20,11 @@ export async function GET(req: NextRequest) {
         pushToken: req.cookies.get('pushToken')?.value,
       },
     });
-    redirect('/dashboard');
+    redirect('/update');
   } catch (e) {
-    redirect('/dashboard');
+    redirect('/update');
   }
 }
 export async function POST() {
-  redirect('/dashboard');
+  return redirect('/update');
 }
