@@ -21,8 +21,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/update', request.url));
   }
   if (
-    (!isLoggedIn && (requestUrl.includes('/dashboard') || requestUrl.includes('/check'))) ||
-    requestUrl.includes('/update')
+    !isLoggedIn &&
+    (requestUrl.includes('/dashboard') ||
+      requestUrl.includes('/check') ||
+      requestUrl.includes('/update'))
   ) {
     return NextResponse.redirect(new URL('/', request.url));
   }
