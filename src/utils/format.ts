@@ -2,6 +2,7 @@
  * @description 2024. 03. 12 12:00
  */
 export function dateDotFormatter(date: string) {
+  if (!date) return '마감 기한 없음';
   const d = new Date(date).toLocaleString('ko-kr', {
     year: 'numeric',
     month: '2-digit',
