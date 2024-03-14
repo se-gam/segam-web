@@ -18,27 +18,14 @@ export function middleware(request: NextRequest) {
     isLoggedIn &&
     (requestUrl === '/' || requestUrl === '/permission' || requestUrl === '/login')
   ) {
-    return NextResponse.redirect(new URL('/update', request.url));
+    return NextResponse.redirect(new URL('/check', request.url));
   }
-  if (
-    !isLoggedIn &&
-    (requestUrl.includes('/dashboard') ||
-      requestUrl.includes('/check') ||
-      requestUrl.includes('/update'))
-  ) {
+  if (!isLoggedIn && (requestUrl.includes('/dashboard') || requestUrl.includes('/check'))) {
     return NextResponse.redirect(new URL('/', request.url));
   }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    '/login',
-    '/dashboard/:path*',
-    '/',
-    '/logout',
-    '/reservation/:path*',
-    '/check',
-    '/update',
-  ],
+  matcher: ['/login', '/dashboard/:path*', '/', '/logout', '/reservation/:path*', '/check'],
 };

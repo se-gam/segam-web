@@ -2,7 +2,6 @@
 
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import { Spin } from 'antd';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from '@/components/common/button/button';
 import useModal from '@/hooks/useModal';
@@ -11,14 +10,15 @@ import { login } from '@/lib/actions/auth';
 export default function LoginPage() {
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const [loading, setLoading] = useState(false);
-  const [studentId, setStudentId] = useState('');
-  const [password, setPassword] = useState('');
-  const router = useRouter();
   const { modal } = useModal();
 
-  const handleLoginClick = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     trackAmplitudeEvent('click_로그인_btn');
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const studentId = formData.get('studentId') as string;
+    const password = formData.get('password') as string;
     if (studentId === '') {
       modal({
         title: '로그인 실패',
@@ -44,7 +44,6 @@ export default function LoginPage() {
         studentId,
         password,
       });
-      router.replace('/update');
     } catch (error) {
       modal({
         title: '로그인 실패',
@@ -58,7 +57,10 @@ export default function LoginPage() {
 
   return (
     <div className="safe-area-top h-full overflow-visible">
-      <main className="safe-area-bottom container flex h-full flex-col justify-between overflow-scroll bg-white px-4">
+      <form
+        className="safe-area-bottom container flex h-full flex-col justify-between overflow-scroll bg-white px-4"
+        onSubmit={handleSubmit}
+      >
         <div>
           <h1 className="f28 mb-2 mt-4 font-bold text-text_primary">
             세종대학교 포털
@@ -71,12 +73,12 @@ export default function LoginPage() {
           <p className="f14 font-bold text-text_secondary">포털 아이디</p>
           <input
             type="number"
+            id="studentId"
+            name="studentId"
             pattern="[0-9]*"
             inputMode="numeric"
             placeholder="아이디를 입력해주세요"
             className="f18 mb-6 h-12 w-full border-b-2 border-button_default_bg bg-transparent text-text_primary placeholder:font-medium placeholder:text-text_secondary focus:border-theme_secondary focus:outline-none"
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
           />
 
           <p className="f14 font-bold text-text_secondary">포탈 비밀번호</p>
@@ -85,16 +87,14 @@ export default function LoginPage() {
             id="password"
             name="password"
             placeholder="비밀번호를 입력해주세요"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             className="f18 mb-6 h-12 w-full border-b-2 border-button_default_bg bg-transparent text-text_primary placeholder:font-medium placeholder:text-text_secondary focus:border-theme_secondary focus:outline-none"
           />
         </div>
         <div className="mb-4 px-2">
           <Spin spinning={loading} fullscreen />
-          <Button label="로그인" onClick={handleLoginClick} variant="primary" size="full" />
+          <Button type="submit" label="로그인" variant="primary" size="full" />
         </div>
-      </main>
+      </form>
     </div>
   );
 }

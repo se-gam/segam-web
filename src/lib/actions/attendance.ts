@@ -42,6 +42,7 @@ export async function updateCourseAttendance({ refresh }: { refresh: boolean }):
   if (refresh) {
     revalidateTag('courseAttendance');
   } else {
+    revalidateTag('courseAttendance');
     redirect('/dashboard');
   }
 }
