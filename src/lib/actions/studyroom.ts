@@ -57,10 +57,7 @@ export async function getStudyroomInfo({ id, date }: StudyroomProps): Promise<St
 export async function getReservationList(): Promise<StudyroomReservationList> {
   const data = await retryFetchExtended<StudyroomReservationList>('/v1/studyroom/reservation/me', {
     method: 'POST',
-    cache: 'force-cache',
-    next: {
-      tags: ['reservationList'],
-    },
+
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${cookies().get('accessToken')?.value}`,

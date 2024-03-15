@@ -10,29 +10,14 @@ import calReservationData from '@/utils/calReservationData';
 import getIconNameFromCourseId from '@/utils/getIconNameFromId';
 
 export default async function DashBoard() {
-  const {
-    courses,
-    imminentDueDate,
-    imminentCourseName,
-    imminentCourseId,
-    nextLectureDate,
-    nextLectureCourseName,
-    nextLectureCourseId,
-    imminentLecturesLeft,
-    imminentAssignmentsLeft,
-  } = await getCourseAttendance();
-  const { reservations } = await getReservationList();
-  const { title, description, iconName, link } = calAnnounceData({
-    imminentDueDate,
-    imminentCourseName,
-    imminentCourseId,
-    nextLectureDate,
-    nextLectureCourseName,
-    nextLectureCourseId,
-    imminentLecturesLeft,
-    imminentAssignmentsLeft,
-  });
+  const [CourseData, { reservations }] = await Promise.all([
+    getCourseAttendance(),
+    getReservationList(),
+  ]);
+
+  const { title, description, iconName, link } = calAnnounceData(CourseData);
   const reservationData = calReservationData(reservations);
+
   return (
     <main className="bg-app_bg px-4">
       <header className="mb-4 flex w-full justify-between pt-3">
@@ -41,12 +26,12 @@ export default async function DashBoard() {
       <div className="space-y-3 pb-3">
         <AnnounceCard title={title} description={description} iconName={iconName} link={link} />
         <Board title="출석 현황" url="dashboard/attendance">
-          {courses.length === 0 && (
+          {CourseData.courses.length === 0 && (
             <div className="flex h-20 w-full items-center justify-center rounded-lg">
               <p className="f16 font-medium text-text_secondary">수강중인 강의가 없습니다.</p>
             </div>
           )}
-          {courses.map((course, index) => {
+          {CourseData.courses.map((course, index) => {
             if (index <= 2) {
               return (
                 <AttendanceCard

@@ -57,6 +57,15 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
     weekday: 'long',
     timeZone: 'Asia/Seoul',
   });
+  const hour = today
+    .toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      hourCycle: 'h23',
+      formatMatcher: 'best fit',
+      timeZone: 'Asia/Seoul',
+    })
+    .replace('시', '');
+
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [friends, setFriends] = useState(friendData);
@@ -137,7 +146,6 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
     }
   };
   const { divRef, focusRef } = useViewportResize();
-
   return (
     <>
       <div className="safe-area-bottom flex h-screen flex-col overflow-hidden" ref={divRef}>
@@ -177,6 +185,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
                         {studyRoom.slots.map((slot) => {
                           if (slot.isClosed || (day === '토요일' && slot.startsAt >= 16))
                             return null;
+                          if (slot.startsAt <= Number(hour)) return null;
                           return (
                             <Button
                               key={slot.id}

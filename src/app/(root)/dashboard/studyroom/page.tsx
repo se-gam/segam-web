@@ -1,21 +1,9 @@
 import { Suspense } from 'react';
 import Loading from '@/components/common/loading';
-import StudyRoomView from './studyRoomView';
-import ReservationView from './reservationView';
+import ReservationView from '@/components/studyroom/reservationView';
+import StudyRoomView from '@/components/studyroom/studyRoomView';
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    date: string;
-    startsAt: number;
-    endsAt: number;
-  };
-}) {
-  const date = searchParams?.date || new Date().toISOString();
-  const startsAt = searchParams?.startsAt || 10;
-  const endsAt = searchParams?.endsAt || 22;
-
+export default async function Page() {
   return (
     <div className="page container pb-0">
       <div className="flex h-full flex-col overflow-hidden">
@@ -29,7 +17,7 @@ export default async function Page({
               <ReservationView />
             </Suspense>
           </section>
-          <StudyRoomView params={{ date, startsAt, endsAt }} />
+          <StudyRoomView />
         </main>
       </div>
     </div>

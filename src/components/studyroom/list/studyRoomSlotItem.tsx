@@ -17,6 +17,16 @@ export default function StudyRoomSlotItem({ data, date }: StudyRoomSlotItemProps
     weekday: 'long',
     timeZone: 'Asia/Seoul',
   });
+  const todayHour = Number(
+    new Date()
+      .toLocaleTimeString('ko-KR', {
+        hour: '2-digit',
+        hourCycle: 'h23',
+        formatMatcher: 'best fit',
+        timeZone: 'Asia/Seoul',
+      })
+      .replace('시', ''),
+  );
   const [startTime, endTimeInitial] = operatingHours.split('~').map((time) => parseInt(time, 10));
   let endTime = endTimeInitial;
   if (day === '토요일') {
@@ -53,7 +63,7 @@ export default function StudyRoomSlotItem({ data, date }: StudyRoomSlotItemProps
         <div className="flex w-full justify-between">
           {hoursRange.slice(0, -1).map((hour) => {
             const slot = slots.find((s) => s.startsAt === hour);
-            const isClosed = slot ? slot.isClosed : true;
+            const isClosed = slot ? slot.isClosed || hour <= todayHour : true;
             const isReserved = slot ? slot.isReserved : true;
             return (
               <div
