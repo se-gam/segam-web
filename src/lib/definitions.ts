@@ -127,3 +127,7 @@ export type Restaurants = {
 export type Restaurant = {
   name: string;
 };
+export type DateFilterData = {
+  date: string;
+  timeRange: number[];
+};

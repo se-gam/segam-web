@@ -87,12 +87,6 @@ export default function CreditPage() {
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-3">
-          <p className="f20 font-bold text-text_primary">세감이 머고?</p>
-          <div className="flex flex-col gap-1">
-            <Icons.ImageIcon name="segam" width={500} height={500} />
-          </div>
-        </div>
       </main>
     </div>
   );

@@ -1,20 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import Button from '@/components/common/button/button';
 import StudyroomFilterModal from '@/components/studyroom/list/studyRoomFilterModal';
+import { DateFilterData } from '@/lib/definitions';
 
-export default function StudyRoomModalButton() {
-  const searchParams = useSearchParams();
+interface StudyRoomModalButtonProps {
+  data: DateFilterData;
+  setData: (data: DateFilterData) => void;
+}
+export default function StudyRoomModalButton({ data, setData }: StudyRoomModalButtonProps) {
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const filterData = {
-    date: searchParams.get('date') || new Date(),
-    timeRange: [searchParams.get('startsAt') || 10, searchParams.get('endsAt') || 22],
-  };
-
   const handleDrawerOpen = () => {
     trackAmplitudeEvent('click_스터디룸_필터_btn');
     setDrawerOpen(true);
@@ -25,7 +23,8 @@ export default function StudyRoomModalButton() {
       <StudyroomFilterModal
         drawerOpen={drawerOpen}
         setDrawerOpen={setDrawerOpen}
-        filterData={filterData}
+        dateFilterData={data}
+        setDateFilterData={setData}
       />
     </>
   );

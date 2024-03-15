@@ -1,5 +1,6 @@
 'use server';
 
+import { updateCourseAttendance } from '@/lib/actions/attendance';
 import { AuthResponse } from '@/lib/definitions';
 import encryptPassword from '@/utils/encryptPassword';
 import { fetchExtended } from '@/utils/fetchExtended';
@@ -23,12 +24,21 @@ export async function login({ studentId, password }: LoginProps) {
     },
   });
   const { accessToken, refreshToken } = result.body;
-  cookies().set('accessToken', accessToken, { maxAge: 60 * 60 * 24 * 7, httpOnly: true });
-  cookies().set('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 168, httpOnly: true });
-  cookies().set('encrypted', encryptedPassword, {
-    maxAge: 60 * 60 * 24 * 168,
-    httpOnly: true,
-  });
+  if (pushToken && os) {
+    cookies().set('pushToken', pushToken, { maxAge: 60 * 60 * 24 * 168, httpOnly: true });
+    cookies().set('os', os, { maxAge: 60 * 60 * 24 * 168, httpOnly: true });
+  }
+  if (accessToken && refreshToken) {
+    cookies().set('accessToken', accessToken, { maxAge: 60 * 60 * 24 * 7, httpOnly: true });
+    cookies().set('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 168, httpOnly: true });
+    cookies().set('encrypted', encryptedPassword, {
+      maxAge: 60 * 60 * 24 * 168,
+      httpOnly: true,
+    });
+    await updateCourseAttendance({
+      refresh: false,
+    });
+  }
 }
 
 export async function withdrawal() {

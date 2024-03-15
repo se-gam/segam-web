@@ -14,15 +14,13 @@ export function middleware(request: NextRequest) {
     response.cookies.delete('refreshToken');
     return response;
   }
-  if (isLoggedIn && (requestUrl === '/' || requestUrl === '/login')) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
-  }
   if (
-    !isLoggedIn &&
-    (requestUrl.includes('/dashboard') ||
-      requestUrl.includes('/reservation') ||
-      requestUrl.includes('/check'))
+    isLoggedIn &&
+    (requestUrl === '/' || requestUrl === '/permission' || requestUrl === '/login')
   ) {
+    return NextResponse.redirect(new URL('/check', request.url));
+  }
+  if (!isLoggedIn && (requestUrl.includes('/dashboard') || requestUrl.includes('/check'))) {
     return NextResponse.redirect(new URL('/', request.url));
   }
   return NextResponse.next();
