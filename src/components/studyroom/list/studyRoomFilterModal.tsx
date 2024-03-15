@@ -1,53 +1,30 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import BottomDrawer from '@/components/common/bottomDrawer/bottomDrawer';
-import ReservationCalendar from '../modal/reservationCalendar';
-import ReservationSlider from '../modal/reservationSlider';
+import { DateFilterData } from '@/lib/definitions';
+import ReservationCalendar from '@/components/studyroom/modal/reservationCalendar';
+import ReservationSlider from '@/components/studyroom/modal/reservationSlider';
 
 interface FilterModalProps {
   drawerOpen: boolean;
-  filterData: any;
+  dateFilterData: DateFilterData;
   setDrawerOpen: (open: boolean) => void;
+  setDateFilterData: (data: DateFilterData) => void;
 }
 
 export default function StudyroomFilterModal({
   drawerOpen,
+  dateFilterData,
   setDrawerOpen,
-  filterData,
+  setDateFilterData,
 }: FilterModalProps) {
-  const { replace } = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { trackAmplitudeEvent } = useAmplitudeContext();
-  const [data, setData] = useState(filterData);
-
-  const handleSearch = (date: Date, startsAt: number, endsAt: number) => {
-    const params = new URLSearchParams(searchParams);
-
-    if (date) {
-      params.set('date', new Date(date).toISOString());
-    } else {
-      params.delete('date');
-    }
-
-    if (startsAt) {
-      params.set('startsAt', startsAt.toString());
-    } else {
-      params.delete('startsAt');
-    }
-
-    if (endsAt) {
-      params.set('endsAt', endsAt.toString());
-    } else {
-      params.delete('endsAt');
-    }
-
-    replace(`${pathname}?${params.toString()}`);
-  };
-
+  const [data, setData] = useState<{
+    date: string;
+    timeRange: number[];
+  }>(dateFilterData);
   return (
     <BottomDrawer
       openState={drawerOpen}
@@ -55,7 +32,7 @@ export default function StudyroomFilterModal({
         setDrawerOpen(false);
       }}
       onSubmit={() => {
-        handleSearch(data.date, data.timeRange[0], data.timeRange[1]);
+        setDateFilterData(data);
         setDrawerOpen(false);
       }}
       submitLabel="완료"
@@ -66,7 +43,8 @@ export default function StudyroomFilterModal({
           day={new Date(data.date)}
           setSelectedDay={(date: Date) => {
             trackAmplitudeEvent('click_스터디룸_필터모달_날짜_btn');
-            setData({ ...data, date });
+            const dateString = date.toISOString();
+            setData({ ...data, date: dateString });
           }}
         />
         <div className="flex h-6 flex-row">

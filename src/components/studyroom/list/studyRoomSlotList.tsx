@@ -5,7 +5,7 @@
 
 import useLink from '@/hooks/useLink';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
-import { Studyroom } from '@/lib/definitions';
+import { DateFilterData, Studyroom } from '@/lib/definitions';
 import StudyRoomSlotItem from './studyRoomSlotItem';
 
 const filterStudyRooms = (studyRooms: Studyroom[], startsAt: number, endsAt: number) => {
@@ -25,23 +25,17 @@ const filterStudyRooms = (studyRooms: Studyroom[], startsAt: number, endsAt: num
 };
 
 interface StudyRoomSlotListProps {
-  date: string;
   data: Studyroom[];
-  startsAt: number;
-  endsAt: number;
+  dateFilterData: DateFilterData;
 }
 
-export default function StudyRoomSlotList({
-  date,
-  data,
-  startsAt,
-  endsAt,
-}: StudyRoomSlotListProps) {
+export default function StudyRoomSlotList({ data, dateFilterData }: StudyRoomSlotListProps) {
   const { navigateTo } = useLink();
   const { trackAmplitudeEvent } = useAmplitudeContext();
+  const { date, timeRange } = dateFilterData;
   const dateTime = new Date(date).getTime();
+  const [startsAt, endsAt] = timeRange;
   const filteredData = filterStudyRooms(data, startsAt, endsAt);
-
   return (
     <div className="flex h-full flex-col overflow-auto px-4 ">
       {filteredData.map((studyroom: Studyroom) => (
