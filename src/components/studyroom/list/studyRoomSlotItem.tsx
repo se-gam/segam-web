@@ -12,11 +12,16 @@ interface StudyRoomSlotItemProps {
 
 export default function StudyRoomSlotItem({ data, date }: StudyRoomSlotItemProps) {
   const { name, location, minUsers, maxUsers, operatingHours, slots } = data;
-  const today = new Date(date);
-  const day = today.toLocaleDateString('ko-KR', {
+  const filteredDate = new Date(date);
+  const day = filteredDate.toLocaleDateString('ko-KR', {
     weekday: 'long',
     timeZone: 'Asia/Seoul',
   });
+  const todayDay = new Date().toLocaleDateString('ko-KR', {
+    weekday: 'long',
+    timeZone: 'Asia/Seoul',
+  });
+  const isToday = day === todayDay;
   const todayHour = Number(
     new Date()
       .toLocaleTimeString('ko-KR', {
@@ -63,7 +68,7 @@ export default function StudyRoomSlotItem({ data, date }: StudyRoomSlotItemProps
         <div className="flex w-full justify-between">
           {hoursRange.slice(0, -1).map((hour) => {
             const slot = slots.find((s) => s.startsAt === hour);
-            const isClosed = slot ? slot.isClosed || hour <= todayHour : true;
+            const isClosed = slot ? slot.isClosed || (isToday && hour <= todayHour) : true;
             const isReserved = slot ? slot.isReserved : true;
             return (
               <div
