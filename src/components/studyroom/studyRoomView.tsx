@@ -23,7 +23,7 @@ export default function StudyRoomView() {
   }, [dateFilterData.date]);
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <section className="mb-5 flex h-full flex-col space-y-2 overflow-hidden">
+      <section className="flex h-full flex-col space-y-2 overflow-hidden">
         <div className="mb-4 flex h-8 items-center justify-between px-4">
           <div className="flex">
             <h1 className="f24 mr-1 font-bold text-text_primary">예약하기</h1>
