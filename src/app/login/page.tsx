@@ -1,17 +1,19 @@
 'use client';
 
-import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import { Spin } from 'antd';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import Button from '@/components/common/button/button';
 import useModal from '@/hooks/useModal';
 import { login } from '@/lib/actions/auth';
+import { stackRouterPush } from '@/utils/stackRouter';
 
 export default function LoginPage() {
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const [loading, setLoading] = useState(false);
   const { modal } = useModal();
-
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
     trackAmplitudeEvent('click_로그인_btn');
@@ -89,7 +91,18 @@ export default function LoginPage() {
             placeholder="비밀번호를 입력해주세요"
             className="f18 mb-6 h-12 w-full border-b-2 border-button_default_bg bg-transparent text-text_primary placeholder:font-medium placeholder:text-text_secondary focus:border-theme_secondary focus:outline-none"
           />
+          <button
+            type="button"
+            onClick={() => {
+              trackAmplitudeEvent('click_개인정보보호');
+              stackRouterPush({ router, page: 'privacy' });
+            }}
+            className="f14 font-bold text-theme_tertiary underline"
+          >
+            개인정보 처리방침 확인하기
+          </button>
         </div>
+
         <div className="mb-4 px-2">
           <Spin spinning={loading} fullscreen />
           <Button type="submit" label="로그인" variant="primary" size="full" />
