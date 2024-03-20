@@ -27,9 +27,9 @@ export default async function SubjectPage({ params }: { params: { id: number } }
   const totalJobText =
     totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요` : '모든 할 일을 완료했어요 🎉';
   return (
-    <>
+    <div className="safe-area-bottom flex h-screen flex-col overflow-hidden bg-white">
       <StackHeader title={course.name} />
-      <main className="page overflow-auto bg-white py-2.5">
+      <main className="flex h-full flex-col overflow-hidden bg-white py-2.5">
         <section className="mb-5 space-y-2  px-4 ">
           <div className="space-x-2">
             <Tag label={todayLabel} variant="default" size="md" />
@@ -52,6 +52,6 @@ export default async function SubjectPage({ params }: { params: { id: number } }
         </section>
         <AttendanceBoard type="subject" courses={[course]} />
       </main>
-    </>
+    </div>
   );
 }
