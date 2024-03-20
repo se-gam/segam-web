@@ -64,11 +64,7 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
       >
         <div>
-          <h1 className="f28 mb-2 mt-4 font-bold text-text_primary">
-            세종대학교 포털
-            <br />
-            계정으로 시작하기
-          </h1>
+          <h1 className="f28 mb-2 mt-4 font-bold text-text_primary">포털 계정으로 시작하기</h1>
           <p className="on-board mb-9 font-medium text-text_secondary">
             계정 비밀번호는 서버에 저장되지 않아요
           </p>
