@@ -1,5 +1,6 @@
 'use server';
 
+import postMessageToDiscord from '@/lib/actions/discord';
 import { redirect } from 'next/navigation';
 import returnFetch, { ReturnFetch } from 'return-fetch';
 import returnFetchJson from 'return-fetch-json';
@@ -11,11 +12,11 @@ const returnFetchThrowingErrorByStatusCode: ReturnFetch = (args) =>
       response: async (response) => {
         if (response.status === 500) {
           const msg = JSON.parse(await response.text()).message;
-          throw new Error(msg.message);
+          postMessageToDiscord('500에러 발생', msg);
+          throw new Error(msg);
         }
         if (response.status === 401) {
           const msg = JSON.parse(await response.text()).message;
-
           if (msg === '학번 또는 비밀번호가 올바르지 않습니다.') {
             throw new Error('학번 또는 비밀번호가 올바르지 않습니다.');
           }
@@ -24,10 +25,16 @@ const returnFetchThrowingErrorByStatusCode: ReturnFetch = (args) =>
         if (response.status === 429) {
           throw new Error('Too Many Requests');
         }
-        if (response.status >= 400) {
-          const msg = JSON.parse(await response.text());
-          throw new Error(msg.message);
+        if (response.status === 502) {
+          const msg = JSON.parse(await response.text()).message;
+          postMessageToDiscord('502에러 발생', msg);
+          throw new Error(msg);
         }
+        if (response.status >= 400) {
+          const msg = JSON.parse(await response.text()).message;
+          throw new Error(msg);
+        }
+
         return response;
       },
     },
