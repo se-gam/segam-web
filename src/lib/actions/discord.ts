@@ -10,7 +10,7 @@ export default async function postMessageToDiscord(title: string, message: strin
       embeds: [
         {
           title,
-          description: `강의 업데이트의 실패했습니다.\n\n 에러메세지:\n${message}`,
+          description: `에러메세지:\n${message}`,
           color: 16734309,
         },
       ],
