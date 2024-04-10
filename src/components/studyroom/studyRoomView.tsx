@@ -17,7 +17,9 @@ export default function StudyRoomView() {
   useEffect(() => {
     const getStudyroomListData = async () => {
       const res = await getStudyroomList({ date: dateFilterData.date });
-      setStudyroomListData(res);
+      setStudyroomListData({
+        studyrooms: res.studyrooms.toSorted((a, b) => a.name.localeCompare(b.name)),
+      });
     };
     getStudyroomListData();
   }, [dateFilterData.date]);
