@@ -10,20 +10,27 @@ export default function calAnnounceData({
   imminentLecturesLeft,
   imminentAssignmentsLeft,
 }: AnnounceData) {
-  const dueHour = new Date(imminentDueDate).getHours();
-  const dueMinute = new Date(imminentDueDate).getMinutes();
+  const dueHour = new Date(imminentDueDate).toLocaleTimeString('ko-KR', {
+    hour: 'numeric',
+    hour12: false,
+    timeZone: 'Asia/Seoul',
+  });
+  const dueMinute = new Date(imminentDueDate).toLocaleTimeString('ko-KR', {
+    minute: 'numeric',
+    timeZone: 'Asia/Seoul',
+  });
   if (imminentDueDate) {
     let DESCRIPTION = '';
     const daysLeft = calDiffInDays(imminentDueDate);
     if (daysLeft === 0 || daysLeft === 1) {
       if (imminentAssignmentsLeft && imminentLecturesLeft) {
-        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour}시 ${dueMinute}분까지 할 일이 ${imminentLecturesLeft + imminentAssignmentsLeft}개 있어요`;
+        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour} ${dueMinute}분까지 할 일이 ${imminentLecturesLeft + imminentAssignmentsLeft}개 있어요`;
       }
       if (imminentLecturesLeft) {
-        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour}시 ${dueMinute}분 마감 강의가 ${imminentLecturesLeft}개 있어요`;
+        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour} ${dueMinute}분 마감 강의가 ${imminentLecturesLeft}개 있어요`;
       }
       if (imminentAssignmentsLeft) {
-        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour}시 ${dueMinute}분 마감 과제가 ${imminentAssignmentsLeft}개 있어요`;
+        DESCRIPTION = `${daysLeft === 0 ? '오늘' : '내일'} ${dueHour} ${dueMinute}분 마감 과제가 ${imminentAssignmentsLeft}개 있어요`;
       }
     } else {
       if (imminentAssignmentsLeft && imminentLecturesLeft) {
