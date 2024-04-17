@@ -11,11 +11,20 @@ export default function calReservationData(reservations: Reservation[]) {
       timeZone: 'Asia/Seoul',
     });
 
+    let iconName = '';
+    if (reservation.isCinema) {
+      iconName = 'cinema';
+    } else if (reservation.name.includes('SL')) {
+      iconName = 'SL';
+    } else {
+      iconName = 'studyRoom';
+    }
+
     return {
       id: reservation.id,
       title: reservation.name,
       description: `${formattedDate} ${startTime}~${endTime}`,
-      iconName: reservation.isCinema ? 'cinema' : 'studyRoom',
+      iconName,
     };
   });
 }
