@@ -65,6 +65,9 @@ const IMAGE: ImageType = {
   studyRoom: {
     src: '/images/studyRoom.png',
   },
+  SL: {
+    src: '/images/SL.png',
+  },
   grandMother: {
     src: '/images/grandMother.png',
   },
