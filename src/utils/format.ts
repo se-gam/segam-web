@@ -16,6 +16,16 @@ export function dateDotFormatter(date: string) {
 }
 
 /**
+ * @description dateString 받아 'N일 후 수강 가능해요' 반환
+ */
+export function dateDiffInDays(date: string) {
+  const now = new Date();
+  const due = new Date(date);
+  const diff = Math.floor((due.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  return `${diff}일 후 수강 가능해요`;
+}
+
+/**
  * @description 월요일, 화요일,
  */
 export function dayFormatByDate(date: string) {

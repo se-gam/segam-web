@@ -7,6 +7,7 @@ import useLink from '@/hooks/useLink';
 import Icons from '@/components/common/icons/icons';
 import React from 'react';
 import { Course } from '@/lib/definitions';
+import { dateDiffInDays } from '@/utils/format';
 
 interface CourseListProps {
   courses: Course[];
@@ -27,7 +28,7 @@ export default function CourseList({ courses }: CourseListProps) {
         const assignmentDone = course.assignmentsLeft <= 0;
         const isDone = lectureDone && assignmentDone;
         const nextLectureText = course.nextLectureDate
-          ? course.nextLectureDate
+          ? dateDiffInDays(course.nextLectureDate)
           : '모든 강의를 완료했어요';
         return (
           <button
