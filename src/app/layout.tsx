@@ -1,12 +1,12 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata, Viewport } from 'next';
-import { cookies } from 'next/headers';
 import localFont from 'next/font/local';
 import '@/app/global.css';
 import clsx from 'clsx';
 import 'react-notion-x/src/styles.css';
 import AmplitudeContextProvider from '@/context/amplitudeContext';
 import getIdfromToken from '@/utils/getIdfromToken';
+import { auth } from '@/auth';
 
 const pretendard = localFont({
   src: [
@@ -49,12 +49,14 @@ export const metadata: Metadata = {
   description: 'se-gam',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const userId = getIdfromToken(cookies().get('accessToken')?.value as string);
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
+  const userId = getIdfromToken(accessToken as string);
   return (
     <html lang="ko">
       <body

@@ -1,16 +1,19 @@
 'use server';
 
+import { auth } from '@/auth';
 import { Friends, UserInfo } from '@/lib/definitions';
 import { fetchExtended } from '@/utils/fetchExtended';
 import { unstable_noStore } from 'next/cache';
-import { cookies } from 'next/headers';
 
 export async function getUserInfo() {
   unstable_noStore();
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
+
   const res = await fetchExtended<UserInfo>('/private', {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   });
   return res.body;
@@ -18,11 +21,12 @@ export async function getUserInfo() {
 
 export async function getFriends() {
   unstable_noStore();
-
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
   const res = await fetchExtended<Friends>('/v1/user/friend', {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   });
   const friends = res.body.friends.map((friend) => ({
@@ -38,16 +42,19 @@ interface AddFriendProps {
   date?: Date;
 }
 export async function postAddFriend({ friendId, friendName, date }: AddFriendProps) {
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
+  const password = session?.user.encryptedPassword;
   const url = date ? '/v1/studyroom/user' : '/v1/user/friend';
   const body = date
     ? {
-        password: cookies().get('encrypted')?.value,
+        password,
         friendId,
         friendName,
         date: date?.toISOString(),
       }
     : {
-        password: cookies().get('encrypted')?.value,
+        password,
         studentId: friendId,
         name: friendName,
       };
@@ -56,7 +63,7 @@ export async function postAddFriend({ friendId, friendName, date }: AddFriendPro
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body,
     });
@@ -68,11 +75,13 @@ export async function postAddFriend({ friendId, friendName, date }: AddFriendPro
   return null;
 }
 export async function deleteFriend({ studentId }: { studentId: string }) {
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
   try {
     await fetchExtended(`/v1/user/friend/${studentId}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
   } catch (e) {
@@ -83,11 +92,13 @@ export async function deleteFriend({ studentId }: { studentId: string }) {
   return null;
 }
 export async function updateToken() {
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
   try {
     await fetchExtended('/v1/user/push-token', {
       method: 'PUT',
       headers: {
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: {
         os: 'IOS',

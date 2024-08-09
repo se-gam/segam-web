@@ -3,10 +3,11 @@
 import Icons from '@/components/common/icons/icons';
 import useModal from '@/hooks/useModal';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
-import { withdrawal } from '@/lib/actions/auth';
+
 import { updateToken } from '@/lib/actions/user';
 import { isApp, stackRouterPush } from '@/utils/stackRouter';
 import { useRouter } from 'next/navigation';
+import { withdrawal } from '@/lib/actions/auth';
 
 const BASE_URL = process.env.NEXT_PUBLIC_FRONT_BASE_URL;
 

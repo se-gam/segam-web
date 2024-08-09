@@ -1,7 +1,11 @@
 export type AuthResponse = {
   accessToken: string;
   refreshToken: string;
+  encryptedPassword: string;
+  pushToken?: string;
+  os?: string;
 };
+
 export type ErrorResponse = {
   message: string;
   error: string;

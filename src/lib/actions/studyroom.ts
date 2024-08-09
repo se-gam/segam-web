@@ -1,10 +1,10 @@
 'use server';
 
+import { auth } from '@/auth';
 import postMessageToDiscord from '@/lib/actions/discord';
 import { StudyroomList, Studyroom, StudyroomReservationList } from '@/lib/definitions';
 import { fetchExtended, retryFetchExtended } from '@/utils/fetchExtended';
 import { revalidatePath, revalidateTag, unstable_noStore } from 'next/cache';
-import { cookies } from 'next/headers';
 
 interface StudyroomListProps {
   date: string;
@@ -56,6 +56,9 @@ export async function getStudyroomInfo({ id, date }: StudyroomProps): Promise<St
   return data.body;
 }
 export async function getReservationList(): Promise<StudyroomReservationList> {
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
+  const password = session?.user.encryptedPassword;
   try {
     const data = await retryFetchExtended<StudyroomReservationList>(
       '/v1/studyroom/reservation/me',
@@ -64,10 +67,10 @@ export async function getReservationList(): Promise<StudyroomReservationList> {
 
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: {
-          password: cookies().get('encrypted')?.value,
+          password,
         },
       },
     );
@@ -85,15 +88,18 @@ export async function updateReservationList(): Promise<void> {
 }
 
 export async function cancelReservation(id: number) {
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
+  const password = session?.user.encryptedPassword;
   try {
     await fetchExtended(`/v1/studyroom/reservation/cancel/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: {
-        password: cookies().get('encrypted')?.value,
+        password,
         cancelReason: '예약취소',
       },
     });
@@ -123,13 +129,15 @@ export async function reserveStudyroom({
   reason,
   users,
 }: ReserveStudyroomProps) {
-  const password = cookies().get('encrypted')?.value;
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
+  const password = session?.user.encryptedPassword;
   try {
     await fetchExtended(`/v1/studyroom/reservation`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: {
         studyroomId,
