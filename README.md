@@ -10,6 +10,8 @@
 ## Intro
 세감은 세종대학교의 교내 서비스를 개선한 여러 프로젝트를 하나의 앱으로 통합하는 프로젝트 입니다.
 
+[시연영상](https://youtu.be/vZiAf9LFlws?si=1nwFIM6ccmXoNDWI)
+
 ## Features
 
 <table>
