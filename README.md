@@ -3,6 +3,8 @@
   <img src="https://github.com/user-attachments/assets/5aa5f349-46e6-43b7-94bd-7f9f73af67cd" width="128" height ="128"/>
   
   #### 세감: 세종대학교 온라인 출석, 스터디룸 예약관리
+[<img height=50px src=https://user-images.githubusercontent.com/42789819/115149387-d42e1980-a09e-11eb-88e3-94ca9b5b604b.png>](https://cutt.ly/rw4yXDG0)
+[<img height=50px src=https://www.fcsok.org/wp-content/uploads/2020/04/get-it-on-google-play-badge.png>]( https://cutt.ly/kw4yXX8s)
 </div>
 
 ## Intro
