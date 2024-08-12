@@ -55,3 +55,6 @@
 <td align="center"><a href="https://github.com/RightHennessy"><img src="https://avatars.githubusercontent.com/u/88828858?v=4" width="100px;" alt=""/><br /><sub><b>RightHennessy</b></sub></a></td>
 <td align="center"><a href="https://github.com/therealjamesjung"><img src="https://avatars.githubusercontent.com/u/39877377?v=4" width="100px;" alt=""/><br /><sub><b>therealjamesjung</b></sub></a></td>
 </table>
+
+## Stories
+- [세종소식](http://www.sejongpr.ac.kr/sejongwebzinenewspaperview.do?pkid=60028)
