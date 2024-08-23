@@ -102,6 +102,14 @@ export type Reservation = {
   reason: string;
   users: ReservationUser[];
 };
+
+export type ReservationResponse = {
+  id: number;
+  title: string;
+  description: string;
+  iconName: string;
+};
+
 export type Friend = {
   studentId: string;
   name: string;
