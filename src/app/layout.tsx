@@ -5,8 +5,10 @@ import '@/app/global.css';
 import clsx from 'clsx';
 import 'react-notion-x/src/styles.css';
 import AmplitudeContextProvider from '@/context/amplitudeContext';
+import ReactQueryProviders from '@/components/common/queryProvider';
 import getIdfromToken from '@/utils/getIdfromToken';
 import { auth } from '@/auth';
+import AuthSessionProvider from '@/components/common/authSessionProvider';
 
 const pretendard = localFont({
   src: [
@@ -66,7 +68,11 @@ export default async function RootLayout({
         )}
       >
         <AntdRegistry>
-          <AmplitudeContextProvider userId={userId}>{children}</AmplitudeContextProvider>
+          <AmplitudeContextProvider userId={userId}>
+            <AuthSessionProvider>
+              <ReactQueryProviders>{children}</ReactQueryProviders>
+            </AuthSessionProvider>
+          </AmplitudeContextProvider>
         </AntdRegistry>
       </body>
     </html>
