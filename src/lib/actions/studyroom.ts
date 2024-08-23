@@ -1,9 +1,8 @@
 'use server';
 
 import { auth } from '@/auth';
-import postMessageToDiscord from '@/lib/actions/discord';
-import { StudyroomList, Studyroom, StudyroomReservationList } from '@/lib/definitions';
-import { fetchExtended, retryFetchExtended } from '@/utils/fetchExtended';
+import { StudyroomList, Studyroom } from '@/lib/definitions';
+import { fetchExtended } from '@/utils/fetchExtended';
 import { revalidatePath, revalidateTag, unstable_noStore } from 'next/cache';
 
 interface StudyroomListProps {
@@ -54,33 +53,6 @@ export async function getStudyroomInfo({ id, date }: StudyroomProps): Promise<St
     },
   });
   return data.body;
-}
-export async function getReservationList(): Promise<StudyroomReservationList> {
-  const session = await auth();
-  const accessToken = session?.user.accessToken;
-  const password = session?.user.encryptedPassword;
-  try {
-    const data = await retryFetchExtended<StudyroomReservationList>(
-      '/v1/studyroom/reservation/me',
-      {
-        method: 'POST',
-
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: {
-          password,
-        },
-      },
-    );
-    return data.body;
-  } catch (error) {
-    if (error instanceof Error) {
-      postMessageToDiscord('[재요청] 스터디룸 예약현황 조회 실패', error.message);
-    }
-    return { reservations: [] };
-  }
 }
 
 export async function updateReservationList(): Promise<void> {
