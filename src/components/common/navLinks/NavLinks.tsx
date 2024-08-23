@@ -15,6 +15,7 @@ const links = [
     icon: Icons.Attendance,
   },
   { name: '스터디룸', href: '/dashboard/studyroom', icon: Icons.Studyroom },
+  { name: '고전독서', href: '/dashboard/classic', icon: Icons.Studyroom },
   { name: '마이페이지', href: '/dashboard/mypage', icon: Icons.Mypage },
 ];
 
