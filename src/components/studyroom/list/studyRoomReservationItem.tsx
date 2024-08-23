@@ -5,6 +5,7 @@ import Button from '@/components/common/button/button';
 import Icons from '@/components/common/icons/icons';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import useModal from '@/hooks/useModal';
+import getQueryClient from '@/lib/getQueryClient';
 
 interface ReservationProps {
   id: number;
@@ -29,10 +30,10 @@ export default function StudyRoomReservationItem({
   isLeader,
   users,
   onCancel,
-}: ReservationProps) {
+}: Readonly<ReservationProps>) {
   const { confirmModal, modal } = useModal();
-
   const { trackAmplitudeEvent } = useAmplitudeContext();
+  const queryClient = getQueryClient();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const formattedDate = new Date(date).toLocaleDateString('ko-KR', {
@@ -67,6 +68,9 @@ export default function StudyRoomReservationItem({
         modal({
           title: '예약 취소',
           content: '예약이 취소되었습니다.',
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['studyroomReservations'],
         });
       },
     });
