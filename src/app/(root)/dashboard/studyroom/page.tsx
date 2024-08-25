@@ -3,7 +3,7 @@ import StudyRoomView from '@/components/studyroom/studyRoomView';
 
 export default async function Page() {
   return (
-    <div className="page container pb-0">
+    <div className="pb-0">
       <div className="flex h-full flex-col overflow-hidden">
         <main className="flex h-full flex-col overflow-hidden">
           <header className="mb-4 px-4 pt-2.5">
