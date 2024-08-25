@@ -20,6 +20,13 @@ export default function GoteukReservationItem({
     weekday: 'long',
     timeZone: 'Asia/Seoul',
   });
+  const formattedTime = new Date(reservation.reservationTime).toLocaleTimeString('ko-KR', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: 'Asia/Seoul',
+  });
+  const [hour, minute] = formattedTime.split(':');
   const { confirmModal, modal } = useModal();
   const queryClient = getQueryClient();
   const cancelMutation = useMutation({
@@ -46,7 +53,9 @@ export default function GoteukReservationItem({
     <div className="flex items-center justify-between">
       <div>
         <h3 className="f16 font-bold text-text_primary">{reservation.bookName}</h3>
-        <p className="f14 font-semibold text-text_secondary">{formattedDate}</p>
+        <p className="f14 font-semibold text-text_secondary">
+          {formattedDate} {hour}시 {minute}분
+        </p>
       </div>
       <Button
         label="취소"
