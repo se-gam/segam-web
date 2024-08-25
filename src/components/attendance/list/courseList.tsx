@@ -32,13 +32,13 @@ export default function CourseList({ courses }: CourseListProps) {
           : '모든 강의를 완료했어요';
         return (
           <button
-            key={course.id}
+            key={course.courseId}
             type="button"
             aria-label="go to detail"
             onClick={() => {
               trackAmplitudeEvent('click_이러닝_개별과목_list');
               navigateTo({
-                page: `attendance/${course.id}`,
+                page: `attendance/${course.courseId}`,
                 title: course.name,
               });
             }}

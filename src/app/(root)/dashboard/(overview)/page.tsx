@@ -28,10 +28,10 @@ export default async function DashBoard() {
             if (index <= 2) {
               return (
                 <AttendanceCard
-                  key={course.id}
+                  key={course.courseId}
                   title={course.name}
-                  iconName={getIconNameFromCourseId(course.id)}
-                  id={course.id}
+                  iconName={getIconNameFromCourseId(course.courseId)}
+                  id={course.courseId}
                   remainJobs={course.lecturesLeft + course.assignmentsLeft}
                 />
               );
