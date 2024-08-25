@@ -4,7 +4,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { ReservationResponse } from '@/lib/definitions';
-import getReservationList from '@/lib/actions/client';
+import { getStudyroomReservation } from '@/lib/actions/client';
 import calReservationData from '@/utils/calReservationData';
 import Board from '@/components/dashboard/board/board';
 import StudyRoomCard from '@/components/dashboard/card/studyRoomCard';
@@ -41,7 +41,7 @@ export default function StudyRoomBoard() {
     // 세션 변경되어도 쿼리 날리지 않기
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: ['studyroomReservations'],
-    queryFn: () => getReservationList(session),
+    queryFn: () => getStudyroomReservation(session),
     enabled: session.status === 'authenticated',
   });
 

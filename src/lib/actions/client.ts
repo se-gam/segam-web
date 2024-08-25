@@ -4,7 +4,7 @@ import { fetchExtended } from '@/utils/fetchExtended';
 import postMessageToDiscord from './discord';
 import { StudyroomReservationList } from '../definitions';
 
-export default async function getReservationList(
+export async function getStudyroomReservation(
   session:
     | { update: UpdateSession; data: Session; status: 'authenticated' }
     | { update: UpdateSession; data: null; status: 'unauthenticated' | 'loading' }
@@ -31,4 +31,8 @@ export default async function getReservationList(
     }
     throw error;
   }
+}
+
+export async function getClassicReservation() {
+  return null;
 }
