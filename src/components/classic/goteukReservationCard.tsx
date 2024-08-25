@@ -9,7 +9,7 @@ export default function GoteukReservationCard() {
     <button
       className="w-full rounded-2xl p-4"
       onClick={() => {
-        navigateTo({ page: 'roulette' });
+        navigateTo({ page: 'classic' });
       }}
     >
       <div className="flex items-center justify-between">
