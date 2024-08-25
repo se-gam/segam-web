@@ -1,17 +1,19 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { CourseAttendance, Restaurants } from '@/lib/definitions';
 import { fetchExtended, retryFetchExtended } from '@/utils/fetchExtended';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import postMessageToDiscord from '@/lib/actions/discord';
+import { auth } from '@/auth';
 
 export async function getCourseAttendance(): Promise<CourseAttendance> {
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
   const data = await fetchExtended<CourseAttendance>('/v1/attendance/course', {
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+      Authorization: `Bearer ${accessToken}`,
     },
     cache: 'force-cache',
     next: {
@@ -29,12 +31,14 @@ export async function getCourseAttendance(): Promise<CourseAttendance> {
 }
 
 export async function updateCourseAttendance({ refresh }: { refresh: boolean }): Promise<void> {
-  const password = cookies().get('encrypted')?.value;
+  const session = await auth();
+  const accessToken = session?.user.accessToken;
+  const password = session?.user.encryptedPassword;
   try {
     await retryFetchExtended<CourseAttendance>('/v1/attendance/update', {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies().get('accessToken')?.value}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       method: 'POST',
       body: {

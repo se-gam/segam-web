@@ -1,6 +1,6 @@
-import { Reservation } from '@/lib/definitions';
+import { Reservation, ReservationResponse } from '@/lib/definitions';
 
-export default function calReservationData(reservations: Reservation[]) {
+export default function calReservationData(reservations: Reservation[]): ReservationResponse[] {
   return reservations.map((reservation: Reservation) => {
     const date = new Date(reservation.date);
     const startTime = `${reservation.startsAt}시`;
