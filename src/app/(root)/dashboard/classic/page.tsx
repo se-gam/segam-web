@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-import Loading from '@/components/common/loading';
 import GoteukReservationList from '@/components/classic/goteukReservationList';
 import GoteukStatusList from '@/components/classic/goteukStatusList';
 import GoteukReservationCard from '@/components/classic/goteukReservationCard';
@@ -14,9 +12,7 @@ export default async function ClassicPage() {
       <div className="h-1.5 w-full bg-button_default_bg" />
       <section className="space-y-2 px-4 py-5">
         <h1 className="f24 font-bold text-text_primary">예약 현황</h1>
-        <Suspense fallback={<Loading size="small" />}>
-          <GoteukReservationList />
-        </Suspense>
+        <GoteukReservationList />
       </section>
       <div className="h-1.5 w-full bg-button_default_bg" />
       <section className="mb-8 flex flex-col px-4 pt-5">

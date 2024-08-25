@@ -1,40 +1,27 @@
-import GoteukStatusListItem from '@/components/classic/goteukStatusListItem';
+'use client';
 
-const DATA = [
-  {
-    id: '1',
-    title: '서양의 역사와 사상',
-    done: 2,
-    total: 4,
-    icon: 'classic_west',
-  },
-  {
-    id: '2',
-    title: '동양의 역사와 사상',
-    done: 0,
-    total: 4,
-    icon: 'classic_east',
-  },
-  {
-    id: '3',
-    title: '동서양의 문학',
-    done: 4,
-    total: 4,
-    icon: 'classic_east_west',
-  },
-  {
-    id: '4',
-    title: '과학 사상',
-    done: 0,
-    total: 4,
-    icon: 'classic_science',
-  },
-];
+import GoteukStatusListItem from '@/components/classic/goteukStatusListItem';
+import SuspenseView from '@/components/common/suspenseView';
+import { getClassicStatus } from '@/lib/actions/client';
+import { useQuery } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
+
 export default function GoteukStatusList() {
+  const session = useSession();
+  const { data, isLoading, error } = useQuery({
+    // 세션 변경되어도 쿼리 날리지 않기
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: ['classicStatus'],
+    queryFn: () => getClassicStatus(session),
+    enabled: session.status === 'authenticated',
+  });
+
+  if (isLoading) return <SuspenseView content="예약 내역을 불러오는 중입니다..." />;
+  if (error) return <SuspenseView content="예약 내역을 불러오는 중 오류가 발생했습니다." />;
   return (
     <div className="flex flex-col gap-4">
-      {DATA.map((item) => (
-        <GoteukStatusListItem key={item.id} item={item} />
+      {data?.categoryStatus.map((item) => (
+        <GoteukStatusListItem key={item.categoryCode} classicStatus={item} />
       ))}
     </div>
   );

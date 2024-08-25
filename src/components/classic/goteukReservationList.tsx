@@ -1,35 +1,29 @@
-import GoteukReservationItem from '@/components/classic/goteukReservationItem';
+'use client';
 
-const DATA = [
-  {
-    id: 1,
-    title: '고투크 1회차',
-    date: '2021.09.01',
-  },
-  {
-    id: 2,
-    title: '고투크 1회차',
-    date: '2021.09.01',
-  },
-  {
-    id: 3,
-    title: '고투크 1회차',
-    date: '2021.09.01',
-  },
-];
+import GoteukReservationItem from '@/components/classic/goteukReservationItem';
+import SuspenseView from '@/components/common/suspenseView';
+import { getClassicReservation } from '@/lib/actions/client';
+import { useQuery } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 
 export default function GoteukReservationList() {
-  if (DATA.length === 0) {
-    return (
-      <div className="flex h-10 items-center justify-center">
-        <p className="f16 font-medium text-text_secondary">예약 내역이 없습니다.</p>
-      </div>
-    );
-  }
+  const session = useSession();
+  const { data, isLoading, error } = useQuery({
+    // 세션 변경되어도 쿼리 날리지 않기
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: ['classicReservations'],
+    queryFn: () => getClassicReservation(session),
+    enabled: session.status === 'authenticated',
+  });
+
+  if (isLoading) return <SuspenseView content="예약 내역을 불러오는 중입니다..." />;
+  if (error) return <SuspenseView content="예약 내역을 불러오는 중 오류가 발생했습니다." />;
+  if (!data?.reservations || data.reservations.length === 0)
+    return <SuspenseView content="예약 내역이 없습니다." />;
   return (
     <div className="flex flex-col gap-2">
-      {DATA.map((item) => (
-        <GoteukReservationItem key={item.id} />
+      {data.reservations.map((item) => (
+        <GoteukReservationItem key={item.bookId} reservation={item} />
       ))}
     </div>
   );
