@@ -1,7 +1,11 @@
 export type AuthResponse = {
   accessToken: string;
   refreshToken: string;
+  encryptedPassword: string;
+  pushToken?: string;
+  os?: string;
 };
+
 export type ErrorResponse = {
   message: string;
   error: string;
@@ -98,6 +102,14 @@ export type Reservation = {
   reason: string;
   users: ReservationUser[];
 };
+
+export type ReservationResponse = {
+  id: number;
+  title: string;
+  description: string;
+  iconName: string;
+};
+
 export type Friend = {
   studentId: string;
   name: string;

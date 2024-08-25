@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-import Loading from '@/components/common/loading';
 import ReservationView from '@/components/studyroom/reservationView';
 import StudyRoomView from '@/components/studyroom/studyRoomView';
 
@@ -13,9 +11,7 @@ export default async function Page() {
           </header>
           <section className="mb-5 space-y-2 px-4">
             <h1 className="f24 font-bold text-text_primary">내 예약 현황</h1>
-            <Suspense fallback={<Loading size="small" />}>
-              <ReservationView />
-            </Suspense>
+            <ReservationView />
           </section>
           <StudyRoomView />
         </main>

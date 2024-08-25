@@ -4,7 +4,8 @@
     "airbnb",
     "airbnb-typescript",
     "plugin:storybook/recommended",
-    "prettier"
+    "prettier",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
