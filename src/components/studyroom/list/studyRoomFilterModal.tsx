@@ -70,7 +70,7 @@ export default function StudyroomFilterModal({
         </div>
         <DrawerFooter>
           <DrawerClose>
-            <div className="px-2 pt-3">
+            <div className="px-2 pt-6">
               <Button size="full" label="완료" variant="primary" onClick={handleSubmit} />
             </div>
           </DrawerClose>
