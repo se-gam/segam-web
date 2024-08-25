@@ -22,7 +22,7 @@ interface FilterModalProps {
 export default function StudyroomFilterModal({
   dateFilterData,
   setDateFilterData,
-}: FilterModalProps) {
+}: Readonly<FilterModalProps>) {
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const [data, setData] = useState<{
     date: string;
@@ -33,10 +33,17 @@ export default function StudyroomFilterModal({
   };
   return (
     <Drawer>
-      <DrawerTrigger>
-        <Button label="필터 선택" size="sm" variant="default" />
+      <DrawerTrigger asChild>
+        <Button
+          label="필터 선택"
+          size="sm"
+          variant="default"
+          onClick={() => {
+            trackAmplitudeEvent('click_스터디룸_필터_btn');
+          }}
+        />
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent data-vaul-no-drag>
         <div className="px-4">
           <h2 className="f20 mb-3 font-bold text-text_primary">날짜</h2>
           <ReservationCalendar
