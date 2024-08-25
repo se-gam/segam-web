@@ -4,7 +4,7 @@ import Icons from '../common/icons/icons';
 
 interface AreaSelectorProps {
   value?: string;
-  onClick: () => void;
+  onClick?: () => void;
   title?: string;
   placeholder?: string;
 }

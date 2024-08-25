@@ -1,4 +1,3 @@
-import Button from '../common/button/button';
 import InfoSelector from './infoSelector';
 
 interface BookPickerProps {
@@ -16,9 +15,6 @@ export default function BookInfoSelector({ title, subTitle }: BookPickerProps) {
       <div>
         <InfoSelector title="영역 선택" placeholder="영역을 선택해주세요" />
         <InfoSelector title="도서 선택" placeholder="도서를 선택해주세요" />
-      </div>
-      <div className="mx-2">
-        <Button variant="primary" size="full" label="완료" />
       </div>
     </div>
   );
