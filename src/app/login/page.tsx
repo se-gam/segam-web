@@ -1,21 +1,17 @@
 'use client';
 
-import { Spin } from 'antd';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import useAmplitudeContext from '@/hooks/useAmplitudeContext';
+import { loginAction } from '@/lib/actions/auth';
 import Button from '@/components/common/button/button';
 import useModal from '@/hooks/useModal';
-import { login } from '@/lib/actions/auth';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import { stackRouterPush } from '@/utils/stackRouter';
 
 export default function LoginPage() {
   const { trackAmplitudeEvent } = useAmplitudeContext();
-  const [loading, setLoading] = useState(false);
   const { modal } = useModal();
   const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    setLoading(true);
     trackAmplitudeEvent('click_로그인_btn');
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -25,9 +21,6 @@ export default function LoginPage() {
       modal({
         title: '로그인 실패',
         content: '학번을 입력해주세요.',
-        onClick: () => {
-          setLoading(false);
-        },
       });
       return;
     }
@@ -35,28 +28,18 @@ export default function LoginPage() {
       modal({
         title: '로그인 실패',
         content: '비밀번호를 입력해주세요.',
-        onClick: () => {
-          setLoading(false);
-        },
       });
       return;
     }
     try {
-      await login({
-        studentId,
-        password,
-      });
+      await loginAction(formData);
     } catch (error) {
       modal({
         title: '로그인 실패',
         content: '학번과 비밀번호를 확인해주세요.',
-        onClick: () => {
-          setLoading(false);
-        },
       });
     }
   };
-
   return (
     <div className="safe-area-top h-full overflow-visible">
       <form
@@ -100,7 +83,6 @@ export default function LoginPage() {
         </div>
 
         <div className="mb-4 px-2">
-          <Spin spinning={loading} fullscreen />
           <Button type="submit" label="로그인" variant="primary" size="full" />
         </div>
       </form>

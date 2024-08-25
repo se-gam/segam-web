@@ -1,22 +1,15 @@
-import Board from '@/components/dashboard/board/board';
-import StudyRoomCard from '@/components/dashboard/card/studyRoomCard';
 import { getCourseAttendance } from '@/lib/actions/attendance';
+import getIconNameFromCourseId from '@/utils/getIconNameFromId';
+import calAnnounceData from '@/utils/calAnnounceData';
+import Board from '@/components/dashboard/board/board';
 import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
-import calAnnounceData from '@/utils/calAnnounceData';
 import RouletteCard from '@/components/dashboard/card/rouletteCard';
-import { getReservationList } from '@/lib/actions/studyroom';
-import calReservationData from '@/utils/calReservationData';
-import getIconNameFromCourseId from '@/utils/getIconNameFromId';
+import StudyRoomBoard from '@/components/studyroom/studyRoomBoard';
 
 export default async function DashBoard() {
-  const [CourseData, { reservations }] = await Promise.all([
-    getCourseAttendance(),
-    getReservationList(),
-  ]);
-
+  const CourseData = await getCourseAttendance();
   const { title, description, iconName, link } = calAnnounceData(CourseData);
-  const reservationData = calReservationData(reservations);
 
   return (
     <main className="bg-app_bg px-4">
@@ -35,10 +28,10 @@ export default async function DashBoard() {
             if (index <= 2) {
               return (
                 <AttendanceCard
-                  key={course.id}
+                  key={course.courseId}
                   title={course.name}
-                  iconName={getIconNameFromCourseId(course.id)}
-                  id={course.id}
+                  iconName={getIconNameFromCourseId(course.courseId)}
+                  id={course.courseId}
                   remainJobs={course.lecturesLeft + course.assignmentsLeft}
                 />
               );
@@ -46,22 +39,7 @@ export default async function DashBoard() {
             return null;
           })}
         </Board>
-        <Board title="내 예약현황" url="dashboard/studyroom">
-          {reservationData.length === 0 && (
-            <div className="flex h-20 w-full items-center justify-center rounded-lg">
-              <p className="f16 font-medium text-text_secondary">예약내역이 존재하지 않습니다.</p>
-            </div>
-          )}
-          {reservationData.map((item) => (
-            <StudyRoomCard
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              iconName={item.iconName}
-              id={item.id}
-            />
-          ))}
-        </Board>
+        <StudyRoomBoard />
         <RouletteCard />
       </div>
     </main>

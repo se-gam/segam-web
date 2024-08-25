@@ -1,23 +1,19 @@
 'use client';
 
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { updateCourseAttendance } from '@/lib/actions/attendance';
 import { Spin } from 'antd';
 import getQueryClient from '@/lib/getQueryClient';
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const queryClient = getQueryClient();
   const onRefresh = async () => {
-    await updateCourseAttendance({
-      refresh: true,
-    });
     queryClient.invalidateQueries({
       queryKey: ['studyroomReservations'],
     });
   };
 
   return (
-    <div className="page container bg-app_bg pb-0">
+    <div className="page container">
       <PullToRefresh
         onRefresh={onRefresh}
         pullingContent={
