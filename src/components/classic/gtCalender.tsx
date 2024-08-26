@@ -33,12 +33,18 @@ const useStyles = createStyles(({ css }) => ({
       width: 42px !important;
       height: 42px !important;
     }
+    .ant-picker-cell-disabled::before {
+      background-color: unset !important;
+    }
     .ant-picker-cell {
       padding: 0px !important;
       font-size: 20px;
     }
     .ant-typography {
       margin-bottom: 0px;
+    }
+    .ant-picker-cell-disabled {
+      background-color: none !important;
     }
   `,
 }));
@@ -134,6 +140,7 @@ export default function GtCalender() {
         value={selectedDate}
         onSelect={onDateSelect}
         onPanelChange={onPanelChange}
+        disabledDate={(date) => date.isBefore(dayjs(), 'day')}
       />
     </ConfigProvider>
   );
