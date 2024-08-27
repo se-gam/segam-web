@@ -81,12 +81,31 @@ function headerRender({ value, onChange }: HeaderRender) {
     onChange(value.add(1, 'month'));
   };
 
+  const disablePrev = value <= dayjs();
+  const disableNext = value >= dayjs();
+
   return (
     <div className="flex items-center justify-between">
       <div className="f20 mb-2 mt-3 font-bold text-text_primary">{`${year}년 ${months[month]}`}</div>
       <div className="flex">
-        <Icons.ArrowLeft width="20px" height="20px" onClick={handlePrevMonth} />
-        <Icons.ArrowRight width="20px" height="20px" onClick={handleNextMonth} />
+        <Icons.ArrowLeftSM
+          width="20px"
+          height="20px"
+          onClick={!disablePrev ? handlePrevMonth : undefined}
+          className={cn({
+            'fill-text_secondary': disablePrev,
+            'fill-theme_primary': !disablePrev,
+          })}
+        />
+        <Icons.ArrowRight
+          width="20px"
+          height="20px"
+          onClick={!disableNext ? handleNextMonth : undefined}
+          className={cn({
+            'fill-text_secondary': disableNext,
+            'fill-theme_primary': !disableNext,
+          })}
+        />
       </div>
     </div>
   );
