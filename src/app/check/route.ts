@@ -1,7 +1,6 @@
 import { auth } from '@/auth';
 import { fetchExtended } from '@/utils/fetchExtended';
-import { redirect } from 'next/navigation';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   const session = await auth();
@@ -20,8 +19,8 @@ export async function GET(req: NextRequest) {
       },
     });
   }
-  redirect('/update');
+  return NextResponse.redirect(new URL('/update', req.url));
 }
-export async function POST() {
-  redirect('/update');
+export async function POST(req: NextRequest) {
+  return NextResponse.redirect(new URL('/update', req.url));
 }

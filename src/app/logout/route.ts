@@ -1,11 +1,11 @@
 import { signOut } from '@/auth';
-import { redirect } from 'next/navigation';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   await signOut();
-  redirect('/');
+  return NextResponse.redirect(new URL('/', req.url));
 }
-export async function POST() {
+export async function POST(req: NextRequest) {
   await signOut();
-  redirect('/');
+  return NextResponse.redirect(new URL('/', req.url));
 }
