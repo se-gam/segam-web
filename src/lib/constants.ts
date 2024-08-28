@@ -1,4 +1,14 @@
-const courseList = [
+export type ClassicCategoryCode = {
+  [key: number]: string;
+};
+
+export const CLASSIC_CATEGORY_CODE: ClassicCategoryCode = {
+  1000: 'classic_west',
+  2000: 'classic_east',
+  3000: 'classic_east_west',
+  4000: 'classic_science',
+};
+export const COURSE_LIST = [
   {
     id: '009045-001',
     school: '대양휴머니티칼리지',
@@ -11085,5 +11095,3 @@ const courseList = [
     name: '관숙비행',
   },
 ];
-
-export default courseList;
