@@ -23,5 +23,5 @@ export async function GET(req: NextRequest) {
   redirect('/update');
 }
 export async function POST() {
-  return null;
+  redirect('/update');
 }

@@ -49,6 +49,7 @@ export async function updateCourseAttendance({ refresh }: { refresh: boolean }):
     if (error instanceof Error) {
       postMessageToDiscord('[재요청] 강의 업데이트에 실패했습니다.', error.message);
     }
+    throw error;
   }
   if (refresh) {
     revalidateTag('courseAttendance');
