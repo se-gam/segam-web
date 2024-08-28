@@ -35,6 +35,28 @@ export async function getStudyroomReservation(
     throw error;
   }
 }
+export async function cancelStudyroomReservation(session: ClientSession, id: number) {
+  const accessToken = session?.data?.user.accessToken;
+  const password = session?.data?.user.encryptedPassword;
+  try {
+    await fetchExtended(`/v1/studyroom/reservation/cancel/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: {
+        password,
+        cancelReason: '예약취소',
+      },
+    });
+  } catch (e) {
+    if (e instanceof Error) {
+      return e.message;
+    }
+  }
+  return null;
+}
 
 export async function getClassicReservation(
   session: ClientSession,

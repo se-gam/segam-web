@@ -152,6 +152,7 @@ export type ClassicReservation = {
   bookId: number;
   bookName: string;
   reservationTime: string;
+  bookCategoryId: number;
 };
 
 export type ClassicReservationList = {
@@ -174,3 +175,5 @@ export type ClientSession =
   | { update: UpdateSession; data: Session; status: 'authenticated' }
   | { update: UpdateSession; data: null; status: 'unauthenticated' | 'loading' }
   | { update: UpdateSession; data: null; status: 'loading' };
+
+export type ReservationItem = ReservationResponse | ClassicReservation;

@@ -1,10 +1,26 @@
+'use client';
+
+import { useSuspenseQuery } from '@tanstack/react-query';
+
 import Icons from '@/components/common/icons/icons';
 import Tag from '@/components/common/tag/tag';
 import Link from 'next/link';
+import getClassicStatus from '@/lib/actions/classic';
 
 export default function ClassicCard() {
-  const variant = 'done';
-  const label = '완료';
+  const { data } = useSuspenseQuery({
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: ['classicStatus'],
+    queryFn: () => getClassicStatus(),
+  });
+
+  if (!data) {
+    return null;
+  }
+  const totalCount = data.categoryStatus.reduce((acc, cur) => acc + cur.count, 0);
+  const label = data.status ? '완료' : `${totalCount}/10`;
+  const variant = data.status ? 'done' : 'warning';
+
   return (
     <div className="w-full rounded-2xl bg-white px-3 py-5">
       <Link href="/dashboard/classic">

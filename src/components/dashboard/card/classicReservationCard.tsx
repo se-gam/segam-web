@@ -1,19 +1,24 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
-import { useMutation } from '@tanstack/react-query';
-import useModal from '@/hooks/useModal';
 import Button from '@/components/common/button/button';
+import Icons from '@/components/common/icons/icons';
+import useModal from '@/hooks/useModal';
+import { useSession } from 'next-auth/react';
+import getQueryClient from '@/lib/getQueryClient';
+import { useMutation } from '@tanstack/react-query';
 import { cancelClassicReservation } from '@/lib/actions/client';
 import { ClassicReservation, ClassicReservationList } from '@/lib/definitions';
-import getQueryClient from '@/lib/getQueryClient';
+import { CLASSIC_CATEGORY_CODE } from '@/lib/constants';
 
-export default function GoteukReservationItem({
-  reservation,
-}: Readonly<{
+interface ClassicReservationCardProps {
   reservation: ClassicReservation;
-}>) {
+}
+export default function ClassicReservationCard({
+  reservation,
+}: Readonly<ClassicReservationCardProps>) {
+  const { confirmModal, modal } = useModal();
   const session = useSession();
+  const queryClient = getQueryClient();
   const formattedDate = new Date(reservation.reservationTime).toLocaleDateString('ko-KR', {
     month: 'long',
     day: 'numeric',
@@ -27,8 +32,7 @@ export default function GoteukReservationItem({
     timeZone: 'Asia/Seoul',
   });
   const [hour, minute] = formattedTime.split(':');
-  const { confirmModal, modal } = useModal();
-  const queryClient = getQueryClient();
+  const description = `${formattedDate} ${hour}시 ${minute}분`;
   const cancelMutation = useMutation({
     mutationFn: (reservationId: string) => cancelClassicReservation(session, reservationId),
     onSuccess: () => {
@@ -54,20 +58,28 @@ export default function GoteukReservationItem({
   };
 
   return (
-    <div className="flex items-center justify-between">
-      <div>
-        <h3 className="f16 font-bold text-text_primary">{reservation.bookName}</h3>
-        <p className="f14 font-semibold text-text_secondary">
-          {formattedDate} {hour}시 {minute}분
-        </p>
+    <div className="flex w-full items-center justify-between gap-4 rounded-md p-3">
+      <div className="flex items-center gap-4">
+        <div className="rounded-md bg-icons_bg p-0.5">
+          <Icons.ImageIcon
+            name={CLASSIC_CATEGORY_CODE[reservation.bookCategoryId]}
+            width={36}
+            height={36}
+          />
+        </div>
+        <div>
+          <h3 className="f16 font-bold text-text_primary">{reservation.bookName}</h3>
+          <p className="f12 font-medium text-text_secondary">{description}</p>
+        </div>
       </div>
       <Button
-        label="취소"
+        size="lg"
         variant="default"
-        size="sm"
-        type="button"
-        onClick={() => handleCancel(reservation.reservationId)}
+        label="취소"
         loading={cancelMutation.isPending}
+        onClick={() => {
+          handleCancel(reservation.reservationId);
+        }}
       />
     </div>
   );

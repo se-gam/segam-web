@@ -13,6 +13,7 @@ import AddFriendModal from '@/components/studyroom/reservation/addFriendModal';
 import StackHeader from '@/components/common/stackHeader/stackHeader';
 import useViewportResize from '@/hooks/useViewportResize';
 import { isApp } from '@/utils/stackRouter';
+import getQueryClient from '@/lib/getQueryClient';
 
 const RANDOM_REASON = [
   '졸업작품',
@@ -50,7 +51,7 @@ function getButtonStatus({ value, cValue }: { value: number | null; cValue: numb
 
 export default function ReservationForm({ studyRoom, friendData, date }: ReservationFormProps) {
   const { modal } = useModal();
-
+  const queryClient = getQueryClient();
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const today = new Date(date);
   const day = today.toLocaleDateString('ko-KR', {
@@ -142,6 +143,9 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
           }),
         );
       }
+      queryClient.invalidateQueries({
+        queryKey: ['studyroomReservations'],
+      });
       router.back();
     }
   };
