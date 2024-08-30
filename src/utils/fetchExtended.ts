@@ -20,7 +20,7 @@ const returnFetchThrowingErrorByStatusCode: ReturnFetch = (args) =>
           if (msg === '학번 또는 비밀번호가 올바르지 않습니다.') {
             throw new Error('학번 또는 비밀번호가 올바르지 않습니다.');
           }
-          redirect('/login');
+          redirect('/logout');
         }
         if (response.status === 429) {
           throw new Error('Too Many Requests');
@@ -49,7 +49,7 @@ const returnFetchRetry: ReturnFetch = (args) =>
           return fetch(...requestArgs);
         }
         if (response.status === 401) {
-          redirect('/login');
+          redirect('/logout');
         }
         if (response.status >= 400) {
           return fetch(...requestArgs);

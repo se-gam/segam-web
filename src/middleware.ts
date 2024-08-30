@@ -17,7 +17,7 @@ export default middleware((req) => {
     return NextResponse.next();
   }
   if (!isLoggedIn) {
-    return NextResponse.redirect(new URL('/', nextUrl));
+    return NextResponse.redirect(new URL('/logout', nextUrl));
   }
   return NextResponse.next();
 });
