@@ -5,7 +5,8 @@ import Board from '@/components/dashboard/board/board';
 import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
 import RouletteCard from '@/components/dashboard/card/rouletteCard';
-import StudyRoomBoard from '@/components/studyroom/studyRoomBoard';
+import ReservationList from '@/components/studyroom/studyRoomBoard';
+import ClassicCard from '@/components/dashboard/card/classicCard';
 
 export default async function DashBoard() {
   const CourseData = await getCourseAttendance();
@@ -39,7 +40,10 @@ export default async function DashBoard() {
             return null;
           })}
         </Board>
-        <StudyRoomBoard />
+        <Board title="예약 현황">
+          <ReservationList />
+        </Board>
+        <ClassicCard />
         <RouletteCard />
       </div>
     </main>
