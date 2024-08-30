@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
-import { cancelReservation } from '@/lib/actions/studyroom';
 import { getStudyroomReservation } from '@/lib/actions/client';
 import StudyRoomReservationList from '@/components/studyroom/list/studyRoomReservationList';
 import SuspenseView from '@/components/common/suspenseView';
@@ -22,5 +21,5 @@ export default function ReservationView() {
   if (!data?.reservations || data.reservations.length === 0)
     return <SuspenseView content="예약 내역이 없습니다." />;
 
-  return <StudyRoomReservationList data={data.reservations} onCancel={cancelReservation} />;
+  return <StudyRoomReservationList data={data.reservations} />;
 }

@@ -52,10 +52,9 @@ export async function cancelStudyroomReservation(session: ClientSession, id: num
     });
   } catch (e) {
     if (e instanceof Error) {
-      return e.message;
+      throw new Error(e.message);
     }
   }
-  return null;
 }
 
 export async function getClassicReservation(
@@ -101,7 +100,7 @@ export async function cancelClassicReservation(session: ClientSession, reservati
     });
   } catch (e) {
     if (e instanceof Error) {
-      return e.message;
+      throw new Error(e.message);
     }
   }
   return null;
