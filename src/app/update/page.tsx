@@ -2,6 +2,7 @@
 
 import { updateCourseAttendance } from '@/lib/actions/attendance';
 import { Spin } from 'antd';
+
 import { useEffect } from 'react';
 
 export default function Update() {
