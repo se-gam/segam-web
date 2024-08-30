@@ -5,6 +5,7 @@ export async function GET(req: NextRequest) {
   await signOut({ redirect: false });
   return NextResponse.redirect(new URL('/', req.url));
 }
+
 export async function POST(req: NextRequest) {
   await signOut({
     redirect: false,
