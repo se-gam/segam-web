@@ -31,7 +31,8 @@ export type Assignment = {
   week: number;
 };
 export type Course = {
-  id: number;
+  id: string;
+  courseId: string;
   ecampusId: number;
   name: string;
   lectureAbsences: number;
