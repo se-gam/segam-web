@@ -18,8 +18,7 @@ function getIconNameFromSchool(school: string) {
   return schoolIconMap[school] || 'etc';
 }
 
-
-export default function getIconNameFromCourseId(courseId: number) {
+export default function getIconNameFromCourseId(courseId: string) {
   const course = COURSE_LIST.find((c) => c.id === courseId.toString());
   if (!course) {
     return 'etc';
