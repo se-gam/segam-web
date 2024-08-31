@@ -39,6 +39,10 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
   const [slot, setSlot] = useState<string>('');
   const [category, setCategory] = useState<Option>({ value: 0, label: '' });
   const [book, setBook] = useState<Option>({ value: 0, label: '' });
+  const dateHandler = (value: dayjs.Dayjs) => {
+    setDate(value);
+    setSlot('');
+  };
   const reserveMutation = useMutation({
     mutationFn: () =>
       reserveClassic({
@@ -95,13 +99,13 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
   const bookInfo =
     formattedBookData.find((item) => item.categoryId === category.value)?.books || [];
 
+  const isValidate = date && slot && category.value && book.value;
+
   return (
     <div className="mx-4 flex flex-col gap-6">
       <GtCalender
         value={date!}
-        onChange={(value) => {
-          setDate(value);
-        }}
+        onChange={dateHandler}
         disabledData={(value) => !availableDate.includes(value.format('YYYY-MM-DD'))}
       />
       {!(availableDate?.length === 0) && (
@@ -135,9 +139,11 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
             </div>
           </div>
           <Button
-            variant="primary"
+            variant={isValidate ? 'primary' : 'disabled'}
             size="full"
-            label="완료"
+            label={reserveMutation.isPending ? '예약 중...' : '예약하기'}
+            loading={reserveMutation.isPending}
+            disabled={!isValidate}
             onClick={() => reserveMutation.mutate()}
           />
         </>
