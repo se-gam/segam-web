@@ -1,13 +1,12 @@
 'use client';
 
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
-import { ReservationResponse } from '@/lib/definitions';
-import getReservationList from '@/lib/actions/client';
+import { ReservationItem, ReservationResponse } from '@/lib/definitions';
+import { getClassicReservation, getStudyroomReservation } from '@/lib/actions/client';
+import StudyRoomReservationCard from '@/components/dashboard/card/studyRoomReservationCard';
+import ClassicReservationCard from '@/components/dashboard/card/classicReservationCard';
 import calReservationData from '@/utils/calReservationData';
-import Board from '@/components/dashboard/board/board';
-import StudyRoomCard from '@/components/dashboard/card/studyRoomCard';
 
 function MessageView({ content }: Readonly<{ content: string }>) {
   return (
@@ -17,53 +16,60 @@ function MessageView({ content }: Readonly<{ content: string }>) {
   );
 }
 
-function ReservationList({
-  reservationData,
-}: Readonly<{ reservationData: ReservationResponse[] }>) {
-  return (
-    <>
-      {reservationData.map((item) => (
-        <StudyRoomCard
-          key={item.id}
-          title={item.title}
-          description={item.description}
-          iconName={item.iconName}
-          id={item.id}
-        />
-      ))}
-    </>
-  );
+function isStudyroom(item: ReservationItem): item is ReservationResponse {
+  return 'id' in item && 'title' in item;
 }
 
-export default function StudyRoomBoard() {
+export default function ReservationList() {
   const session = useSession();
-  const { data, isLoading, error } = useQuery({
-    // 세션 변경되어도 쿼리 날리지 않기
+  const {
+    data: studyroomData,
+    isLoading: studyroomLoading,
+    error: studyroomError,
+  } = useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: ['studyroomReservations'],
-    queryFn: () => getReservationList(session),
+    queryFn: () => getStudyroomReservation(session),
+    enabled: session.status === 'authenticated',
+  });
+  const {
+    data: classicData,
+    isLoading: classicLoading,
+    error: classicError,
+  } = useQuery({
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: ['classicReservations'],
+    queryFn: () => getClassicReservation(session),
     enabled: session.status === 'authenticated',
   });
 
-  let content: React.ReactNode;
+  const isLoading = studyroomLoading || classicLoading;
+  const error = studyroomError || classicError;
 
-  if (isLoading || !data?.reservations) {
-    content = <MessageView content="예약내역을 불러오는 중입니다..." />;
-  } else if (error) {
-    content = <MessageView content="예약 내역을 불러오는 중 오류가 발생했습니다." />;
-  } else {
-    const reservationData = calReservationData(data?.reservations || []);
-    content =
-      reservationData.length === 0 ? (
-        <MessageView content="예약 내역이 없습니다." />
-      ) : (
-        <ReservationList reservationData={reservationData} />
-      );
+  if (isLoading) {
+    return <MessageView content="예약내역을 불러오는 중입니다..." />;
   }
+  if (error) {
+    return <MessageView content="예약내역을 불러오는 중 오류가 발생했습니다." />;
+  }
+  const reservationData = calReservationData(studyroomData?.reservations || []);
+  const data = [...reservationData, ...(classicData?.reservations || [])];
 
-  return (
-    <Board title="내 예약현황" url="dashboard/studyroom">
-      {content}
-    </Board>
-  );
+  if (data.length === 0) {
+    return <MessageView content="예약 내역이 없습니다." />;
+  }
+  return data.map((item) => {
+    if (isStudyroom(item)) {
+      return (
+        <StudyRoomReservationCard
+          key={item.id}
+          id={item.id}
+          title={item.title}
+          description={item.description}
+          iconName={item.iconName}
+        />
+      );
+    }
+    return <ClassicReservationCard key={item.reservationId} reservation={item} />;
+  });
 }

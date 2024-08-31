@@ -1,4 +1,4 @@
-import courseList from '@/lib/courseList';
+import { COURSE_LIST } from '@/lib/constants';
 
 function getIconNameFromSchool(school: string) {
   const schoolIconMap: { [key: string]: string } = {
@@ -18,8 +18,8 @@ function getIconNameFromSchool(school: string) {
   return schoolIconMap[school] || 'etc';
 }
 
-export default function getIconNameFromCourseId(courseId: number) {
-  const course = courseList.find((c) => c.id === courseId.toString());
+export default function getIconNameFromCourseId(courseId: string) {
+  const course = COURSE_LIST.find((c) => c.id === courseId.toString());
   if (!course) {
     return 'etc';
   }

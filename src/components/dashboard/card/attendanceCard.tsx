@@ -8,9 +8,14 @@ interface AttendanceCardProps {
   title: string;
   iconName: string;
   remainJobs?: number;
-  id: number;
+  id: string;
 }
-export default function AttendanceCard({ title, iconName, remainJobs, id }: AttendanceCardProps) {
+export default function AttendanceCard({
+  title,
+  iconName,
+  remainJobs,
+  id,
+}: Readonly<AttendanceCardProps>) {
   const { navigateTo } = useLink();
   return (
     <button

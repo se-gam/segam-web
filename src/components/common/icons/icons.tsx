@@ -176,6 +176,18 @@ const IMAGE: ImageType = {
   segam: {
     src: '/images/segam.png',
   },
+  classic_east: {
+    src: '/images/classic-east.png',
+  },
+  classic_west: {
+    src: '/images/classic-west.png',
+  },
+  classic_east_west: {
+    src: '/images/classic-east_west.png',
+  },
+  classic_science: {
+    src: '/images/classic-science.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
@@ -189,8 +201,18 @@ const Icons = {
     </svg>
   ),
   ArrowRight: (props: IconProps) => (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
+    <svg viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <g id="Frame 4" fill="none">
+        <path
+          fill="none"
+          id="Bold_10_R_Vector"
+          d="M6.75 5L11.25 9.49999L6.75 14"
+          stroke="#B0B8C1"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
     </svg>
   ),
   ArrowDown: (props: IconProps) => (
