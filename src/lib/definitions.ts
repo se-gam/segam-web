@@ -178,3 +178,40 @@ export type ClientSession =
   | { update: UpdateSession; data: null; status: 'loading' };
 
 export type ReservationItem = ReservationResponse | ClassicReservation;
+
+export type GodokSlot = {
+  id: string;
+  slotId: string;
+  startsAt: string;
+  availableSeats: number;
+  totalSeats: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+};
+
+export type GodokCalendar = {
+  [date: string]: GodokSlot[];
+};
+
+export type GodokCalendarResponse = {
+  godokSlots: GodokCalendar;
+};
+
+export type BookInfo = {
+  bookId: number;
+  bookName: string;
+  categoryId: number;
+  categoryName: string;
+};
+
+export type Option = {
+  value: number;
+  label: string;
+};
+
+export type Category = {
+  categoryId: number;
+  categoryName: string;
+  books: Option[];
+};

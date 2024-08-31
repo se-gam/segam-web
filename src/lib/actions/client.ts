@@ -134,3 +134,38 @@ export async function getClassicStatus(
     throw error;
   }
 }
+
+export async function reserveClassic({
+  session,
+  godokSlotId,
+  bookAreaCode,
+  bookCode,
+}: {
+  session: ClientSession;
+  godokSlotId: string;
+  bookAreaCode: number;
+  bookCode: number;
+}) {
+  const accessToken = session?.data?.user.accessToken;
+  const password = session?.data?.user.encryptedPassword;
+  try {
+    await fetchExtended<ClassicReservation[]>('/v1/godok/reservation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: {
+        password,
+        godokSlotId,
+        bookAreaCode,
+        bookCode,
+      },
+    });
+  } catch (e) {
+    if (e instanceof Error) {
+      throw new Error(e.message);
+    }
+  }
+  return null;
+}
