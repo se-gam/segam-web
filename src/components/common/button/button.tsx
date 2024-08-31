@@ -5,7 +5,7 @@ import { cva } from 'class-variance-authority';
 import cn from '@/utils/cn';
 
 interface ButtonProps {
-  label: string;
+  label?: string;
   variant: 'default' | 'primary' | 'selected' | 'disabled';
   size: 'sm' | 'md' | 'ml' | 'lg' | 'full';
   className?: string;
@@ -13,6 +13,7 @@ interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
 const ButtonVariants = cva('transition-opacity duration-200 active:opacity-80', {
@@ -42,6 +43,7 @@ export default function Button({
   disabled = false,
   loading = false,
   onClick = () => {},
+  children,
 }: Readonly<ButtonProps>) {
   return (
     <button
@@ -56,7 +58,7 @@ export default function Button({
         className,
       )}
     >
-      {loading ? '처리중...' : label}
+      {loading ? '처리중...' : label || children}
     </button>
   );
 }
