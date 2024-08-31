@@ -4,7 +4,7 @@ import { Calendar, ConfigProvider, Select } from 'antd';
 import { HeaderRender } from 'antd/es/calendar/generateCalendar';
 import { createStyles } from 'antd-style';
 import locale from 'antd/locale/ko_KR';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 import 'dayjs/locale/ko';
 import { useState } from 'react';
@@ -49,17 +49,16 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-function headerRender({ value, onChange }: HeaderRender) {
+const headerRender: HeaderRender<Dayjs> = ({ value, onChange }) => {
   const start = 0;
   const end = 12;
   const monthOptions = [];
 
   let current = value.clone();
-  const localeData = value.localeData();
   const months = [];
   for (let i = 0; i < 12; i += 1) {
     current = current.month(i);
-    months.push(localeData.monthsShort(current));
+    months.push(current.format('MMMM'));
   }
 
   for (let i = start; i < end; i += 1) {
@@ -109,7 +108,7 @@ function headerRender({ value, onChange }: HeaderRender) {
       </div>
     </div>
   );
-}
+};
 
 export default function GtCalender() {
   const { styles } = useStyles();
