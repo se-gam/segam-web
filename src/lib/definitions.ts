@@ -1,3 +1,6 @@
+import { Session } from 'next-auth';
+import { UpdateSession } from 'next-auth/react';
+
 export type AuthResponse = {
   accessToken: string;
   refreshToken: string;
@@ -28,7 +31,8 @@ export type Assignment = {
   week: number;
 };
 export type Course = {
-  id: number;
+  id: string;
+  courseId: string;
   ecampusId: number;
   name: string;
   lectureAbsences: number;
@@ -143,3 +147,34 @@ export type DateFilterData = {
   date: string;
   timeRange: number[];
 };
+
+export type ClassicReservation = {
+  reservationId: string;
+  bookId: number;
+  bookName: string;
+  reservationTime: string;
+  bookCategoryId: number;
+};
+
+export type ClassicReservationList = {
+  reservations: ClassicReservation[];
+};
+
+export type ClassicStatus = {
+  categoryCode: 1000 | 2000 | 3000 | 4000;
+  categoryName: string;
+  categoryStatus: boolean;
+  count: number;
+  targetCount: number;
+};
+export type ClassicStatusList = {
+  status: boolean;
+  categoryStatus: ClassicStatus[];
+};
+
+export type ClientSession =
+  | { update: UpdateSession; data: Session; status: 'authenticated' }
+  | { update: UpdateSession; data: null; status: 'unauthenticated' | 'loading' }
+  | { update: UpdateSession; data: null; status: 'loading' };
+
+export type ReservationItem = ReservationResponse | ClassicReservation;

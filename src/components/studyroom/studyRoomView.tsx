@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { getStudyroomList } from '@/lib/actions/studyroom';
 import StudyRoomSlotList from '@/components/studyroom/list/studyRoomSlotList';
-import StudyRoomModalButton from '@/components/studyroom/StudyRoomModalButton';
 import { DateFilterData, StudyroomList } from '@/lib/definitions';
+import StudyroomFilterModal from '@/components/studyroom/list/studyRoomFilterModal';
 
 export default function StudyRoomView() {
   const [dateFilterData, setDateFilterData] = useState<DateFilterData>({
@@ -37,7 +37,10 @@ export default function StudyRoomView() {
               })}
             </p>
           </div>
-          <StudyRoomModalButton data={dateFilterData} setData={setDateFilterData} />
+          <StudyroomFilterModal
+            dateFilterData={dateFilterData}
+            setDateFilterData={setDateFilterData}
+          />
         </div>
 
         {studyroomListData && studyroomListData.studyrooms.length > 0 ? (

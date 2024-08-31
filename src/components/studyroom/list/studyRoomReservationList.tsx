@@ -5,13 +5,9 @@ import StudyRoomReservationItem from './studyRoomReservationItem';
 
 interface StudyRoomReservationListProps {
   data: Reservation[];
-  onCancel: (id: number) => Promise<null | string>;
 }
 
-export default function StudyRoomReservationList({
-  data,
-  onCancel,
-}: StudyRoomReservationListProps) {
+export default function StudyRoomReservationList({ data }: StudyRoomReservationListProps) {
   return (
     <div>
       {data.map((reservation) => (
@@ -24,7 +20,6 @@ export default function StudyRoomReservationList({
           duration={reservation.duration}
           isLeader={reservation.isLeader}
           users={reservation.users}
-          onCancel={onCancel}
         />
       ))}
     </div>
