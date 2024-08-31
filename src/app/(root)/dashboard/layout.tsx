@@ -1,5 +1,5 @@
 import NavLinks from '@/components/common/navLinks/NavLinks';
-import getClassicStatus from '@/lib/actions/classic';
+import { getClassicStatus } from '@/lib/actions/classic';
 import getQueryClient from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 

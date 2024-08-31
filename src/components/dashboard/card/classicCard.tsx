@@ -5,7 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import Icons from '@/components/common/icons/icons';
 import Tag from '@/components/common/tag/tag';
 import Link from 'next/link';
-import getClassicStatus from '@/lib/actions/classic';
+import { getClassicStatus } from '@/lib/actions/classic';
 
 export default function ClassicCard() {
   const { data } = useSuspenseQuery({

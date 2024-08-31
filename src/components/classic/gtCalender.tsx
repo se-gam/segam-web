@@ -1,10 +1,9 @@
 'use client';
 
-import { Calendar, ConfigProvider, Select } from 'antd';
+import { Calendar, ConfigProvider } from 'antd';
 import locale from 'antd/locale/ko_KR';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
-import { useState } from 'react';
 
 import Icons from '@/components/common/icons/icons';
 import cn from '@/utils/cn';
@@ -13,24 +12,21 @@ import type { CellRenderInfo } from 'rc-picker/lib/interface';
 
 dayjs.locale('ko');
 
+interface GtCalenderProps {
+  disabledData: (date: dayjs.Dayjs) => boolean;
+  value: dayjs.Dayjs;
+  onChange: (date: dayjs.Dayjs) => void;
+}
+
 const headerRender: CalendarProps<Dayjs>['headerRender'] = ({ value, onChange }) => {
   const start = 0;
   const end = 12;
-  const monthOptions = [];
 
   let current = value.clone();
   const months = [];
   for (let i = start; i < end; i += 1) {
     current = current.month(i);
     months.push(current.format('MMMM'));
-  }
-
-  for (let i = start; i < end; i += 1) {
-    monthOptions.push(
-      <Select.Option key={i} value={i} className="month-item">
-        {months[i]}
-      </Select.Option>,
-    );
   }
 
   const year = value.year();
@@ -56,17 +52,17 @@ const headerRender: CalendarProps<Dayjs>['headerRender'] = ({ value, onChange })
           height="20px"
           onClick={!disablePrev ? handlePrevMonth : undefined}
           className={cn({
-            'fill-text_secondary': disablePrev,
-            'fill-theme_primary': !disablePrev,
+            'fill-text_secondary stroke-text_secondary': disablePrev,
+            'fill-theme_primary stroke-theme_primary': !disablePrev,
           })}
         />
-        <Icons.ArrowRight
+        <Icons.ArrowRightSM
           width="20px"
           height="20px"
           onClick={!disableNext ? handleNextMonth : undefined}
           className={cn({
-            'fill-text_secondary': disableNext,
-            'fill-theme_primary': !disableNext,
+            'fill-text_secondary stroke-text_secondary': disableNext,
+            'fill-theme_primary stroke-theme_primary': !disableNext,
           })}
         />
       </div>
@@ -74,21 +70,18 @@ const headerRender: CalendarProps<Dayjs>['headerRender'] = ({ value, onChange })
   );
 };
 
-export default function GtCalender() {
-  const [selectedDate, setSelectedDate] = useState(dayjs());
-  const [currentMonth, setCurrentMonth] = useState(dayjs());
+export default function GtCalender({ disabledData, value, onChange }: GtCalenderProps) {
   const cellRender: CalendarProps<Dayjs>['fullCellRender'] = (
     date: Dayjs,
     info: CellRenderInfo<Dayjs>,
   ) => {
     if (info.type === 'date') {
-      const isCurrentMonth =
-        date.year() === currentMonth.year() && date.month() === currentMonth.month();
+      const isCurrentMonth = date.year() === value.year() && date.month() === value.month();
       if (!isCurrentMonth) {
         return null;
       }
 
-      const isSelected = date.isSame(selectedDate, 'day');
+      const isSelected = date.isSame(value);
 
       return (
         <div
@@ -105,24 +98,19 @@ export default function GtCalender() {
   };
 
   const onDateSelect = (newDate: Dayjs) => {
-    setSelectedDate(newDate);
-    setCurrentMonth(newDate);
-  };
-
-  const onPanelChange = (newValue: Dayjs) => {
-    setCurrentMonth(newValue);
+    onChange(newDate);
   };
 
   return (
     <ConfigProvider locale={locale}>
       <Calendar
+        defaultValue={value}
         fullCellRender={cellRender}
         fullscreen={false}
         headerRender={headerRender}
-        value={selectedDate}
+        value={value}
         onSelect={onDateSelect}
-        onPanelChange={onPanelChange}
-        disabledDate={(date) => date.isBefore(dayjs(), 'day')}
+        disabledDate={disabledData}
       />
     </ConfigProvider>
   );
