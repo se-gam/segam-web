@@ -32,7 +32,7 @@ export default function TimeSlotSelector({
         <div className="f20 font-bold text-text_primary">시간 선택하기</div>
         <div className="f14 text-text_secondary">예약이 마감된 시간은 보이지 않아요</div>
       </div>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(112px,1fr))] gap-x-[10px] gap-y-2">
+      <div className="grid grid-cols-3 gap-x-[10px] gap-y-2 ">
         {availableTimeSlots?.map((slot) => (
           <Button
             key={slot.startsAt}

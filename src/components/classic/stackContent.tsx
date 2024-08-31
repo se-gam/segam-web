@@ -43,6 +43,10 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
     setDate(value);
     setSlot('');
   };
+  const categoryHandler = (value: Option) => {
+    setCategory(value);
+    setBook({ value: 0, label: '' });
+  };
   const reserveMutation = useMutation({
     mutationFn: () =>
       reserveClassic({
@@ -104,6 +108,7 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
   return (
     <div className="mx-4 flex flex-col gap-6">
       <GtCalender
+        defaultValue={dayjs(availableDate[0])}
         value={date!}
         onChange={dateHandler}
         disabledData={(value) => !availableDate.includes(value.format('YYYY-MM-DD'))}
@@ -122,7 +127,7 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
                 type="area"
                 data={areaInfo}
                 value={category}
-                onChange={(data: Option) => setCategory(data)}
+                onChange={categoryHandler}
                 title="영역 선택"
                 placeholder="영역을 선택해주세요"
               />

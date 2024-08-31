@@ -13,6 +13,7 @@ import type { CellRenderInfo } from 'rc-picker/lib/interface';
 dayjs.locale('ko');
 
 interface GtCalenderProps {
+  defaultValue: dayjs.Dayjs;
   disabledData: (date: dayjs.Dayjs) => boolean;
   value: dayjs.Dayjs;
   onChange: (date: dayjs.Dayjs) => void;
@@ -70,7 +71,12 @@ const headerRender: CalendarProps<Dayjs>['headerRender'] = ({ value, onChange })
   );
 };
 
-export default function GtCalender({ disabledData, value, onChange }: GtCalenderProps) {
+export default function GtCalender({
+  defaultValue,
+  disabledData,
+  value,
+  onChange,
+}: GtCalenderProps) {
   const cellRender: CalendarProps<Dayjs>['fullCellRender'] = (
     date: Dayjs,
     info: CellRenderInfo<Dayjs>,
@@ -81,7 +87,8 @@ export default function GtCalender({ disabledData, value, onChange }: GtCalender
         return null;
       }
 
-      const isSelected = date.isSame(value);
+      const isSelected =
+        date.isSame(value, 'date') && (date.isAfter(defaultValue) || date.isSame(defaultValue));
 
       return (
         <div
