@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Icons from '@/components/common/icons/icons';
 import cn from '@/utils/cn';
 import { CalendarProps } from 'antd/lib';
+import type { CellRenderInfo } from 'rc-picker/lib/interface';
 
 dayjs.locale('ko');
 
