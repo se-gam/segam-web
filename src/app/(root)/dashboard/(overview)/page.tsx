@@ -22,7 +22,7 @@ export default async function DashBoard() {
         <Board title="출석 현황" url="dashboard/attendance">
           {CourseData.courses.length === 0 && (
             <div className="flex h-20 w-full items-center justify-center rounded-lg">
-              <p className="f16 font-medium text-text_secondary">수강중인 강의가 없습니다.</p>
+              <p className="f16 font-medium text-text_secondary">수강중인 강의가 없어요.</p>
             </div>
           )}
           {CourseData.courses.map((course, index) => {

@@ -47,7 +47,7 @@ export async function updateCourseAttendance({ refresh }: { refresh: boolean }):
     });
   } catch (error) {
     if (error instanceof Error) {
-      postMessageToDiscord('[재요청] 강의 업데이트에 실패했습니다.', error.message);
+      postMessageToDiscord('[재요청] 강의 업데이트에 실패했어요.', error.message);
     }
     throw error;
   }

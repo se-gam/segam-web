@@ -39,7 +39,7 @@ export default function PermissionPage() {
           <b className="font-bold text-text_primary">새로운 강의, 마감이 임박한 과제</b> 등
         </p>
         <p className="on-board mb-9 font-medium text-text_secondary">
-          <b className="font-bold text-text_primary">알림</b>을 받을 수 있습니다.
+          <b className="font-bold text-text_primary">알림</b>을 받을 수 있어요.
         </p>
         <div className="mb-2">
           <Icons.ImageIcon name="lock" width={36} height={36} />

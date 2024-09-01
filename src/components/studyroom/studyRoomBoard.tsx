@@ -50,13 +50,13 @@ export default function ReservationList() {
     return <MessageView content="예약내역을 불러오는 중입니다..." />;
   }
   if (error) {
-    return <MessageView content="예약내역을 불러오는 중 오류가 발생했습니다." />;
+    return <MessageView content="예약내역을 불러오는 중 오류가 발생했어요." />;
   }
   const reservationData = calReservationData(studyroomData?.reservations || []);
   const data = [...reservationData, ...(classicData?.reservations || [])];
 
   if (data.length === 0) {
-    return <MessageView content="예약 내역이 없습니다." />;
+    return <MessageView content="예약 내역이 없어요." />;
   }
   return data.map((item) => {
     if (isStudyroom(item)) {

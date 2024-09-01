@@ -37,7 +37,7 @@ export default function FriendList({ friends }: FriendListProps) {
         } catch (e) {
           modal({
             title: '친구 삭제 실패',
-            content: '친구 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
+            content: '친구 삭제에 실패했어요. 잠시 후 다시 시도해주세요.',
           });
         }
       },

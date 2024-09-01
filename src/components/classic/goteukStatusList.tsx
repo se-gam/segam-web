@@ -17,7 +17,7 @@ export default function GoteukStatusList() {
   });
 
   if (isLoading) return <SuspenseView content="예약 내역을 불러오는 중입니다..." />;
-  if (error) return <SuspenseView content="예약 내역을 불러오는 중 오류가 발생했습니다." />;
+  if (error) return <SuspenseView content="예약 내역을 불러오는 중 오류가 발생했어요." />;
   return (
     <div className="flex flex-col gap-4">
       {data?.categoryStatus.map((item) => (
