@@ -34,7 +34,7 @@ export default function InfoSelector({
           >
             <div
               className={cn('f14 font-medium ', {
-                'text-theme_accent': value?.label,
+                'text-text_primary': value?.label,
                 'text-text_secondary': !value?.label,
               })}
             >
@@ -57,7 +57,7 @@ export default function InfoSelector({
               <DrawerClose asChild key={item.value}>
                 <button
                   onClick={() => onChange(item)}
-                  className={cn('flex justify-start rounded-md px-2 py-3', {
+                  className={cn('flex justify-start rounded-md px-2 py-3 text-text_primary', {
                     'bg-button_default_bg': item.value === value?.value,
                   })}
                 >
