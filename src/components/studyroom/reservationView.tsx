@@ -16,10 +16,10 @@ export default function ReservationView() {
     enabled: session.status === 'authenticated',
   });
 
-  if (isLoading) return <SuspenseView content="예약 내역을 불러오는 중입니다..." />;
-  if (error) return <SuspenseView content="예약 내역을 불러오는 중 오류가 발생했습니다." />;
+  if (isLoading) return <SuspenseView content="예약 내역을 불러오는 중이에요..." />;
+  if (error) return <SuspenseView content="예약 내역을 불러오는 중 오류가 발생했어요." />;
   if (!data?.reservations || data.reservations.length === 0)
-    return <SuspenseView content="예약 내역이 없습니다." />;
+    return <SuspenseView content="예약 내역이 없어요." />;
 
   return <StudyRoomReservationList data={data.reservations} />;
 }

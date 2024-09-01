@@ -58,7 +58,7 @@ export default function MenuList() {
             if (res) {
               modal({
                 title: '로그아웃 실패',
-                content: '로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.',
+                content: '로그아웃에 실패했어요. 잠시 후 다시 시도해주세요.',
               });
             } else {
               if (isApp()) {
@@ -87,7 +87,7 @@ export default function MenuList() {
             if (res) {
               modal({
                 title: '회원 탈퇴 실패',
-                content: '회원 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요.',
+                content: '회원 탈퇴에 실패했어요. 잠시 후 다시 시도해주세요.',
               });
             } else {
               if (isApp()) {

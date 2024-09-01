@@ -20,7 +20,7 @@ export default function FriendList({ friends }: FriendListProps) {
     if (friendList.find((f) => f.studentId === friend.studentId)) {
       modal({
         title: '오류',
-        content: '이미 추가된 친구입니다.',
+        content: '이미 추가된 친구예요.',
       });
       return;
     }
@@ -29,7 +29,7 @@ export default function FriendList({ friends }: FriendListProps) {
   const handleDeleteClick = async ({ studentId }: { studentId: string }) => {
     confirmModal({
       title: '친구 삭제',
-      content: '정말 삭제하시겠습니까?',
+      content: '정말 친구를 삭제할까요?',
       onClick: async () => {
         try {
           await deleteFriend({ studentId });
@@ -37,7 +37,7 @@ export default function FriendList({ friends }: FriendListProps) {
         } catch (e) {
           modal({
             title: '친구 삭제 실패',
-            content: '친구 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
+            content: '친구 삭제에 실패했어요. 잠시 후 다시 시도해주세요.',
           });
         }
       },

@@ -57,7 +57,7 @@ export default function StudyRoomReservationItem({
     onError: () => {
       modal({
         title: '예약 실패',
-        content: '예약 취소에 실패했습니다. 다시 시도해주세요.',
+        content: '예약 취소에 실패했어요. 다시 시도해주세요.',
       });
     },
   });

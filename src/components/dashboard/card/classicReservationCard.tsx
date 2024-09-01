@@ -32,7 +32,8 @@ export default function ClassicReservationCard({
     timeZone: 'Asia/Seoul',
   });
   const [hour, minute] = formattedTime.split(':');
-  const description = `${formattedDate} ${hour}시 ${minute}분`;
+  const description =
+    minute === '00' ? `${formattedDate} ${hour}시` : `${formattedDate} ${hour}시 ${minute}분`;
   const cancelMutation = useMutation({
     mutationFn: (reservationId: string) => cancelClassicReservation(session, reservationId),
     onSuccess: () => {
@@ -45,7 +46,7 @@ export default function ClassicReservationCard({
     onError: () => {
       modal({
         title: '예약 실패',
-        content: '예약 취소에 실패했습니다. 다시 시도해주세요.',
+        content: '예약 취소에 실패했어요. 다시 시도해주세요.',
       });
     },
   });

@@ -39,7 +39,7 @@ export default function PermissionPage() {
           <b className="font-bold text-text_primary">새로운 강의, 마감이 임박한 과제</b> 등
         </p>
         <p className="on-board mb-9 font-medium text-text_secondary">
-          <b className="font-bold text-text_primary">알림</b>을 받을 수 있습니다.
+          <b className="font-bold text-text_primary">알림</b>을 받을 수 있어요.
         </p>
         <div className="mb-2">
           <Icons.ImageIcon name="lock" width={36} height={36} />
@@ -48,7 +48,7 @@ export default function PermissionPage() {
           <b className="font-bold text-text_primary">출석 확인, 스터디룸 예약</b>등을 위해
         </p>
         <p className="on-board font-medium text-text_secondary">
-          <b className="font-bold text-text_primary">비밀번호</b>를 기기에 저장합니다.
+          <b className="font-bold text-text_primary">비밀번호</b>를 기기에 저장해요.
         </p>
       </div>
       <div className="mb-4 w-full">
