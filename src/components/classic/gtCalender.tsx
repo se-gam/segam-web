@@ -47,7 +47,7 @@ const headerRender: CalendarProps<Dayjs>['headerRender'] = ({ value, onChange })
   return (
     <div className="flex items-center justify-between">
       <div className="f20 mb-2 mt-3 font-bold text-text_primary">{`${year}년 ${months[month]}`}</div>
-      <div className="flex">
+      <div className="flex gap-3">
         <Icons.ArrowLeftSM
           width="20px"
           height="20px"
