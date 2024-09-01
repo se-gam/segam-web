@@ -32,7 +32,7 @@ export default async function DashBoard() {
                   key={course.courseId}
                   title={course.name}
                   iconName={getIconNameFromCourseId(course.courseId)}
-                  id={course.courseId}
+                  id={course.id}
                   remainJobs={course.lecturesLeft + course.assignmentsLeft}
                 />
               );
