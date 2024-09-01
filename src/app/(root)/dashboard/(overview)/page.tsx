@@ -5,7 +5,8 @@ import Board from '@/components/dashboard/board/board';
 import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
 import RouletteCard from '@/components/dashboard/card/rouletteCard';
-import StudyRoomBoard from '@/components/studyroom/studyRoomBoard';
+import ReservationList from '@/components/studyroom/studyRoomBoard';
+import ClassicCard from '@/components/dashboard/card/classicCard';
 
 export default async function DashBoard() {
   const CourseData = await getCourseAttendance();
@@ -21,7 +22,7 @@ export default async function DashBoard() {
         <Board title="출석 현황" url="dashboard/attendance">
           {CourseData.courses.length === 0 && (
             <div className="flex h-20 w-full items-center justify-center rounded-lg">
-              <p className="f16 font-medium text-text_secondary">수강중인 강의가 없습니다.</p>
+              <p className="f16 font-medium text-text_secondary">수강중인 강의가 없어요.</p>
             </div>
           )}
           {CourseData.courses.map((course, index) => {
@@ -31,7 +32,7 @@ export default async function DashBoard() {
                   key={course.courseId}
                   title={course.name}
                   iconName={getIconNameFromCourseId(course.courseId)}
-                  id={course.courseId}
+                  id={course.id}
                   remainJobs={course.lecturesLeft + course.assignmentsLeft}
                 />
               );
@@ -39,7 +40,10 @@ export default async function DashBoard() {
             return null;
           })}
         </Board>
-        <StudyRoomBoard />
+        <Board title="예약 현황">
+          <ReservationList />
+        </Board>
+        <ClassicCard />
         <RouletteCard />
       </div>
     </main>

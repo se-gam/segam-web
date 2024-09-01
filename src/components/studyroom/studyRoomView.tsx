@@ -48,7 +48,7 @@ export default function StudyRoomView() {
         ) : (
           <div className="flex items-center justify-center">
             <p className="f16 mt-12 flex  font-medium text-text_secondary">
-              예약 가능한 스터디룸이 없습니다.
+              예약 가능한 스터디룸이 없어요.
             </p>
           </div>
         )}

@@ -38,20 +38,30 @@ export default function StudyRoomSlotList({ data, dateFilterData }: StudyRoomSlo
   const filteredData = filterStudyRooms(data, startsAt, endsAt);
   return (
     <div className="flex h-full flex-col overflow-auto px-4 ">
-      {filteredData.map((studyroom: Studyroom) => (
-        <div
-          onClick={() => {
-            trackAmplitudeEvent('click_스터디룸_개별스터디룸_list');
-            navigateTo({
-              page: `studyroom/${studyroom.id}/${dateTime}`,
-              title: studyroom.name,
-            });
-          }}
-          key={studyroom.id}
-        >
-          <StudyRoomSlotItem key={studyroom.id} data={studyroom} date={date} />
-        </div>
-      ))}
+      {filteredData.map((studyroom: Studyroom) => {
+        const hasAvailableSlot = studyroom.slots.some((slot) => !slot.isReserved && !slot.isClosed);
+        return (
+          <div
+            onClick={() => {
+              if (hasAvailableSlot) {
+                trackAmplitudeEvent('click_스터디룸_개별스터디룸_list');
+                navigateTo({
+                  page: `studyroom/${studyroom.id}/${dateTime}`,
+                  title: studyroom.name,
+                });
+              }
+            }}
+            key={studyroom.id}
+          >
+            <StudyRoomSlotItem
+              key={studyroom.id}
+              data={studyroom}
+              date={date}
+              hasAvailableSlot={hasAvailableSlot}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

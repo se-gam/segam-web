@@ -73,3 +73,35 @@ input {
     display: none;
   }
 }
+
+/* antd calender */
+.ant-picker-panel {
+  border: none !important;
+}
+.ant-picker-content thead tr th {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  color: #979799 !important;
+}
+.ant-picker-content tbody tr td {
+  vertical-align: middle !important;
+  text-align: -webkit-center !important;
+}
+.ant-picker-content tbody tr td div {
+  width: 42px !important;
+  height: 42px !important;
+}
+.ant-picker-cell-disabled::before {
+  background-color: unset !important;
+}
+.ant-picker-cell {
+  padding: 0px !important;
+  font-size: 20px;
+}
+.ant-typography {
+  margin-bottom: 0px;
+}
+.ant-picker-cell-disabled {
+  background-color: none !important;
+}

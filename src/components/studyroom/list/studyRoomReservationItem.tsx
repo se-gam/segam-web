@@ -1,11 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import Button from '@/components/common/button/button';
 import Icons from '@/components/common/icons/icons';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import useModal from '@/hooks/useModal';
 import getQueryClient from '@/lib/getQueryClient';
+import { cancelStudyroomReservation } from '@/lib/actions/client';
+import { StudyroomReservationList } from '@/lib/definitions';
+import { useSession } from 'next-auth/react';
 
 interface ReservationProps {
   id: number;
@@ -18,7 +22,6 @@ interface ReservationProps {
     studentId: string;
     name: string;
   }[];
-  onCancel: (id: number) => Promise<null | string>;
 }
 
 export default function StudyRoomReservationItem({
@@ -29,51 +32,45 @@ export default function StudyRoomReservationItem({
   duration,
   isLeader,
   users,
-  onCancel,
 }: Readonly<ReservationProps>) {
   const { confirmModal, modal } = useModal();
   const { trackAmplitudeEvent } = useAmplitudeContext();
+  const session = useSession();
   const queryClient = getQueryClient();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const formattedDate = new Date(date).toLocaleDateString('ko-KR', {
     month: 'long',
     day: 'numeric',
     weekday: 'long',
     timeZone: 'Asia/Seoul',
   });
-
   const endTime = startsAt + duration;
   const userNames = users.map((user) => `${user.studentId} ${user.name}`).join(' ');
-
-  const handleExpand = () => {
-    trackAmplitudeEvent('dropdown_스터디룸_동반이용자_btn');
-    setIsExpanded((prev) => !prev);
-  };
-  const handleCancel = () => {
-    trackAmplitudeEvent('click_스터디룸_취소_btn');
+  const cancelMutation = useMutation({
+    mutationFn: (reservationId: number) => cancelStudyroomReservation(session, reservationId),
+    onSuccess: (_, reservationId) => {
+      // 직접 상태 업데이트
+      queryClient.setQueryData(['studyroomReservations'], (oldData: StudyroomReservationList) => ({
+        reservations: oldData.reservations.filter((item) => item.id !== reservationId),
+      }));
+    },
+    onError: () => {
+      modal({
+        title: '예약 실패',
+        content: '예약 취소에 실패했어요. 다시 시도해주세요.',
+      });
+    },
+  });
+  const handleCancel = (reservationId: number) => {
     confirmModal({
       title: '예약 취소',
       content: '예약을 취소하시겠습니까?',
-      onClick: async () => {
-        setIsLoading(true);
-        const res = await onCancel(id);
-        setIsLoading(false);
-        if (res) {
-          modal({
-            title: '예약 실패',
-            content: res,
-          });
-        }
-        modal({
-          title: '예약 취소',
-          content: '예약이 취소되었습니다.',
-        });
-        queryClient.invalidateQueries({
-          queryKey: ['studyroomReservations'],
-        });
-      },
+      onClick: () => cancelMutation.mutate(reservationId),
     });
+  };
+  const handleExpand = () => {
+    trackAmplitudeEvent('dropdown_스터디룸_동반이용자_btn');
+    setIsExpanded((prev) => !prev);
   };
   return (
     <div className="mb-2 flex flex-col">
@@ -85,8 +82,12 @@ export default function StudyRoomReservationItem({
           size="sm"
           type="button"
           disabled={!isLeader}
-          loading={isLoading}
-          onClick={handleCancel}
+          loading={cancelMutation.isPending}
+          onClick={() => {
+            if (isLeader) {
+              handleCancel(id);
+            }
+          }}
         />
       </div>
       <div className="flex">

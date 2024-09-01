@@ -1,3 +1,6 @@
+import { Session } from 'next-auth';
+import { UpdateSession } from 'next-auth/react';
+
 export type AuthResponse = {
   accessToken: string;
   refreshToken: string;
@@ -143,4 +146,72 @@ export type Restaurant = {
 export type DateFilterData = {
   date: string;
   timeRange: number[];
+};
+
+export type ClassicReservation = {
+  reservationId: string;
+  bookId: number;
+  bookName: string;
+  reservationTime: string;
+  bookCategoryId: number;
+};
+
+export type ClassicReservationList = {
+  reservations: ClassicReservation[];
+};
+
+export type ClassicStatus = {
+  categoryCode: 1000 | 2000 | 3000 | 4000;
+  categoryName: string;
+  categoryStatus: boolean;
+  count: number;
+  targetCount: number;
+};
+export type ClassicStatusList = {
+  status: boolean;
+  categoryStatus: ClassicStatus[];
+};
+
+export type ClientSession =
+  | { update: UpdateSession; data: Session; status: 'authenticated' }
+  | { update: UpdateSession; data: null; status: 'unauthenticated' | 'loading' }
+  | { update: UpdateSession; data: null; status: 'loading' };
+
+export type ReservationItem = ReservationResponse | ClassicReservation;
+
+export type GodokSlot = {
+  id: string;
+  slotId: string;
+  startsAt: string;
+  availableSeats: number;
+  totalSeats: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+};
+
+export type GodokCalendar = {
+  [date: string]: GodokSlot[];
+};
+
+export type GodokCalendarResponse = {
+  godokSlots: GodokCalendar;
+};
+
+export type BookInfo = {
+  bookId: number;
+  bookName: string;
+  categoryId: number;
+  categoryName: string;
+};
+
+export type Option = {
+  value: number;
+  label: string;
+};
+
+export type Category = {
+  categoryId: number;
+  categoryName: string;
+  books: Option[];
 };

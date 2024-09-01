@@ -8,11 +8,17 @@ import getQueryClient from '@/lib/getQueryClient';
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const queryClient = getQueryClient();
   const onRefresh = async () => {
-    await updateCourseAttendance({
-      refresh: true,
-    });
     queryClient.invalidateQueries({
       queryKey: ['studyroomReservations'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['classicStatus'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['classicReservations'],
+    });
+    await updateCourseAttendance({
+      refresh: true,
     });
   };
 

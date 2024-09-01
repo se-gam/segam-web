@@ -11,6 +11,7 @@ export default async function Page() {
         <h1 className="f24 font-bold text-text_primary">내 예약 현황</h1>
         <ReservationView />
       </section>
+      <div className="mb-[25px] h-1.5 w-full bg-button_default_bg" />
       <StudyRoomView />
     </main>
   );
