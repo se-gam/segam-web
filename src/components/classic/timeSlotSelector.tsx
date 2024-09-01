@@ -41,11 +41,13 @@ export default function TimeSlotSelector({
             size="full"
             className="f14 flex h-auto items-center justify-center p-2 font-semibold"
           >
-            <div className="w-14">{dayjs(slot.startsAt).tz().format('HH:mm')}</div>
+            <div className="w-14 flex-grow-5.5">{dayjs(slot.startsAt).tz().format('HH:mm')}</div>
             <Divider type="vertical" style={{ marginLeft: 0, marginRight: '8px' }} />
-            <div className="text-text_[#88888a] flex w-8 items-center gap-0 fill-[#88888A]">
-              <Icons.Classic width="14px" height="14px" className="fill-current" />
-              {slot.availableSeats}
+            <div className="text-text_[#88888a] flex w-8 flex-grow-4.5 items-center justify-center gap-0 fill-[#88888A]">
+              <div className="flex w-8 items-center justify-start">
+                <Icons.Classic width="14px" height="14px" className="fill-current" />
+                {slot.availableSeats}
+              </div>
             </div>
           </Button>
         ))}
