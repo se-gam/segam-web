@@ -75,6 +75,12 @@ input {
 }
 
 /* antd calender */
+.ant-picker-calendar {
+  color: #4e5968 !important;
+}
+.ant-picker-calendar .ant-picker-cell {
+  color: #4e5968 !important;
+}
 .ant-picker-panel {
   border: none !important;
 }
@@ -104,4 +110,9 @@ input {
 }
 .ant-picker-cell-disabled {
   background-color: none !important;
+}
+/* Disabled 상태의 날짜 스타일 */
+.ant-picker-calendar .ant-picker-cell-disabled .ant-picker-calendar-date-value,
+.ant-picker-calendar .ant-picker-cell-disabled {
+  color: #979799 !important;
 }

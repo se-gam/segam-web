@@ -86,7 +86,6 @@ export default function GtCalender({
       if (!isCurrentMonth) {
         return null;
       }
-
       const isSelected =
         date.isSame(value, 'date') && (date.isAfter(defaultValue) || date.isSame(defaultValue));
 
