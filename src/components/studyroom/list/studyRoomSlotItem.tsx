@@ -8,9 +8,14 @@ import cn from '@/utils/cn';
 interface StudyRoomSlotItemProps {
   data: Studyroom;
   date: string;
+  hasAvailableSlot: boolean;
 }
 
-export default function StudyRoomSlotItem({ data, date }: StudyRoomSlotItemProps) {
+export default function StudyRoomSlotItem({
+  data,
+  date,
+  hasAvailableSlot,
+}: StudyRoomSlotItemProps) {
   const { name, location, minUsers, maxUsers, operatingHours, slots } = data;
   const filteredDate = new Date(date);
   const day = filteredDate.toLocaleDateString('ko-KR', {
@@ -53,7 +58,9 @@ export default function StudyRoomSlotItem({ data, date }: StudyRoomSlotItemProps
   };
 
   return (
-    <div className="mb-6 flex flex-col rounded-md pt-1 transition-transform active:scale-[0.98] active:bg-app_bg">
+    <div
+      className={`mb-6 flex flex-col rounded-md pt-1 transition-transform ${hasAvailableSlot ? 'active:scale-[0.98] active:bg-app_bg' : ''}`}
+    >
       <div className="mb-3 flex">
         <div className="mr-2 flex h-12 w-12 justify-center rounded-lg bg-slate-100 align-middle">
           <Icons.ImageIcon name={getIconName()} width={42} height={42} />
