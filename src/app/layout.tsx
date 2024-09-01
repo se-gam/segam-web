@@ -9,6 +9,7 @@ import ReactQueryProviders from '@/components/common/queryProvider';
 import getIdfromToken from '@/utils/getIdfromToken';
 import { auth } from '@/auth';
 import AuthSessionProvider from '@/components/common/authSessionProvider';
+import { ConfigProvider } from 'antd';
 
 const pretendard = localFont({
   src: [
@@ -68,11 +69,19 @@ export default async function RootLayout({
         )}
       >
         <AntdRegistry>
-          <AmplitudeContextProvider userId={userId}>
-            <AuthSessionProvider>
-              <ReactQueryProviders>{children}</ReactQueryProviders>
-            </AuthSessionProvider>
-          </AmplitudeContextProvider>
+          <ConfigProvider
+            theme={{
+              token: {
+                fontFamily: 'var(--font-pretendard)',
+              },
+            }}
+          >
+            <AmplitudeContextProvider userId={userId}>
+              <AuthSessionProvider>
+                <ReactQueryProviders>{children}</ReactQueryProviders>
+              </AuthSessionProvider>
+            </AmplitudeContextProvider>
+          </ConfigProvider>
         </AntdRegistry>
       </body>
     </html>
