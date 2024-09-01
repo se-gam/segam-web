@@ -11,6 +11,10 @@ const config: Config = {
   },
   theme: {
     extend: {
+      flexGrow: {
+        '5.5': '5.5',
+        '4.5': '4.5',
+      },
       fontFamily: {
         sans: ['var(--font-pretendard)'],
       },

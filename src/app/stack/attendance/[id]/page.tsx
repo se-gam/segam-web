@@ -7,7 +7,7 @@ import { getDayLabelByNumber } from '@/utils/format';
 
 export default async function SubjectPage({ params }: { params: { id: string } }) {
   const { courses }: CourseAttendance = await getCourseAttendance();
-  const course = courses.find((c) => c.courseId === params.id);
+  const course = courses.find((c) => c.id === params.id);
   if (!course) return null;
   const todayLabel = new Date().toLocaleDateString('ko-KR', {
     month: 'long',
