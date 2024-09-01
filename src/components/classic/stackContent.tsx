@@ -107,6 +107,7 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
 
   return (
     <div className="mx-4 flex h-full flex-col gap-6 overflow-auto">
+    <div className="mx-4 flex flex-col gap-6">
       <GtCalender
         defaultValue={dayjs(availableDate[0])}
         value={date!}
