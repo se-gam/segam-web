@@ -17,8 +17,8 @@ const returnFetchThrowingErrorByStatusCode: ReturnFetch = (args) =>
         }
         if (response.status === 401) {
           const msg = JSON.parse(await response.text()).message;
-          if (msg === '학번 또는 비밀번호가 올바르지 않어요.') {
-            throw new Error('학번 또는 비밀번호가 올바르지 않어요.');
+          if (msg === '학번 또는 비밀번호가 올바르지 않아요.') {
+            throw new Error('학번 또는 비밀번호가 올바르지 않아요.');
           }
           redirect('/logout');
         }

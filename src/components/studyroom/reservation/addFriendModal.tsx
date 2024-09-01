@@ -45,7 +45,7 @@ export default function AddFriendModal({
     if (friends.find((f) => f.studentId === friendId)) {
       modal({
         title: '오류',
-        content: '이미 추가된 친구에요.',
+        content: '이미 추가된 친구예요.',
       });
       return;
     }
