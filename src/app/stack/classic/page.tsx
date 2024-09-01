@@ -6,7 +6,7 @@ export default async function ClassicPage() {
   const [calendarSlot, bookData] = await Promise.all([getCalendarSlot(), getBookData()]);
 
   return (
-    <main className="safe-area-bottom mb-3 h-screen flex-col overflow-auto pb-6">
+    <main className="safe-area-bottom mb-3 flex h-screen flex-col overflow-hidden pb-6">
       <StackHeader title="예약하기" />
       <StackContent calendarSlot={calendarSlot} bookData={bookData} />
     </main>

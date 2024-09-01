@@ -106,7 +106,7 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
   const isValidate = date && slot && category.value && book.value;
 
   return (
-    <div className="mx-4 flex flex-col gap-6">
+    <div className="mx-4 flex h-full flex-col gap-6 overflow-auto">
       <GtCalender
         defaultValue={dayjs(availableDate[0])}
         value={date!}
@@ -150,6 +150,7 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
             loading={reserveMutation.isPending}
             disabled={!isValidate}
             onClick={() => reserveMutation.mutate()}
+            className="flex-shrink-0"
           />
         </>
       )}
