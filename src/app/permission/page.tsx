@@ -48,7 +48,7 @@ export default function PermissionPage() {
           <b className="font-bold text-text_primary">출석 확인, 스터디룸 예약</b>등을 위해
         </p>
         <p className="on-board font-medium text-text_secondary">
-          <b className="font-bold text-text_primary">비밀번호</b>를 기기에 저장합니다.
+          <b className="font-bold text-text_primary">비밀번호</b>를 기기에 저장해요.
         </p>
       </div>
       <div className="mb-4 w-full">

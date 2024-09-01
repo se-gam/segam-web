@@ -16,7 +16,7 @@ export default function GoteukStatusList() {
     enabled: session.status === 'authenticated',
   });
 
-  if (isLoading) return <SuspenseView content="예약 내역을 불러오는 중입니다..." />;
+  if (isLoading) return <SuspenseView content="예약 내역을 불러오는 중이에요..." />;
   if (error) return <SuspenseView content="예약 내역을 불러오는 중 오류가 발생했어요." />;
   return (
     <div className="flex flex-col gap-4">

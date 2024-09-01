@@ -109,7 +109,7 @@ export default function ReservationForm({ studyRoom, friendData, date }: Reserva
     if (users.length < studyRoom.minUsers - 1) {
       modal({
         title: '동반 이용자를 추가해주세요',
-        content: `나를 제외한 동반이용자는 최소 ${studyRoom.minUsers - 1}명 이상이어야 합니다.`,
+        content: `나를 제외한 동반이용자는 최소 ${studyRoom.minUsers - 1}명 이상이어야 해요.`,
       });
       return;
     }

@@ -20,7 +20,7 @@ export default function FriendList({ friends }: FriendListProps) {
     if (friendList.find((f) => f.studentId === friend.studentId)) {
       modal({
         title: '오류',
-        content: '이미 추가된 친구입니다.',
+        content: '이미 추가된 친구에요.',
       });
       return;
     }
