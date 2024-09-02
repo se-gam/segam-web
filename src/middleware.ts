@@ -9,15 +9,14 @@ export default middleware((req) => {
     nextUrl.pathname === '/permission' ||
     nextUrl.pathname === '/login' ||
     nextUrl.pathname === '/stack/privacy';
-
   if (isAuthRoute) {
     if (isLoggedIn) {
       return NextResponse.redirect(new URL('/check', nextUrl));
     }
     return NextResponse.next();
   }
-  if (!isLoggedIn) {
-    return NextResponse.redirect(new URL('/logout', nextUrl));
+  if (!isLoggedIn && nextUrl.pathname !== '/logout') {
+    return NextResponse.redirect(new URL('/logout', req.url));
   }
   return NextResponse.next();
 });
