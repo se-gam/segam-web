@@ -33,24 +33,27 @@ export default function TimeSlotSelector({
         <div className="f14 text-text_secondary">예약이 마감된 시간은 보이지 않아요</div>
       </div>
       <div className="grid grid-cols-3 gap-x-[10px] gap-y-2 ">
-        {availableTimeSlots?.map((slot) => (
-          <Button
-            key={slot.id}
-            onClick={() => onChange(slot.slotId)}
-            variant={value === slot.slotId ? 'selected' : 'default'}
-            size="full"
-            className="f14 flex h-auto items-center justify-center p-2 font-semibold"
-          >
-            <div className="w-14 flex-grow-5.5">{dayjs(slot.startsAt).tz().format('HH:mm')}</div>
-            <Divider type="vertical" style={{ marginLeft: 0, marginRight: '8px' }} />
-            <div className="text-text_[#88888a] flex w-8 flex-grow-4.5 items-center justify-center gap-0 fill-[#88888A]">
-              <div className="flex w-8 items-center justify-start">
-                <Icons.Classic width="14px" height="14px" className="fill-current" />
-                {slot.availableSeats}
+        {availableTimeSlots?.map((slot) => {
+          if (slot.availableSeats === 0) return null;
+          return (
+            <Button
+              key={slot.id}
+              onClick={() => onChange(slot.slotId)}
+              variant={value === slot.slotId ? 'selected' : 'default'}
+              size="full"
+              className="f14 flex h-auto items-center justify-center p-2 font-semibold"
+            >
+              <div className="w-14 flex-grow-5.5">{dayjs(slot.startsAt).tz().format('HH:mm')}</div>
+              <Divider type="vertical" style={{ marginLeft: 0, marginRight: '8px' }} />
+              <div className="text-text_[#88888a] flex w-8 flex-grow-4.5 items-center justify-center gap-0 fill-[#88888A]">
+                <div className="flex w-8 items-center justify-start">
+                  <Icons.Classic width="14px" height="14px" className="fill-current" />
+                  {slot.availableSeats}
+                </div>
               </div>
-            </div>
-          </Button>
-        ))}
+            </Button>
+          );
+        })}
       </div>
     </div>
   );
