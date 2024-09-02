@@ -104,7 +104,6 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
     formattedBookData.find((item) => item.categoryId === category.value)?.books || [];
 
   const isValidate = date && slot && category.value && book.value;
-
   return (
     <div className="mx-4 flex h-full flex-col gap-6 overflow-auto">
       <GtCalender
@@ -113,9 +112,10 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
         onChange={dateHandler}
         disabledData={(value) => !availableDate.includes(value.format('YYYY-MM-DD'))}
       />
-      {!(availableDate?.length === 0) && (
+      {availableDate?.length !== 0 && (
         <>
           <TimeSlotSelector
+            key={date.format('YYYY-MM-DD')}
             value={slot}
             onChange={(id) => setSlot(id)}
             availableTimeSlots={calendarSlot[date.format('YYYY-MM-DD')]}

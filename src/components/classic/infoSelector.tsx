@@ -57,6 +57,12 @@ export default function InfoSelector({
               <DrawerClose asChild key={item.value}>
                 <button
                   onClick={() => onChange(item)}
+                  className={cn(
+                    'f16 flex justify-start rounded-md px-2 py-3 font-medium text-text_primary',
+                    {
+                      'bg-button_default_bg': item.value === value?.value,
+                    },
+                  )}
                   className={cn('flex justify-start rounded-md px-2 py-3 text-text_primary', {
                     'bg-button_default_bg': item.value === value?.value,
                   })}
