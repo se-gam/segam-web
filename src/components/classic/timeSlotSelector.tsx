@@ -35,7 +35,7 @@ export default function TimeSlotSelector({
       <div className="grid grid-cols-3 gap-x-[10px] gap-y-2 ">
         {availableTimeSlots?.map((slot) => (
           <Button
-            key={slot.startsAt}
+            key={slot.id}
             onClick={() => onChange(slot.slotId)}
             variant={value === slot.slotId ? 'selected' : 'default'}
             size="full"
