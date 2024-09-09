@@ -1,5 +1,3 @@
-'use server';
-
 import postMessageToDiscord from '@/lib/actions/discord';
 import { redirect } from 'next/navigation';
 import returnFetch, { ReturnFetch } from 'return-fetch';
