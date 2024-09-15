@@ -1,13 +1,13 @@
 'use client';
 
 import Icons from '@/components/common/icons/icons';
-import useModal from '@/hooks/useModal';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
+import useModal from '@/hooks/useModal';
 
+import { withdrawal } from '@/lib/actions/auth';
 import { updateToken } from '@/lib/actions/user';
 import { isApp, stackRouterPush } from '@/utils/stackRouter';
 import { useRouter } from 'next/navigation';
-import { withdrawal } from '@/lib/actions/auth';
 
 const BASE_URL = process.env.NEXT_PUBLIC_FRONT_BASE_URL;
 
@@ -31,9 +31,9 @@ export default function MenuList() {
       },
     },
     {
-      label: 'FAQ',
+      label: '공지사항',
       onClick: () => {
-        trackAmplitudeEvent('click_마이페이지_FAQ_list');
+        trackAmplitudeEvent('click_마이페이지_공지사항_list');
         stackRouterPush({ router, page: 'notion' });
       },
     },
