@@ -10,7 +10,7 @@ export default async function Page() {
   const recordMap = await notion.getPage(NOTION_URL as string);
   return (
     <div className="container h-full overflow-hidden">
-      <StackHeader title="FAQ" />
+      <StackHeader title="공지사항" />
       <div className="h-full overflow-auto">
         <NotionPage recordMap={recordMap} />
       </div>
