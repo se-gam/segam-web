@@ -15,7 +15,7 @@ export default middleware((req) => {
     }
     return NextResponse.next();
   }
-  if (!isLoggedIn && nextUrl.pathname !== '/logout') {
+  if (!isLoggedIn && nextUrl.pathname !== '/logout' && nextUrl.pathname !== '/stack/portal') {
     return NextResponse.redirect(new URL('/logout', req.url));
   }
   return NextResponse.next();
