@@ -1,23 +1,23 @@
-'use client';
-
+import Link from 'next/link';
 import { updateCourseAttendance } from '@/lib/actions/attendance';
-import { Spin } from 'antd';
+import PortalButton from '@/components/common/portal-button';
 
-import { useEffect } from 'react';
-
-export default function Update() {
-  const handleUpdate = async () => {
-    await updateCourseAttendance({
-      refresh: false,
-    });
-  };
-  useEffect(() => {
-    handleUpdate();
-  }, []);
-  return (
-    <div className="container flex h-screen flex-col items-center justify-center gap-3">
-      <h1 className="f20 mb-6 font-bold">강의 정보를 업데이트 중이에요...</h1>
-      <Spin />
-    </div>
-  );
+export default async function Update() {
+  const data = await updateCourseAttendance({
+    refresh: false,
+  });
+  if (!data) {
+    return (
+      <main className="flex h-full flex-col items-center justify-center gap-2">
+        <h1 className="f16 mb-6 font-semibold">계정을 홈페이지를 통해 확인해주세요.</h1>
+        <Link
+          href="/logout"
+          className='hover:bg-blue-400" mb-1 mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors'
+        >
+          홈으로 돌아가기
+        </Link>
+        <PortalButton />
+      </main>
+    );
+  }
 }
