@@ -1,5 +1,4 @@
 import postMessageToDiscord from '@/lib/actions/discord';
-import { redirect } from 'next/navigation';
 import returnFetch, { ReturnFetch } from 'return-fetch';
 import returnFetchJson from 'return-fetch-json';
 
@@ -18,7 +17,7 @@ const returnFetchThrowingErrorByStatusCode: ReturnFetch = (args) =>
           if (msg === '학번 또는 비밀번호가 올바르지 않아요.') {
             throw new Error('학번 또는 비밀번호가 올바르지 않아요.');
           }
-          redirect('/logout');
+          throw new Error('로그인 오류');
         }
         if (response.status === 429) {
           throw new Error('Too Many Requests');
@@ -47,7 +46,7 @@ const returnFetchRetry: ReturnFetch = (args) =>
           return fetch(...requestArgs);
         }
         if (response.status === 401) {
-          redirect('/logout');
+          throw new Error('로그인 오류');
         }
         if (response.status >= 400) {
           return fetch(...requestArgs);

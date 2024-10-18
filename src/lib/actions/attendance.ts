@@ -30,7 +30,7 @@ export async function getCourseAttendance(): Promise<CourseAttendance> {
   };
 }
 
-export async function updateCourseAttendance({ refresh }: { refresh: boolean }): Promise<void> {
+export async function updateCourseAttendance({ refresh }: { refresh: boolean }): Promise<boolean> {
   const session = await auth();
   const accessToken = session?.user.accessToken;
   const password = session?.user.encryptedPassword;
@@ -45,18 +45,20 @@ export async function updateCourseAttendance({ refresh }: { refresh: boolean }):
         password,
       },
     });
-  } catch (error) {
-    if (error instanceof Error) {
-      postMessageToDiscord('[재요청] 강의 업데이트에 실패했어요.', error.message);
+  } catch (e) {
+    if (e instanceof Error) {
+      postMessageToDiscord('출석 업데이트 에러 발생', e.message);
     }
-    throw error;
+    return false;
   }
+
   if (refresh) {
     revalidateTag('courseAttendance');
   } else {
     revalidateTag('courseAttendance');
     redirect('/dashboard');
   }
+  return true;
 }
 
 export async function getRestaurants(): Promise<Restaurants> {
