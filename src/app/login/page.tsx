@@ -6,12 +6,15 @@ import Button from '@/components/common/button/button';
 import useModal from '@/hooks/useModal';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import { stackRouterPush } from '@/utils/stackRouter';
+import { useState } from 'react';
 
 export default function LoginPage() {
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const { modal } = useModal();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     trackAmplitudeEvent('click_로그인_btn');
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -39,6 +42,7 @@ export default function LoginPage() {
         content: '학번과 비밀번호를 확인해주세요.',
       });
     }
+    setLoading(false);
   };
   return (
     <div className="safe-area-top h-full overflow-visible">
@@ -83,7 +87,13 @@ export default function LoginPage() {
         </div>
 
         <div className="mb-4 px-2">
-          <Button type="submit" label="로그인" variant="primary" size="full" />
+          <Button
+            type="submit"
+            label="로그인"
+            variant={loading ? 'disabled' : 'primary'}
+            size="full"
+            disabled={loading}
+          />
         </div>
       </form>
     </div>
