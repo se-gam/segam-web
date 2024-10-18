@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { updateCourseAttendance } from '@/lib/actions/attendance';
-import PortalButton from '@/components/common/portal-button';
 
 export default async function Update() {
   const data = await updateCourseAttendance({
@@ -16,7 +15,6 @@ export default async function Update() {
         >
           홈으로 돌아가기
         </Link>
-        <PortalButton />
       </main>
     );
   }
