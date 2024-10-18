@@ -1,8 +1,8 @@
 'use client';
 
-import { Studyroom } from '@/lib/definitions';
-import Tag from '@/components/common/tag/tag';
 import Icons from '@/components/common/icons/icons';
+import Tag from '@/components/common/tag/tag';
+import { Studyroom } from '@/lib/definitions';
 import cn from '@/utils/cn';
 
 interface StudyRoomSlotItemProps {
@@ -16,7 +16,7 @@ export default function StudyRoomSlotItem({
   date,
   hasAvailableSlot,
 }: StudyRoomSlotItemProps) {
-  const { name, location, minUsers, maxUsers, operatingHours, slots } = data;
+  const { name, location, minUsers, maxUsers, operatingHours, tags, slots } = data;
   const filteredDate = new Date(date);
   const day = filteredDate.toLocaleDateString('ko-KR', {
     weekday: 'long',
@@ -70,6 +70,9 @@ export default function StudyRoomSlotItem({
           <div className="flex">
             <Tag label={location} variant="default" size="sm" className="mr-1" />
             <Tag label={`${minUsers}~${maxUsers}명`} variant={getTagVariant(minUsers)} size="sm" />
+            {tags.map((tag) => (
+              <Tag key={tag} label={tag} variant="default" size="sm" className="ml-1" />
+            ))}
           </div>
         </div>
       </div>
