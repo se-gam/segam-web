@@ -11,12 +11,14 @@ import { StudyroomReservationList } from '@/lib/definitions';
 
 interface StudyRoomReservationCardProps {
   id: number;
+  isLeader: boolean;
   title: string;
   description: string;
   iconName: string;
 }
 export default function StudyRoomReservationCard({
   id,
+  isLeader,
   title,
   iconName,
   description,
@@ -61,10 +63,13 @@ export default function StudyRoomReservationCard({
       <Button
         size="lg"
         variant="default"
-        label="취소"
+        label={isLeader ? '취소' : '동반이용'}
+        disabled={!isLeader}
         loading={cancelMutation.isPending}
         onClick={() => {
-          handleCancel(id);
+          if (isLeader) {
+            handleCancel(id);
+          }
         }}
       />
     </div>
