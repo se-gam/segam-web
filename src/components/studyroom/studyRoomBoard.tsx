@@ -64,6 +64,7 @@ export default function ReservationList() {
         <StudyRoomReservationCard
           key={item.id}
           id={item.id}
+          isLeader={item.isLeader}
           title={item.title}
           description={item.description}
           iconName={item.iconName}

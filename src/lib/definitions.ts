@@ -111,6 +111,7 @@ export type Reservation = {
 export type ReservationResponse = {
   id: number;
   title: string;
+  isLeader: boolean;
   description: string;
   iconName: string;
 };

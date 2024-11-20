@@ -24,6 +24,7 @@ export default function calReservationData(reservations: Reservation[]): Reserva
       id: reservation.id,
       title: reservation.name,
       description: `${formattedDate} ${startTime}~${endTime}`,
+      isLeader: reservation.isLeader,
       iconName,
     };
   });
