@@ -1,1 +1,32 @@
+name: Create GitHub Issue from JIRA
 
+on:
+  repository_dispatch:
+    types: [jira_issue_created]
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JIRA_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { issue } = context.payload;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[${issue.key}] ${issue.fields.summary}`,
+              body: `
+                Jira Issue: ${issue.key}
+                Description: ${issue.fields.description || 'No description'}
+                Priority: ${issue.fields.priority?.name || 'Not set'}
+                Status: ${issue.fields.status.name}
+                
+                [View in Jira](${process.env.JIRA_URL}/browse/${issue.key})
+              `
+            });
