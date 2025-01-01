@@ -3,9 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { ReservationItem, ReservationResponse } from '@/lib/definitions';
-import { getClassicReservation, getStudyroomReservation } from '@/lib/actions/client';
+import { getStudyroomReservation } from '@/lib/actions/client';
 import StudyRoomReservationCard from '@/components/dashboard/card/studyRoomReservationCard';
-import ClassicReservationCard from '@/components/dashboard/card/classicReservationCard';
 import calReservationData from '@/utils/calReservationData';
 
 function MessageView({ content }: Readonly<{ content: string }>) {
@@ -32,19 +31,19 @@ export default function ReservationList() {
     queryFn: () => getStudyroomReservation(session),
     enabled: session.status === 'authenticated',
   });
-  const {
-    data: classicData,
-    isLoading: classicLoading,
-    error: classicError,
-  } = useQuery({
-    // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: ['classicReservations'],
-    queryFn: () => getClassicReservation(session),
-    enabled: session.status === 'authenticated',
-  });
+  // const {
+  //   data: classicData,
+  //   isLoading: classicLoading,
+  //   error: classicError,
+  // } = useQuery({
+  //   // eslint-disable-next-line @tanstack/query/exhaustive-deps
+  //   queryKey: ['classicReservations'],
+  //   queryFn: () => getClassicReservation(session),
+  //   enabled: session.status === 'authenticated',
+  // });
 
-  const isLoading = studyroomLoading || classicLoading;
-  const error = studyroomError || classicError;
+  const isLoading = studyroomLoading;
+  const error = studyroomError;
 
   if (isLoading) {
     return <MessageView content="예약내역을 불러오는 중이에요..." />;
@@ -53,7 +52,8 @@ export default function ReservationList() {
     return <MessageView content="예약내역을 불러오는 중 오류가 발생했어요." />;
   }
   const reservationData = calReservationData(studyroomData?.reservations || []);
-  const data = [...reservationData, ...(classicData?.reservations || [])];
+  // const data = [...reservationData, ...(classicData?.reservations || [])];
+  const data = reservationData;
 
   if (data.length === 0) {
     return <MessageView content="예약 내역이 없어요." />;
@@ -71,6 +71,7 @@ export default function ReservationList() {
         />
       );
     }
-    return <ClassicReservationCard key={item.reservationId} reservation={item} />;
+    return null;
+    // return <ClassicReservationCard key={item.reservationId} reservation={item} />;
   });
 }

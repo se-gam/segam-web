@@ -11,12 +11,12 @@ export default function Layout({ children }: Readonly<{ children: React.ReactNod
     queryClient.invalidateQueries({
       queryKey: ['studyroomReservations'],
     });
-    queryClient.invalidateQueries({
-      queryKey: ['classicStatus'],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ['classicReservations'],
-    });
+    // queryClient.invalidateQueries({
+    //   queryKey: ['classicStatus'],
+    // });
+    // queryClient.invalidateQueries({
+    //   queryKey: ['classicReservations'],
+    // });
     await updateCourseAttendance({
       refresh: true,
     });
