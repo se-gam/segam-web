@@ -6,7 +6,7 @@ import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
 import RouletteCard from '@/components/dashboard/card/rouletteCard';
 import ReservationList from '@/components/studyroom/studyRoomBoard';
-import ClassicCard from '@/components/dashboard/card/classicCard';
+// import ClassicCard from '@/components/dashboard/card/classicCard';
 
 export default async function DashBoard() {
   const CourseData = await getCourseAttendance();
@@ -43,7 +43,7 @@ export default async function DashBoard() {
         <Board title="예약 현황">
           <ReservationList />
         </Board>
-        <ClassicCard />
+        {/* <ClassicCard /> */}
         <RouletteCard />
       </div>
     </main>
