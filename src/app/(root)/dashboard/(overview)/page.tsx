@@ -6,6 +6,7 @@ import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
 import RouletteCard from '@/components/dashboard/card/rouletteCard';
 import ReservationList from '@/components/studyroom/studyRoomBoard';
+import NoticeModal from '@/components/common/noticeModal';
 // import ClassicCard from '@/components/dashboard/card/classicCard';
 
 export default async function DashBoard() {
@@ -46,6 +47,7 @@ export default async function DashBoard() {
         {/* <ClassicCard /> */}
         <RouletteCard />
       </div>
+      <NoticeModal />
     </main>
   );
 }
