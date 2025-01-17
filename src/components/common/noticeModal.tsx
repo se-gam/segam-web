@@ -1,15 +1,16 @@
 'use client';
 
 import useModal from '@/hooks/useModal';
+import { Notice } from '@/lib/definitions';
 import Button from './button/button';
 
-export default function NoticeModal() {
+export default function NoticeModal({ noticeData }: { noticeData: Notice }) {
   const { noticeModal } = useModal();
 
   const handleClick = () => {
     noticeModal({
-      title: '공지사항제목',
-      content: `아래부터 공지사항 내용입니다 아래부터 공지사항 내용입니다 아래부터 공지사항 내용입니다`,
+      title: noticeData.title,
+      content: noticeData.content,
       onClick: () => {
         console.log('모달 확인 버튼 클릭');
       },
