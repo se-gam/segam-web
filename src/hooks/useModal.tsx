@@ -64,10 +64,10 @@ export default function useModal() {
   };
   const noticeModal = ({ title, content, onClick = () => null }: ModalProps) => {
     Modal.confirm({
-      title: <h3 className="f20 font-bold text-text_primary">{title}</h3>,
+      title: <h3 className="f20 mb-4 font-bold text-text_primary">{title}</h3>,
       content: <p className="f16 font-medium text-text_primary">{content}</p>,
       footer: (
-        <div className="mt-4 flex flex-row">
+        <div className="mt-6 flex flex-row">
           <Button
             label="다시보지 않기"
             variant="default"
