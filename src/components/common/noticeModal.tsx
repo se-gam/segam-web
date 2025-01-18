@@ -2,12 +2,12 @@
 
 import useModal from '@/hooks/useModal';
 import { Notice } from '@/lib/definitions';
-import Button from './button/button';
+import { useEffect } from 'react';
 
 export default function NoticeModal({ noticeData }: { noticeData: Notice }) {
   const { noticeModal } = useModal();
 
-  const handleClick = () => {
+  useEffect(() => {
     noticeModal({
       title: noticeData.title,
       content: noticeData.content,
@@ -15,11 +15,7 @@ export default function NoticeModal({ noticeData }: { noticeData: Notice }) {
         console.log('모달 확인 버튼 클릭');
       },
     });
-  };
+  }, [noticeData.content, noticeData.title, noticeModal]);
 
-  return (
-    <div className="mt-4">
-      <Button label="모달 열기" variant="primary" size="full" onClick={handleClick} />
-    </div>
-  );
+  return <div />;
 }

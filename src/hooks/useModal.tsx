@@ -92,6 +92,8 @@ export default function useModal() {
       maskClosable: false,
       centered: true,
       width: '358px',
+      style: { top: -100 },
+      transitionName: '',
     });
   };
   return { modal, confirmModal, noticeModal };
