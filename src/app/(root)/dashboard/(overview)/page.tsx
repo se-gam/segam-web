@@ -6,19 +6,11 @@ import AttendanceCard from '@/components/dashboard/card/attendanceCard';
 import AnnounceCard from '@/components/dashboard/card/announceCard';
 import RouletteCard from '@/components/dashboard/card/rouletteCard';
 import ReservationList from '@/components/studyroom/studyRoomBoard';
-import NoticeModal from '@/components/common/noticeModal';
-import { fetchExtended } from '@/utils/fetchExtended';
-import { Notice } from '@/lib/definitions';
 // import ClassicCard from '@/components/dashboard/card/classicCard';
 
 export default async function DashBoard() {
   const CourseData = await getCourseAttendance();
-  const noticeData = await fetchExtended<Notice>('http://dev.api.segam.org:3000/v1/notice/popup', {
-    cache: 'no-store',
-    next: {
-      tags: ['noticePopUp'],
-    },
-  }).then((response) => response.body);
+
   const { title, description, iconName, link } = calAnnounceData(CourseData);
 
   return (
@@ -55,7 +47,6 @@ export default async function DashBoard() {
         {/* <ClassicCard /> */}
         <RouletteCard />
       </div>
-      <NoticeModal noticeData={noticeData} />
     </main>
   );
 }
