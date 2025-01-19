@@ -75,6 +75,9 @@ export default function useModal() {
       icon: null,
       maskClosable: !isNotice,
       centered: true,
+      style: {
+        transform: isNotice ? 'translateY(-15%)' : '',
+      },
       transitionName: isNotice ? '' : undefined,
     });
   };
