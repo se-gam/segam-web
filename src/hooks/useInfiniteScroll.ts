@@ -6,7 +6,7 @@ interface UseInfiniteScrollProps {
   enabled?: boolean;
 }
 
-export const useInfiniteScroll = ({
+const useInfiniteScroll = ({
   onIntersect,
   threshold = 1.0,
   enabled = true,
@@ -37,3 +37,5 @@ export const useInfiniteScroll = ({
 
   return observerRef;
 };
+
+export default useInfiniteScroll;

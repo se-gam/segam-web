@@ -1,7 +1,7 @@
 import { fetchExtended } from '@/utils/fetchExtended';
 import { NoticeForList } from '@/lib/definitions';
 
-export async function getNotices(page: number, size: number): Promise<{ data: NoticeForList[]; total: number }> {
+export default async function getNotices(page: number, size: number): Promise<{ data: NoticeForList[]; total: number }> {
   const skip = page;
   const take = size;
 

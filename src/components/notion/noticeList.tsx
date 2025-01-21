@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { NoticeForList } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
-import { getNotices } from '@/lib/actions/notice';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import getNotices from '@/lib/actions/notice';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import Loading from '@/app/loading';
 
 export default function NoticeList() {
@@ -28,7 +28,7 @@ export default function NoticeList() {
         setSkip((prevSkip) => prevSkip + take);
       }
     } catch (error) {
-      console.error(error);
+      return;
     } finally {
       setIsLoading(false);
     }
@@ -41,9 +41,9 @@ export default function NoticeList() {
 
   return (
     <div className="flex flex-col px-4 py-2">
-      {notices.map((notice,index) => (
+      {notices.map((notice) => (
         <div
-          key={index} //백에서 id도 넘겨주는 거로 수정하기 전이라 일단 index 껴둠
+          key={notice.title} // 백에서 id도 넘겨주는 거로 수정하기 전이라 일단 title 껴둠
           className="flex flex-col justify-center h-[78px] px-4 py-[16px] hover:bg-gray-50 transition-colors cursor-pointer"
         >
           <h2 className="text-[16px] font-semibold leading-[24px] text-[#4E5968] truncate">
