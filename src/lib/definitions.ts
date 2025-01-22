@@ -228,7 +228,7 @@ export type Notice = {
 }
 
 export type NoticeForList = {
-  // id:number;
+  id:number;
   title:string;
   createdAt:string;
 }
