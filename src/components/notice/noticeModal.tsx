@@ -1,22 +1,33 @@
 'use client';
 
-import useModal from '@/hooks/useModal';
 import { Notice } from '@/lib/definitions';
 import { useEffect } from 'react';
+import useModal from '@/hooks/useModal';
 
 export default function NoticeModal({ noticeData }: { noticeData: Notice }) {
-  const { noticeModal } = useModal();
+  const { title, content, id } = noticeData;
+  const { confirmModal } = useModal();
 
   useEffect(() => {
-    noticeModal({
-      title: noticeData.title,
-      content: noticeData.content,
-      onClick: () => {
-        // TODO: 확인버튼, 다시보지 않기 버튼 클릭 2가지 경우 고려해서 함수 구현
-        console.log('모달 확인 버튼 클릭');
-      },
-    });
-  }, [noticeData.content, noticeData.title, noticeModal]);
+    const dismissCheck = localStorage.getItem('dismiss');
+    const seenCheck = sessionStorage.getItem('seen');
+    if (dismissCheck !== String(id)) {
+      localStorage.removeItem('dismiss');
+    }
+    if (seenCheck !== String(id)) {
+      sessionStorage.removeItem('seen');
+    }
+    const onCancleClick = () => {
+      localStorage.setItem('dismiss', String(id));
+    };
+    const onClick = () => {
+      sessionStorage.setItem('seen', String(id));
+    };
+
+    if (!seenCheck && !dismissCheck) {
+      confirmModal({ title, content, onCancleClick, onClick, isNotice: true });
+    }
+  }, [confirmModal, content, title, id]);
 
   return <div />;
 }

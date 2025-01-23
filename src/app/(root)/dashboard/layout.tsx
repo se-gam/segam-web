@@ -16,7 +16,7 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
   return (
     <div className="flex h-screen flex-col justify-between overflow-hidden">
       <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>
-      <NoticeModal noticeData={noticeData} />
+      {noticeData && <NoticeModal noticeData={noticeData} />}
       <NavLinks />
     </div>
   );
