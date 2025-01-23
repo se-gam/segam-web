@@ -1,8 +1,8 @@
 'use client';
 
+import { login } from '@/lib/actions/admin';
 import { Button, Input } from 'antd';
 import { useFormState } from 'react-dom';
-import login from '@/utils/admin';
 
 export default function LoginPage() {
   const [, action] = useFormState(login, null);

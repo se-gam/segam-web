@@ -217,3 +217,9 @@ export type Category = {
   categoryName: string;
   books: Option[];
 };
+
+export type Notice = {
+  id: number;
+  title: string;
+  createdAt: string;
+};
