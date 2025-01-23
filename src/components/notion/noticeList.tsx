@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { NoticeForList } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
-import getNotices from '@/lib/actions/notice';
+import { getNotices } from '@/lib/actions/notice';
 import Loading from '@/app/loading';
+import Link from 'next/link';
 
 export default function NoticeList() {
   const [notices, setNotices] = useState<NoticeForList[]>([]);
@@ -36,8 +37,9 @@ export default function NoticeList() {
   return (
     <div className="flex flex-col px-4 py-2">
       {notices.map((notice) => (
-        <div
+        <Link
           key={notice.id}
+          href={`/stack/notion/${notice.id}`}
           className="flex flex-col justify-center h-[78px] px-4 py-[16px] hover:bg-gray-50 transition-colors cursor-pointer"
         >
           <h2 className="text-[16px] font-semibold leading-[24px] text-[#4E5968] truncate">
@@ -46,7 +48,7 @@ export default function NoticeList() {
           <time className="text-[14px] font-medium leading-[20px] text-[#979799]">
             {dateDotFormatter(notice.createdAt)}
           </time>
-        </div>
+        </Link>
       ))}
     </div>
   );
