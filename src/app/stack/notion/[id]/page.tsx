@@ -6,16 +6,10 @@ import NoticeDetail from '@/components/notion/noticeDetail';
 export default async function DetailPage({params}:{params:{id:number}}){
     const notice : Notice|null = await getNoticeDetail(params.id)
 
-    if(!notice){
-        return(
-            <div className = "container h-full flex flex-col overflow-hidden">
-                <StackHeader title = "공지사항 상세"/>
-                <div className = "h-full flex items-center justify-center text-gray-500">
-                    공지사항을 불러올 수 없습니다.
-                </div>
-            </div>
-        )
+    if (!notice) {
+        throw new Error('공지사항을 불러올 수 없습니다.');
     }
+
     return(
         <div className = "container h-full flex flex-col overflow-hidden">
             <StackHeader title = {notice.title}/>
