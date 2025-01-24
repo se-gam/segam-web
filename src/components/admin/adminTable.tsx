@@ -46,40 +46,32 @@ function AdminTable({ notices }: { notices: Notice[] }) {
         return (
           <div className="flex space-x-2">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                router.push(`/admin/dashboard/${record.id}/edit`);
-              }}
               className="rounded-md bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+              aria-label={`View Notice ${record.id}`}
+              onClick={() => router.push(`/admin/dashboard/${record.id}/view`)}
+            >
+              보기
+            </button>
+            <button
+              className="rounded-md bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+              aria-label={`Edit Notice ${record.id}`}
+              onClick={() => router.push(`/admin/dashboard/${record.id}/edit`)}
             >
               수정
             </button>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDelete(record.id);
-              }}
               className="rounded-md bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600"
+              aria-label={`Delete Notice ${record.id}`}
+              onClick={() => handleDelete(record.id)}
             >
               삭제
             </button>
-            <span
-              role="button"
-              tabIndex={0}
-              onClick={(e) => e.stopPropagation()}
-              onKeyDown={(e) => e.key === 'Enter' && e.stopPropagation()}
-            >
-              <PopupButton noticeId={record.id} />
-            </span>
+            <PopupButton noticeId={record.id} />
           </div>
         );
       },
     },
   ];
-
-  const handleRowClick = (record: Notice) => {
-    router.push(`/admin/dashboard/${record.id}/view`);
-  };
 
   return (
     <Table
@@ -96,9 +88,6 @@ function AdminTable({ notices }: { notices: Notice[] }) {
         position: ['bottomRight'],
         hideOnSinglePage: true,
       }}
-      onRow={(record) => ({
-        onClick: () => handleRowClick(record),
-      })}
     />
   );
 }
