@@ -1,7 +1,7 @@
 import { fetchExtended } from '@/utils/fetchExtended';
-import { NoticeForList } from '@/lib/definitions';
+import { NoticeForList, Notice } from '@/lib/definitions';
 
-export default async function getNotices(): Promise<NoticeForList[]> {
+export async function getNotices(): Promise<NoticeForList[]> {
   try {
     const response = await fetchExtended<NoticeForList[]>(
       `http://dev.api.segam.org:3000/v1/notice`,
@@ -16,5 +16,22 @@ export default async function getNotices(): Promise<NoticeForList[]> {
     return response.body;
   } catch (error) {
     return [];
+  }
+}
+
+export async function getNoticeDetail(id:number):Promise<Notice|null>{
+  try{
+    const response = await fetchExtended<Notice>(
+      `http://dev.api.segam.org:3000/v1/notice/${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+    return response.body
+  } catch(error){
+    return null;
   }
 }
