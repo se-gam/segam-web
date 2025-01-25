@@ -1,6 +1,6 @@
 'use client';
 
-import { Table } from 'antd';
+import { Table, Popconfirm } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Notice } from '@/lib/definitions';
 import { handleDelete } from '@/lib/actions/admin';
@@ -40,12 +40,16 @@ function AdminTable({ notices }: { notices: Notice[] }) {
       className: 'text-center w-64',
       render(value, record: Notice) {
         return (
-          <button
-            onClick={() => handleDelete(record.id)}
-            className="rounded-md bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600"
+          <Popconfirm
+            title="공지사항을 삭제하시겠습니까?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="예"
+            cancelText="아니오"
           >
-            삭제
-          </button>
+            <button className="rounded-md bg-red-500 px-3 py-1 text-sm text-white hover:bg-red-600">
+              삭제
+            </button>
+          </Popconfirm>
         );
       },
     },
