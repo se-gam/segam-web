@@ -1,51 +1,24 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { NoticeForList } from '@/lib/definitions';
+import { NoticeSummary } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
-import { getNotices } from '@/lib/actions/notice';
-import Loading from '@/app/loading';
 import Link from 'next/link';
 
-export default function NoticeList() {
-  const [notices, setNotices] = useState<NoticeForList[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+interface NoticeListProps{
+  notices:NoticeSummary[];
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getNotices();
-        setNotices(data);
-      } catch (error) {
-        return;
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="py-4 text-center">
-        <Loading />
-      </div>
-    );
-  }
-
+export default function NoticeList({notices}:NoticeListProps) {
   return (
-    <div className="flex flex-col px-4 py-2">
+    <div className="flex flex-col">
       {notices.map((notice) => (
         <Link
           key={notice.id}
           href={`/stack/notion/${notice.id}`}
-          className="flex flex-col justify-center h-[78px] px-4 py-[16px] hover:bg-gray-50 transition-colors cursor-pointer"
+          className="flex flex-col justify-center h-20 px-4 py-4 hover:bg-gray-50 transition"
         >
-          <h2 className="text-[16px] font-semibold leading-[24px] text-text_primary truncate">
+          <h2 className="f16 font-semibold text-text_primary truncat mb-0.5">
             {notice.title}
           </h2>
-          <time className="text-[14px] font-medium leading-[20px] text-text_secondary">
+          <time className="f14 font-medium text-text_secondary">
             {dateDotFormatter(notice.createdAt)}
           </time>
         </Link>

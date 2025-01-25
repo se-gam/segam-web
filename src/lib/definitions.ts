@@ -227,8 +227,4 @@ export type Notice = {
   deletedAt: string | null;
 }
 
-export type NoticeForList = {
-  id:number;
-  title:string;
-  createdAt:string;
-}
+export type NoticeSummary = Omit<Notice, 'content' | 'isPopup' | 'deletedAt'>;
