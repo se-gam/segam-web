@@ -2,10 +2,11 @@
 
 import React, { useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
+import { Notice } from '@/lib/definitions';
 
 type NoticeFormProps = {
-  onSubmit?: (values: { title: string; content: string }) => void;
-  initialData?: { title: string; content: string };
+  onSubmit?: (values: Pick<Notice, 'title' | 'content'>) => void;
+  initialData?: Pick<Notice, 'title' | 'content'>;
   readOnly?: boolean;
 };
 
@@ -22,7 +23,7 @@ export default function AdminNoticeForm({
     }
   }, [initialData, form]);
 
-  const handleSubmit = (values: { title: string; content: string }) => {
+  const handleSubmit = (values: Pick<Notice, 'title' | 'content'>) => {
     if (onSubmit) {
       onSubmit(values);
     }

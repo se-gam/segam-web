@@ -5,28 +5,32 @@ import NoticeForm from '@/components/admin/adminNoticeForm';
 import { getNoticeById, handleEdit } from '@/lib/actions/admin';
 import { useRouter } from 'next/navigation';
 import { notification } from 'antd';
+import { Notice } from '@/lib/definitions';
 
 export default function NoticeEditPage({ params }: { params: { id: string } }) {
-  const [noticeData, setNoticeData] = useState<{ title: string; content: string } | null>(null);
+  const [noticeData, setNoticeData] = useState<Pick<Notice, 'title' | 'content'> | undefined>();
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchNotice = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const data = await getNoticeById(Number(params.id));
         setNoticeData(data);
-      } catch (error) {
-        notification.error({
-          message: '공지사항 불러오기 실패',
-          description: '공지사항 데이터를 불러오는 중 문제가 발생했습니다.',
-        });
+      } catch (err) {
+        setError('공지사항 데이터를 불러오는 중 문제가 발생했습니다.');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchNotice();
   }, [params.id]);
 
-  const handleEditSubmit = async (values: { title: string; content: string }) => {
+  const handleEditSubmit = async (values: Pick<Notice, 'title' | 'content'>) => {
     try {
       await handleEdit(Number(params.id), values);
       notification.success({
@@ -34,7 +38,7 @@ export default function NoticeEditPage({ params }: { params: { id: string } }) {
         description: '공지사항이 성공적으로 수정되었습니다.',
       });
       router.push('/admin/dashboard');
-    } catch (error) {
+    } catch (err) {
       notification.error({
         message: '공지사항 수정 실패',
         description: '공지사항 수정에 실패했습니다.',
@@ -42,10 +46,14 @@ export default function NoticeEditPage({ params }: { params: { id: string } }) {
     }
   };
 
-  if (!noticeData) {
+  if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-100">로딩 중...</div>
     );
+  }
+
+  if (error) {
+    throw new Error('공지사항을 불러올 수 없습니다.');
   }
 
   return (

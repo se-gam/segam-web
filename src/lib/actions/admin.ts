@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
 import { fetchExtended } from '@/utils/fetchExtended';
-import { Notice } from '@/lib/definitions';
+import { NoticeSummary, Notice } from '@/lib/definitions';
 
 const ADMIN_PASSWORD = '1234'; // 비밀번호 설정
 
@@ -27,8 +27,8 @@ export async function login(prevState: any, formData: FormData) {
 }
 
 export async function getNotices() {
-  const { body: notices } = await fetchExtended<Notice[]>('/v1/notice', {
-    cache: 'force-cache',
+  const { body: notices } = await fetchExtended<NoticeSummary[]>('/v1/notice', {
+    cache: 'no-cache',
     next: {
       tags: ['notices'],
     },
@@ -44,7 +44,7 @@ export async function handleDelete(id: number) {
   revalidateTag('notices');
 }
 
-export async function handleCreate(data: { title: string; content: string }) {
+export async function handleCreate(data: Pick<Notice, 'title' | 'content'>) {
   await fetchExtended('/v1/notice', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -53,7 +53,7 @@ export async function handleCreate(data: { title: string; content: string }) {
   revalidateTag('notices');
 }
 
-export async function handleEdit(id: number, data: { title: string; content: string }) {
+export async function handleEdit(id: number, data: Pick<Notice, 'title' | 'content'>) {
   await fetchExtended(`/v1/notice/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -62,8 +62,8 @@ export async function handleEdit(id: number, data: { title: string; content: str
   revalidateTag('notices');
 }
 
-export async function getNoticeById(id: number) {
-  const { body: notice } = await fetchExtended<{ title: string; content: string }>(
+export async function getNoticeById(id: number): Promise<Pick<Notice, 'title' | 'content'>> {
+  const { body: notice } = await fetchExtended<Pick<Notice, 'title' | 'content'>>(
     `/v1/notice/${id}`,
     {
       method: 'GET',
