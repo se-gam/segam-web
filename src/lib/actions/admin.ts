@@ -27,8 +27,8 @@ export async function login(prevState: any, formData: FormData) {
 }
 
 export async function getNotices() {
-  const { body: notices } = await fetchExtended<NoticeSummary[]>('/v1/notice', {
-    cache: 'no-cache',
+  const { body: notices } = await fetchExtended<Notice[]>('/v1/notice', {
+    cache: 'force-cache',
     next: {
       tags: ['notices'],
     },
