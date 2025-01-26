@@ -221,8 +221,10 @@ export type Category = {
 export type Notice = {
   id: number;
   title: string;
-  createdAt: string;
   content: string;
   isPopup: boolean;
+  createdAt: string;
   deletedAt: string | null;
 };
+
+export type NoticeSummary = Omit<Notice, 'content' | 'isPopup' | 'deletedAt'>;
