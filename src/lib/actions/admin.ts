@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
 import { fetchExtended } from '@/utils/fetchExtended';
-import { NoticeSummary, Notice } from '@/lib/definitions';
+import { Notice } from '@/lib/definitions';
 
 const ADMIN_PASSWORD = '1234'; // 비밀번호 설정
 

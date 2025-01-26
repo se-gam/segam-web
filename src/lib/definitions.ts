@@ -225,6 +225,7 @@ export type Notice = {
   isPopup: boolean;
   createdAt: string;
   deletedAt: string | null;
-};
+}
 
 export type NoticeSummary = Omit<Notice, 'content' | 'isPopup' | 'deletedAt'>;
+
