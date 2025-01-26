@@ -222,4 +222,7 @@ export type Notice = {
   id: number;
   title: string;
   createdAt: string;
+  content: string;
+  isPopup: boolean;
+  deletedAt: string | null;
 };
