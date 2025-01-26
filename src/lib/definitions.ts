@@ -217,3 +217,12 @@ export type Category = {
   categoryName: string;
   books: Option[];
 };
+
+export type Notice = {
+  id: number;
+  title: string;
+  content: string;
+  isPopup: boolean;
+  createdAt: string;
+  deletedAt: string | null;
+};
