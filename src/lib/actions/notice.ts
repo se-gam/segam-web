@@ -9,6 +9,9 @@ export async function getNotices(): Promise<NoticeSummary[]> {
         headers: {
           'Content-Type': 'application/json',
         },
+        next: {
+          tags: ['notices'],
+        },
       }
     );
 
