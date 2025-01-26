@@ -228,3 +228,4 @@ export type Notice = {
 }
 
 export type NoticeSummary = Omit<Notice, 'content' | 'isPopup' | 'deletedAt'>;
+
