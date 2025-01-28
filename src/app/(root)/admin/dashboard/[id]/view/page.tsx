@@ -2,8 +2,6 @@ import React from 'react';
 import NoticeForm from '@/components/admin/adminNoticeForm';
 import { getNoticeById } from '@/lib/actions/admin';
 
-export const revalidate = 0;
-
 export default async function NoticeViewPage({ params }: { params: { id: string } }) {
   const noticeData = await getNoticeById(Number(params.id));
 
