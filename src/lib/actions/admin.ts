@@ -42,6 +42,7 @@ export async function handleDelete(id: number) {
     method: 'DELETE',
   });
   revalidateTag('notices');
+  revalidateTag(`notice-${id}`);
 }
 
 export async function handleCreate(data: Pick<Notice, 'title' | 'content'>) {
@@ -60,6 +61,7 @@ export async function handleEdit(id: number, data: Pick<Notice, 'title' | 'conte
     body: data,
   });
   revalidateTag('notices');
+  revalidateTag(`notice-${id}`);
 }
 
 export async function getNoticeById(id: number): Promise<Pick<Notice, 'title' | 'content'>> {
@@ -68,6 +70,10 @@ export async function getNoticeById(id: number): Promise<Pick<Notice, 'title' | 
     {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
+      cache: 'force-cache',
+      next: {
+        tags: [`notice-${id}`],
+      },
     },
   );
   return notice;

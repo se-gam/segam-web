@@ -9,7 +9,7 @@ export default async function NoticeViewPage({ params }: { params: { id: string 
     <div className="min-h-screen bg-gray-100 p-4 md:p-8">
       <h1 className="mb-6 text-2xl font-bold">공지사항 조회</h1>
       <div className="rounded-lg bg-white p-4 shadow">
-        <NoticeForm initialData={noticeData} readOnly />
+        <NoticeForm initialData={{ ...noticeData }} readOnly />
       </div>
     </div>
   );
