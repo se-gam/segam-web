@@ -1,18 +1,15 @@
 import StackHeader from '@/components/common/stackHeader/stackHeader';
-import NotionPage from '@/components/notion/notionPage';
-import { NotionAPI } from 'notion-client';
-import 'react-notion-x/src/styles.css';
+import NoticeList from '@/components/notion/noticeList';
+import { getNotices } from '@/lib/actions/notice';
+import { NoticeSummary } from '@/lib/definitions';
 
-const NOTION_URL = process.env.NEXT_PUBLIC_NOTION_URL;
-
-const notion = new NotionAPI();
 export default async function Page() {
-  const recordMap = await notion.getPage(NOTION_URL as string);
+  const notices:NoticeSummary[] = await getNotices();
   return (
-    <div className="container h-full overflow-hidden">
-      <StackHeader title="공지사항" />
+    <div className="container h-full flex flex-col overflow-hidden">
+      <StackHeader title="공지사항"/>
       <div className="h-full overflow-auto">
-        <NotionPage recordMap={recordMap} />
+        <NoticeList notices={notices}/>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import ReservationList from '@/components/studyroom/studyRoomBoard';
 
 export default async function DashBoard() {
   const CourseData = await getCourseAttendance();
+
   const { title, description, iconName, link } = calAnnounceData(CourseData);
 
   return (
