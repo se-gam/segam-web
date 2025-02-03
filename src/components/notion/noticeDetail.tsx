@@ -15,7 +15,7 @@ export default function NoticeDetail({ notice }: NoticeDetailProps) {
           <time className="block mt-2 f16 text-text_secondary">{dateDotFormatter(notice.createdAt)}</time>
         </header>
         <main className="mt-1 flex-1 px-4 py-2 overflow-auto">
-          <p className="f16 text-text_primary leading-3 whitespace-pre-wrap">{notice.content}</p>
+          <p className="f16 text-text_primary leading-6 whitespace-pre-wrap">{notice.content}</p>
         </main>
       </div>
     );
