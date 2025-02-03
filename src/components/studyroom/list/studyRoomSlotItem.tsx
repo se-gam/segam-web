@@ -16,7 +16,7 @@ export default function StudyRoomSlotItem({
   date,
   hasAvailableSlot,
 }: StudyRoomSlotItemProps) {
-  const { name, location, minUsers, maxUsers, operatingHours, tags, slots } = data;
+  const { name, location, minUsers, maxUsers, tags, slots } = data;
   const filteredDate = new Date(date);
   const day = filteredDate.toLocaleDateString('ko-KR', {
     weekday: 'long',
@@ -37,12 +37,8 @@ export default function StudyRoomSlotItem({
       })
       .replace('시', ''),
   );
-  const [startTime, endTimeInitial] = operatingHours.split('~').map((time) => parseInt(time, 10));
-  let endTime = endTimeInitial;
-  if (day === '토요일') {
-    endTime = 16;
-  }
-  const hoursRange = Array.from({ length: endTime - startTime + 1 }, (_, i) => startTime + i);
+
+  const hoursRange = slots.map((slot) => slot.startsAt);
 
   const getTagVariant = (min: number) => {
     if (min <= 2) return 'done';
@@ -78,30 +74,27 @@ export default function StudyRoomSlotItem({
       </div>
       <div className="flex w-full flex-col items-center">
         <div className="flex w-full justify-between">
-          {hoursRange.slice(0, -1).map((hour) => {
+          {hoursRange.map((hour) => {
             const slot = slots.find((s) => s.startsAt === hour);
             const isClosed = slot ? slot.isClosed || (isToday && hour <= todayHour) : true;
             const isReserved = slot ? slot.isReserved : true;
             return (
-              <div
-                key={hour}
-                className={cn('h-1 w-full', {
-                  'bg-theme_primary': !(isClosed || isReserved),
-                  'bg-timeline_bg': isClosed || isReserved,
-                })}
-              />
+              <div key={hour} className={cn('w-full')}>
+                <div
+                  className={cn('h-1', {
+                    'bg-theme_primary': !(isClosed || isReserved),
+                    'bg-timeline_bg': isClosed || isReserved,
+                  })}
+                />
+                <span
+                  key={hour}
+                  className={`f12 font-medium text-text_secondary ${hour % 2 === 0 ? 'visible' : 'invisible'}`}
+                >
+                  {hour % 2 === 0 ? hour : ''}
+                </span>
+              </div>
             );
           })}
-        </div>
-        <div className="mt-1 flex w-full justify-between">
-          {hoursRange.map((hour, index) => (
-            <span
-              key={hour}
-              className={`f12 font-medium text-text_secondary ${index % 2 === 0 ? 'visible' : 'invisible'}`}
-            >
-              {index % 2 === 0 ? hour : ''}
-            </span>
-          ))}
         </div>
       </div>
     </div>
