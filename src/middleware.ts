@@ -1,5 +1,4 @@
 import { auth as middleware } from '@/auth';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export default middleware(async (req) => {
@@ -10,23 +9,6 @@ export default middleware(async (req) => {
     nextUrl.pathname === '/permission' ||
     nextUrl.pathname === '/login' ||
     nextUrl.pathname === '/stack/privacy';
-  const isAdminRoute = nextUrl.pathname === '/admin/dashboard';
-  const cookieStore = await cookies();
-  const adminSession = cookieStore.get('adminSession');
-
-  if (isAdminRoute) {
-    try {
-      if (adminSession) {
-        const { username } = JSON.parse(adminSession.value);
-        if (username === 'admin') {
-          return NextResponse.next();
-        }
-      }
-    } catch (error) {
-      console.error('Error parsing admin session cookie', error);
-    }
-    return NextResponse.redirect(new URL('/admin', nextUrl));
-  }
 
   if (isAuthRoute) {
     if (isLoggedIn) {
