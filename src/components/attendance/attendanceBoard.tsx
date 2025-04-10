@@ -7,6 +7,7 @@ import Tab from '@/components/common/tab/tab';
 import ClassList from '@/components/attendance/list/classList';
 import getSortedClassData from '@/utils/getSortedCourseData';
 import { Course } from '@/lib/definitions';
+import { dateDotFormatter } from '@/utils/format';
 
 const TAB_OPTIONS = {
   dashboard: [
@@ -30,8 +31,11 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
   const [index, setIndex] = useState<number>(TAB_OPTIONS[type][0].value);
   const lectures = courses.flatMap((course) => course.lectures);
   const assignments = courses.flatMap((course) => course.assignments);
-  const sortedLectures = getSortedClassData(lectures);
-  const sortedAssignments = getSortedClassData(assignments);
+  const { classData: sortedLectures, latestUpdatedAt: latestLectureUpdate } =
+    getSortedClassData(lectures);
+  const { classData: sortedAssignments, latestUpdatedAt: latestAssignmentsUpdate } =
+    getSortedClassData(assignments);
+
   return (
     <div className="flex flex-col gap-3 overflow-hidden">
       <Tab
@@ -42,6 +46,16 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
           setIndex(value);
         }}
       />
+      <div className="f12 flex flex-col px-[1.375rem] font-light text-text_secondary">
+        <p>
+          강의 마지막 업데이트:{' '}
+          {latestLectureUpdate ? dateDotFormatter(latestLectureUpdate) : '남은 강의 없음'}
+        </p>
+        <p>
+          과제 마지막 업데이트:{' '}
+          {latestAssignmentsUpdate ? dateDotFormatter(latestAssignmentsUpdate) : '남은 과제 없음'}
+        </p>
+      </div>
       <div className="flex flex-col overflow-hidden">
         {index === 0 && <CourseList courses={courses} />}
         {index === 1 && <ClassList items={sortedLectures} type="lecture" />}

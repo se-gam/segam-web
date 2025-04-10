@@ -26,5 +26,15 @@ export default function getSortedClassData(prevClassData: Lecture[] | Assignment
     ...sortedOverdueClassData,
     ...sortedCompletedClassData,
   ];
-  return classData;
+
+  // 가장 최근 업데이트 시간
+  const latestUpdatedAt =
+    prevClassData.sort(
+      (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    )[0]?.updatedAt || null;
+
+  return {
+    classData,
+    latestUpdatedAt,
+  };
 }
