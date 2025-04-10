@@ -22,6 +22,7 @@ export type Lecture = {
   endsAt: string;
   isDone: boolean;
   week: number;
+  updatedAt: string;
 };
 export type Assignment = {
   id: number;
@@ -29,6 +30,7 @@ export type Assignment = {
   endsAt: string;
   isDone: boolean;
   week: number;
+  updatedAt: string;
 };
 export type Course = {
   id: string;
@@ -225,7 +227,6 @@ export type Notice = {
   isPopup: boolean;
   createdAt: string;
   deletedAt: string | null;
-}
+};
 
 export type NoticeSummary = Omit<Notice, 'content' | 'isPopup' | 'deletedAt'>;
-

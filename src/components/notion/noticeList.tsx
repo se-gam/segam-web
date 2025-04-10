@@ -1,27 +1,33 @@
+'use client';
+
+import useLink from '@/hooks/useLink';
 import { NoticeSummary } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
-import Link from 'next/link';
 
-interface NoticeListProps{
-  notices:NoticeSummary[];
+interface NoticeListProps {
+  notices: NoticeSummary[];
 }
 
-export default function NoticeList({notices}:NoticeListProps) {
+export default function NoticeList({ notices }: Readonly<NoticeListProps>) {
+  const { navigateTo } = useLink();
   return (
     <div className="flex flex-col">
       {notices.map((notice) => (
-        <Link
+        <button
           key={notice.id}
-          href={`/stack/notion/${notice.id}`}
-          className="flex flex-col justify-center h-20 px-4 py-4 hover:bg-gray-50 transition"
+          onClick={() =>
+            navigateTo({
+              page: `/notion/${notice.id}`,
+              title: notice.title,
+            })
+          }
+          className="flex h-20 flex-col items-start justify-center px-4 py-4 transition hover:bg-gray-50"
         >
-          <h2 className="f16 font-semibold text-text_primary truncat mb-0.5">
-            {notice.title}
-          </h2>
+          <h2 className="f16 mb-0.5 truncate font-semibold text-text_primary">{notice.title}</h2>
           <time className="f14 font-medium text-text_secondary">
             {dateDotFormatter(notice.createdAt)}
           </time>
-        </Link>
+        </button>
       ))}
     </div>
   );
