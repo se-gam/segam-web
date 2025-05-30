@@ -8,7 +8,7 @@ import cn from '@/utils/cn';
 interface PlusButtonProps {
   route: string;
   className?: string;
-  visible?: boolean; // 이거 나중에 과제별 탭에서만 렌더링 하도록
+  visible?: boolean;
 }
 
 export default function PlusButton({ route, className = '', visible = true }: PlusButtonProps) {

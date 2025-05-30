@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import CourseList from '@/components/attendance/list/courseList';
 import Tab from '@/components/common/tab/tab';
@@ -24,9 +24,10 @@ const TAB_OPTIONS = {
 interface AttendanceBoardProps {
   type: 'dashboard' | 'subject';
   courses: Course[];
+  onChangeTab?: (value: number) => void;
 }
 
-export default function AttendanceBoard({ type, courses }: AttendanceBoardProps) {
+export default function AttendanceBoard({ type, courses, onChangeTab }: AttendanceBoardProps) {
   const { trackAmplitudeEvent } = useAmplitudeContext();
   const [index, setIndex] = useState<number>(TAB_OPTIONS[type][0].value);
   const lectures = courses.flatMap((course) => course.lectures);
@@ -35,6 +36,10 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
     getSortedClassData(lectures);
   const { classData: sortedAssignments, latestUpdatedAt: latestAssignmentsUpdate } =
     getSortedClassData(assignments);
+
+  useEffect(() => {
+    onChangeTab?.(index);
+  }, [index, onChangeTab]);
 
   return (
     <div className="flex flex-col gap-3 overflow-hidden">
