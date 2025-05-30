@@ -23,7 +23,8 @@ export default async function DashBoard() {
           title="과제 추가하러 가기"
           description="이제 과제를 직접 추가할 수 있어요"
           iconName="noticeBell"
-          link="/assignment/add"
+          link="dashboard/attendance"
+          useStackRoute={false}
         />
         <AnnounceCard title={title} description={description} iconName={iconName} link={link} />
         <Board title="출석 현황" url="dashboard/attendance">
