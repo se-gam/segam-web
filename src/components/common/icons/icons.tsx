@@ -188,6 +188,9 @@ const IMAGE: ImageType = {
   classic_science: {
     src: '/images/classic-science.png',
   },
+  noticeBell: {
+    src: '/images/noticeBell.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
