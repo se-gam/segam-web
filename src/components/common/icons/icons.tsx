@@ -203,6 +203,11 @@ const Icons = {
       </g>
     </svg>
   ),
+  Plus: (props: IconProps) => (
+    <svg {...props} viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 2V16 M2 9H16" stroke="#4E5968" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  ),
   ArrowRight: (props: IconProps) => (
     <svg viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <g id="Frame 4" fill="none">
