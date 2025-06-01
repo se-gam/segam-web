@@ -4,7 +4,7 @@ import cn from '@/utils/cn';
 interface InputProps {
   value: string;
   type: 'text' | 'textarea';
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   placeholder?: string;
   className?: string;
 }

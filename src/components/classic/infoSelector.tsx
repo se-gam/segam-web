@@ -5,13 +5,20 @@ import Icons from '@/components/common/icons/icons';
 import { Option } from '@/lib/definitions';
 
 interface InfoSelectorProps {
-  type: 'book' | 'area';
+  type: 'book' | 'area' | 'assignment';
   data: Option[];
   value?: Option;
   onChange: (data: Option) => void;
   title?: string;
   placeholder?: string;
+  titleClassName?: string;
 }
+
+const defaultTitles = {
+  book: '도서 선택하기',
+  area: '영역 선택하기',
+  assignment: '과목 선택하기',
+};
 
 export default function InfoSelector({
   type,
@@ -20,10 +27,11 @@ export default function InfoSelector({
   onChange,
   title,
   placeholder,
+  titleClassName = 'f16 font-semibold',
 }: InfoSelectorProps) {
   return (
     <div className="mb-4 flex flex-col gap-2">
-      <div className="f16 font-semibold text-text_primary">{title}</div>
+      <div>{title && <div className={cn(titleClassName, 'text-text_primary')}>{title}</div>}</div>
       <Drawer>
         <DrawerTrigger asChild>
           <Button
@@ -45,9 +53,7 @@ export default function InfoSelector({
         </DrawerTrigger>
         <DrawerContent data-vaul-no-drag>
           <div className="mb-[14px] ml-4 mr-4 flex items-center justify-between">
-            <h3 className="f20 font-bold text-text_primary">
-              {type === 'book' ? '도서 선택하기' : '영역 선택하기'}
-            </h3>
+            <h3 className="f20 font-bold text-text_primary">{defaultTitles[type]}</h3>
             <DrawerClose asChild>
               <Icons.Close width="24px" height="24px" className="stroke-theme_tertiary" />
             </DrawerClose>
