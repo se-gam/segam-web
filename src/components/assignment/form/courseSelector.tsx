@@ -19,6 +19,7 @@ export default function CourseSelector({ courses, selectedCourse, onSelect }: Pr
       title="과목 선택하기"
       placeholder="과목을 선택해주세요"
       titleClassName="f20 font-bold"
+      selectedClassName="text-theme_accent"
     />
   );
 }

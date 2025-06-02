@@ -12,6 +12,7 @@ interface InfoSelectorProps {
   title?: string;
   placeholder?: string;
   titleClassName?: string;
+  selectedClassName?: string;
 }
 
 const defaultTitles = {
@@ -28,6 +29,7 @@ export default function InfoSelector({
   title,
   placeholder,
   titleClassName = 'f16 font-semibold',
+  selectedClassName,
 }: InfoSelectorProps) {
   return (
     <div className="mb-4 flex flex-col gap-2">
@@ -42,7 +44,7 @@ export default function InfoSelector({
           >
             <div
               className={cn('f14 font-medium ', {
-                'text-text_primary': value?.label,
+                [selectedClassName || 'text-text_primary']: value?.label,
                 'text-text_secondary': !value?.label,
               })}
             >

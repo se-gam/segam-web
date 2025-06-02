@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Option } from '@/lib/definitions';
+import { Dayjs } from 'dayjs';
 import CourseSelector from '@/components/assignment/form/courseSelector';
 import AssignmentNameInput from '@/components/assignment/form/assignmentNameInput';
 import DateSection from '@/components/assignment/form/dateSection';
@@ -14,9 +15,11 @@ interface Props {
 export default function AddAssignmentForm({ courses }: Props) {
   const [selectedCourse, setSelectedCourse] = useState<Option | undefined>(undefined);
   const [assignmentName, setAssignmentName] = useState('');
+  const [range, setRange] = useState<{ start?: Dayjs; end?: Dayjs }>({});
   const [loading, setLoading] = useState(false);
 
-  const isValid = !!selectedCourse && assignmentName.trim().length > 0;
+  const isValid =
+    !!selectedCourse && assignmentName.trim().length > 0 && !!range.start && !!range.end;
 
   const handleSubmit = async () => {
     if (!isValid) return;
@@ -37,7 +40,7 @@ export default function AddAssignmentForm({ courses }: Props) {
           onSelect={setSelectedCourse}
         />
         <AssignmentNameInput value={assignmentName} onChange={setAssignmentName} />
-        <DateSection />
+        <DateSection value={range} onChange={setRange} />
       </div>
       <div className="pb-4 pt-6">
         <Button
