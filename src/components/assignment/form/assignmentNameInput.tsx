@@ -2,6 +2,7 @@
 
 import Input from '@/components/common/input/input';
 import cn from '@/utils/cn';
+
 interface Props {
   value: string;
   onChange: (value: string) => void;

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import AssignmentCalendar from '@/components/assignment/assignmentCalendar';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 
 interface DateSectionProps {
   value?: { start?: Dayjs; end?: Dayjs };

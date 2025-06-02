@@ -146,8 +146,8 @@ export default function AssignmentCalendar({
       open={open}
       onCancel={onClose}
       footer={null}
-      closeIcon={true}
-      width={358}
+      closeIcon
+      width={340}
       centered
       title={<div className="f20 font-bold text-text_primary">과제 기간</div>}
     >
@@ -167,13 +167,13 @@ export default function AssignmentCalendar({
         <div className="mt-6 flex justify-between">
           <div>
             <div className="f16 mb-2 font-semibold text-text_primary">시작 시간</div>
-            <div className="f14 w-[151px] rounded-md bg-button_default_bg px-3 py-2 font-medium text-theme_accent">
+            <div className="f14 w-[135px] rounded-md bg-button_default_bg px-3 py-2 font-medium text-theme_accent">
               {formatDate(range.start, true)}
             </div>
           </div>
           <div>
             <div className="f16 mb-2 font-semibold text-text_primary">마감 시간</div>
-            <div className="f14 w-[151px] rounded-md bg-button_default_bg px-3 py-2 font-medium text-theme_accent">
+            <div className="f14 w-[135px] rounded-md bg-button_default_bg px-3 py-2 font-medium text-theme_accent">
               {formatDate(range.end, false)}
             </div>
           </div>
