@@ -9,6 +9,7 @@ import locale from 'antd/locale/ko_KR';
 import Icons from '@/components/common/icons/icons';
 import Button from '@/components/common/button/button';
 import cn from '@/utils/cn';
+import CustomTimePicker from '@/components/assignment/timePicker';
 import 'dayjs/locale/ko';
 
 dayjs.locale('ko');
@@ -33,6 +34,8 @@ export default function AssignmentCalendar({
 }: AssignmentCalendarProps) {
   const [range, setRange] = useState<DateRange>(value || {});
   const [calendarValue, setCalendarValue] = useState<Dayjs>(dayjs());
+  const [startTime, setStartTime] = useState<Dayjs | null>(dayjs().hour(0).minute(0));
+  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs().hour(23).minute(59));
 
   const handleDateClick = (date: Dayjs) => {
     if (!range.start || (range.start && range.end)) {
@@ -134,13 +137,6 @@ export default function AssignmentCalendar({
     );
   };
 
-  const formatDate = (date?: Dayjs, isStart?: boolean) => {
-    if (date) {
-      return `(${date.date()}일) ${isStart ? '00시 00분' : '23시 59분'}`;
-    }
-    return isStart ? '시작일 선택' : '마감일 선택';
-  };
-
   return (
     <Modal
       open={open}
@@ -165,17 +161,23 @@ export default function AssignmentCalendar({
         </ConfigProvider>
 
         <div className="mt-6 flex justify-between">
-          <div>
+          <div className="w-[135px]">
             <div className="f16 mb-2 font-semibold text-text_primary">시작 시간</div>
-            <div className="f14 w-[135px] rounded-md bg-button_default_bg px-3 py-2 font-medium text-theme_accent">
-              {formatDate(range.start, true)}
-            </div>
+            <CustomTimePicker
+              value={startTime ?? undefined}
+              onChange={setStartTime}
+              placeholder="시작 시간"
+              disabled={!range.start}
+            />
           </div>
-          <div>
+          <div className="w-[135px]">
             <div className="f16 mb-2 font-semibold text-text_primary">마감 시간</div>
-            <div className="f14 w-[135px] rounded-md bg-button_default_bg px-3 py-2 font-medium text-theme_accent">
-              {formatDate(range.end, false)}
-            </div>
+            <CustomTimePicker
+              value={endTime ?? undefined}
+              onChange={setEndTime}
+              placeholder="마감 시간"
+              disabled={!range.end}
+            />
           </div>
         </div>
 
@@ -184,7 +186,13 @@ export default function AssignmentCalendar({
           size="full"
           className="mt-6"
           onClick={() => {
-            if (range.start && range.end) onChange(range);
+            if (range.start && range.end && startTime && endTime) {
+              const fullRange = {
+                start: range.start.hour(startTime.hour()).minute(startTime.minute()),
+                end: range.end.hour(endTime.hour()).minute(endTime.minute()),
+              };
+              onChange(fullRange);
+            }
           }}
           disabled={!range.start || !range.end}
         >

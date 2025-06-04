@@ -1,6 +1,6 @@
 import { Option } from '@/lib/definitions';
 import StackHeader from '@/components/common/stackHeader/stackHeader';
-import getCourseOptions from '@/lib/actions/assignment';
+import { getCourseOptions } from '@/lib/actions/assignment';
 import AddAssignmentForm from '@/components/assignment/addAssignmentForm';
 
 export default async function AddAssignmentPage() {

@@ -13,11 +13,10 @@ export default function DateSection({ value, onChange }: DateSectionProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const range = value || {};
 
-  const formatDate = (date?: Dayjs, isStart?: boolean) => {
+  const formatDate = (date?: Dayjs) => {
     if (date) {
-      return `${date.format('YYYY년 M월 D일(dd)')} ${isStart ? '00시 00분' : '23시 59분'}`;
+      return date.format('YYYY년 M월 D일(dd) HH시 mm분');
     }
-    if (isStart) return '시작일 선택해주세요';
     return '마감일 선택해주세요';
   };
 
@@ -34,7 +33,7 @@ export default function DateSection({ value, onChange }: DateSectionProps) {
           }`}
           onClick={() => setModalOpen(true)}
         >
-          {formatDate(range.start, true)}
+          {formatDate(range.start)}
         </button>
       </div>
 
@@ -46,7 +45,7 @@ export default function DateSection({ value, onChange }: DateSectionProps) {
           }`}
           onClick={() => setModalOpen(true)}
         >
-          {formatDate(range.end, false)}
+          {formatDate(range.end)}
         </button>
       </div>
       {modalOpen && (

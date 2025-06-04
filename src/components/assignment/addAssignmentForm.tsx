@@ -3,17 +3,19 @@
 import { useState } from 'react';
 import { Option } from '@/lib/definitions';
 import { Dayjs } from 'dayjs';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import CourseSelector from '@/components/assignment/form/courseSelector';
 import AssignmentNameInput from '@/components/assignment/form/assignmentNameInput';
 import DateSection from '@/components/assignment/form/dateSection';
 import Button from '@/components/common/button/button';
+import { createAssignment } from '@/lib/actions/assignment';
 
 interface Props {
   courses: Option[];
 }
 
 export default function AddAssignmentForm({ courses }: Props) {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const courseIdFromQueryParam = searchParams.get('courseId');
   const defaultCourse = courses.find((course) => course.value === courseIdFromQueryParam);
@@ -28,11 +30,14 @@ export default function AddAssignmentForm({ courses }: Props) {
   const handleSubmit = async () => {
     if (!isValid) return;
     setLoading(true);
-    try {
-      // 과제 제출 로직
-    } finally {
-      setLoading(false);
-    }
+    await createAssignment({
+      courseId: String(selectedCourse.value),
+      name: assignmentName.trim(),
+      startsAt: range.start!.second(0).toISOString(),
+      endsAt: range.end!.second(59).toISOString(),
+    });
+    setLoading(false);
+    router.back();
   };
 
   return (
