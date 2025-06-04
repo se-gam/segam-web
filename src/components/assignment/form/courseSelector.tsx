@@ -7,9 +7,10 @@ interface Props {
   courses: Option[];
   selectedCourse?: Option;
   onSelect: (option?: Option) => void;
+  disabled?: boolean;
 }
 
-export default function CourseSelector({ courses, selectedCourse, onSelect }: Props) {
+export default function CourseSelector({ courses, selectedCourse, onSelect, disabled }: Props) {
   return (
     <InfoSelector
       type="assignment"
@@ -20,6 +21,7 @@ export default function CourseSelector({ courses, selectedCourse, onSelect }: Pr
       placeholder="과목을 선택해주세요"
       titleClassName="f20 font-bold"
       selectedClassName="text-theme_accent"
+      disabled={disabled}
     />
   );
 }

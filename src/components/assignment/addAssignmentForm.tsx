@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Option } from '@/lib/definitions';
 import { Dayjs } from 'dayjs';
+import { useSearchParams } from 'next/navigation';
 import CourseSelector from '@/components/assignment/form/courseSelector';
 import AssignmentNameInput from '@/components/assignment/form/assignmentNameInput';
 import DateSection from '@/components/assignment/form/dateSection';
@@ -13,7 +14,10 @@ interface Props {
 }
 
 export default function AddAssignmentForm({ courses }: Props) {
-  const [selectedCourse, setSelectedCourse] = useState<Option | undefined>(undefined);
+  const searchParams = useSearchParams();
+  const courseIdFromQueryParam = searchParams.get('courseId');
+  const defaultCourse = courses.find((course) => course.value === courseIdFromQueryParam);
+  const [selectedCourse, setSelectedCourse] = useState<Option | undefined>(defaultCourse);
   const [assignmentName, setAssignmentName] = useState('');
   const [range, setRange] = useState<{ start?: Dayjs; end?: Dayjs }>({});
   const [loading, setLoading] = useState(false);
@@ -38,6 +42,7 @@ export default function AddAssignmentForm({ courses }: Props) {
           courses={courses}
           selectedCourse={selectedCourse}
           onSelect={setSelectedCourse}
+          disabled={!!courseIdFromQueryParam}
         />
         <AssignmentNameInput value={assignmentName} onChange={setAssignmentName} />
         <DateSection value={range} onChange={setRange} />
