@@ -1,6 +1,6 @@
 'use client';
 
-import { Modal, Calendar, ConfigProvider } from 'antd';
+import { Calendar, ConfigProvider } from 'antd';
 import { useState } from 'react';
 import { CalendarProps } from 'antd/lib';
 import type { CellRenderInfo } from 'rc-picker/lib/interface';
@@ -11,6 +11,7 @@ import Button from '@/components/common/button/button';
 import cn from '@/utils/cn';
 import CustomTimePicker from '@/components/assignment/timePicker';
 import 'dayjs/locale/ko';
+import { Drawer, DrawerContent, DrawerClose } from '@/components/common/drawer';
 
 dayjs.locale('ko');
 
@@ -115,14 +116,14 @@ export default function AssignmentCalendar({
 
     return (
       <button
-        className={`
-        relative flex items-center justify-center
-        ${isSelected ? 'bg-theme_primary' : ''}
-        ${isStart ? 'rounded-l-md' : ''}
-        ${isEnd ? 'rounded-r-md' : ''}
-        ${isStart && isEnd ? 'rounded-md' : ''}
-        ${isPastDate ? 'opacity-50' : ''}
-      `}
+        className={cn(
+          'relative m-0 flex h-full w-full items-center justify-center p-0',
+          isSelected && 'bg-theme_primary',
+          isStart && 'rounded-l-md',
+          isEnd && 'rounded-r-md',
+          isStart && isEnd && 'rounded-md',
+          isPastDate && 'opacity-50',
+        )}
         onClick={() => handleDateClick(date)}
       >
         <div
@@ -137,68 +138,68 @@ export default function AssignmentCalendar({
     );
   };
 
-  return (
-    <Modal
-      open={open}
-      onCancel={onClose}
-      footer={null}
-      closeIcon
-      width={340}
-      centered
-      title={<div className="f20 font-bold text-text_primary">과제 기간</div>}
-    >
-      <div>
-        <ConfigProvider locale={locale}>
-          <Calendar
-            value={calendarValue}
-            fullscreen={false}
-            headerRender={headerRender}
-            disabledDate={(current) =>
-              current.month() !== calendarValue.month() || current.year() !== calendarValue.year()
-            }
-            fullCellRender={cellRender}
-          />
-        </ConfigProvider>
+  return open ? (
+    <Drawer open={open} onOpenChange={(v) => !v && onClose()}>
+      <DrawerContent>
+        <div className="px-6">
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="f20 font-bold text-text_primary">과제 기간</h3>
+            <DrawerClose asChild>
+              <Icons.Close width="24px" height="24px" className="stroke-theme_tertiary" />
+            </DrawerClose>
+          </div>
+          <ConfigProvider locale={locale}>
+            <Calendar
+              value={calendarValue}
+              fullscreen={false}
+              headerRender={headerRender}
+              disabledDate={(current) =>
+                current.month() !== calendarValue.month() || current.year() !== calendarValue.year()
+              }
+              fullCellRender={cellRender}
+            />
+          </ConfigProvider>
 
-        <div className="mt-6 flex justify-between">
-          <div className="w-[135px]">
-            <div className="f16 mb-2 font-semibold text-text_primary">시작 시간</div>
-            <CustomTimePicker
-              value={startTime ?? undefined}
-              onChange={setStartTime}
-              placeholder="시작 시간"
-              disabled={!range.start}
-            />
+          <div className="mt-2 flex justify-between gap-4">
+            <div className="flex-1">
+              <div className="f16 mb-2 font-semibold text-text_primary">시작 시간</div>
+              <CustomTimePicker
+                value={startTime ?? undefined}
+                onChange={setStartTime}
+                placeholder="00:00"
+                disabled={!range.start}
+              />
+            </div>
+            <div className="flex-1">
+              <div className="f16 mb-2 font-semibold text-text_primary">마감 시간</div>
+              <CustomTimePicker
+                value={endTime ?? undefined}
+                onChange={setEndTime}
+                placeholder="23:59"
+                disabled={!range.end}
+              />
+            </div>
           </div>
-          <div className="w-[135px]">
-            <div className="f16 mb-2 font-semibold text-text_primary">마감 시간</div>
-            <CustomTimePicker
-              value={endTime ?? undefined}
-              onChange={setEndTime}
-              placeholder="마감 시간"
-              disabled={!range.end}
-            />
-          </div>
+
+          <Button
+            variant={range.start && range.end ? 'primary' : 'disabled'}
+            size="full"
+            className="mb-6 mt-6 px-4"
+            onClick={() => {
+              if (range.start && range.end && startTime && endTime) {
+                const fullRange = {
+                  start: range.start.hour(startTime.hour()).minute(startTime.minute()),
+                  end: range.end.hour(endTime.hour()).minute(endTime.minute()),
+                };
+                onChange(fullRange);
+              }
+            }}
+            disabled={!range.start || !range.end}
+          >
+            완료
+          </Button>
         </div>
-
-        <Button
-          variant={range.start && range.end ? 'primary' : 'disabled'}
-          size="full"
-          className="mt-6"
-          onClick={() => {
-            if (range.start && range.end && startTime && endTime) {
-              const fullRange = {
-                start: range.start.hour(startTime.hour()).minute(startTime.minute()),
-                end: range.end.hour(endTime.hour()).minute(endTime.minute()),
-              };
-              onChange(fullRange);
-            }
-          }}
-          disabled={!range.start || !range.end}
-        >
-          완료
-        </Button>
-      </div>
-    </Modal>
-  );
+      </DrawerContent>
+    </Drawer>
+  ) : null;
 }

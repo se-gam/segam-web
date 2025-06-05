@@ -1,44 +1,40 @@
 'use client';
 
-import { useState } from 'react';
 import { Option } from '@/lib/definitions';
-import { Dayjs } from 'dayjs';
-import { useSearchParams, useRouter } from 'next/navigation';
 import CourseSelector from '@/components/assignment/form/courseSelector';
 import AssignmentNameInput from '@/components/assignment/form/assignmentNameInput';
 import DateSection from '@/components/assignment/form/dateSection';
 import Button from '@/components/common/button/button';
-import { createAssignment } from '@/lib/actions/assignment';
+import useAssignmentForm from '@/hooks/useAssignmentForm';
 
-interface Props {
+interface AssignmentFormProps {
   courses: Option[];
+  initialData?: {
+    courseId: string;
+    name: string;
+    startsAt: string;
+    endsAt: string;
+  };
+  onSubmitSuccess?: () => void;
 }
 
-export default function AddAssignmentForm({ courses }: Props) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const courseIdFromQueryParam = searchParams.get('courseId');
-  const defaultCourse = courses.find((course) => course.value === courseIdFromQueryParam);
-  const [selectedCourse, setSelectedCourse] = useState<Option | undefined>(defaultCourse);
-  const [assignmentName, setAssignmentName] = useState('');
-  const [range, setRange] = useState<{ start?: Dayjs; end?: Dayjs }>({});
-  const [loading, setLoading] = useState(false);
-
-  const isValid =
-    !!selectedCourse && assignmentName.trim().length > 0 && !!range.start && !!range.end;
-
-  const handleSubmit = async () => {
-    if (!isValid) return;
-    setLoading(true);
-    await createAssignment({
-      courseId: String(selectedCourse.value),
-      name: assignmentName.trim(),
-      startsAt: range.start!.second(0).toISOString(),
-      endsAt: range.end!.second(59).toISOString(),
-    });
-    setLoading(false);
-    router.back();
-  };
+export default function AssignmentForm({
+  courses,
+  initialData,
+  onSubmitSuccess,
+}: AssignmentFormProps) {
+  const {
+    selectedCourse,
+    setSelectedCourse,
+    assignmentName,
+    setAssignmentName,
+    range,
+    setRange,
+    loading,
+    isValid,
+    handleSubmit,
+    courseIdFromQueryParam,
+  } = useAssignmentForm({ courses, initialData, onSubmitSuccess });
 
   return (
     <div className="flex h-full flex-col">
