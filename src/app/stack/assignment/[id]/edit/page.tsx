@@ -1,5 +1,5 @@
 import { getAssignmentById, getCourseOptions } from '@/lib/actions/assignment';
-import AssignmentForm from '@/components/assignment/addAssignmentForm';
+import AssignmentForm from '@/components/assignment/assignmentForm';
 import StackHeader from '@/components/common/stackHeader/stackHeader';
 
 export default async function EditAssignmentPage({ params }: { params: { id: string } }) {

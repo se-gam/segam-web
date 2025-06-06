@@ -9,6 +9,7 @@ interface CustomTimePickerProps {
   onChange: (time: Dayjs | null) => void;
   placeholder?: string;
   disabled?: boolean;
+  onFocus?: () => void;
 }
 
 export default function CustomTimePicker({
@@ -16,6 +17,7 @@ export default function CustomTimePicker({
   onChange,
   placeholder = '시간 선택',
   disabled = false,
+  onFocus,
 }: CustomTimePickerProps) {
   const [inputValue, setInputValue] = useState('');
 
@@ -77,6 +79,7 @@ export default function CustomTimePicker({
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.target.select();
+    onFocus?.();
   };
 
   return (

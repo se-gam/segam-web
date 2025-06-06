@@ -1,7 +1,7 @@
 import { Option } from '@/lib/definitions';
 import StackHeader from '@/components/common/stackHeader/stackHeader';
 import { getCourseOptions } from '@/lib/actions/assignment';
-import AssignmentForm from '@/components/assignment/addAssignmentForm';
+import AssignmentForm from '@/components/assignment/assignmentForm';
 
 export default async function AddAssignmentPage() {
   const courses: Option[] = await getCourseOptions();

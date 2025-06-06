@@ -1,27 +1,79 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import AssignmentCalendar from '@/components/assignment/assignmentCalendar';
-import { Dayjs } from 'dayjs';
+import CustomTimePicker from '@/components/assignment/timePicker';
+import dayjs, { Dayjs } from 'dayjs';
 
 interface DateSectionProps {
   value?: { start?: Dayjs; end?: Dayjs };
   onChange?: (range: { start?: Dayjs; end?: Dayjs }) => void;
+  scrollContainerRef?: React.RefObject<HTMLDivElement>;
 }
 
-export default function DateSection({ value, onChange }: DateSectionProps) {
+export default function DateSection({ value, onChange, scrollContainerRef }: DateSectionProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs().hour(23).minute(59));
+
   const range = value || {};
 
-  const formatDate = (date?: Dayjs) => {
-    if (date) {
-      return date.format('YYYY년 M월 D일(dd) HH시 mm분');
+  const timeRef = useRef<HTMLDivElement>(null);
+
+  const [startLabel, setStartLabel] = useState('날짜를 선택해주세요');
+  const [endLabel, setEndLabel] = useState('날짜를 선택해주세요');
+
+  useEffect(() => {
+    if (range.start) {
+      setStartLabel(range.start.format('YYYY년 M월 D일 (dd)'));
+    } else {
+      setStartLabel('날짜를 선택해주세요');
     }
-    return '마감일 선택해주세요';
+
+    if (range.end) {
+      setEndLabel(range.end.format('YYYY년 M월 D일 (dd)'));
+    } else {
+      setEndLabel('날짜를 선택해주세요');
+    }
+  }, [range.start, range.end]);
+
+  const handleTimeChange = (time: Dayjs | null) => {
+    setEndTime(time);
+
+    // 마감일과 시간이 모두 있을 때 onChange 호출
+    if (range.end && time) {
+      const updatedRange = {
+        ...range,
+        end: range.end.hour(time.hour()).minute(time.minute()),
+      };
+      onChange?.(updatedRange);
+    }
+  };
+
+  const handleDateChange = (newRange: { start?: Dayjs; end?: Dayjs }) => {
+    // 마감일이 선택되고 시간도 설정되어 있다면 시간을 포함해서 전달
+    if (newRange.end && endTime) {
+      const updatedRange = {
+        ...newRange,
+        end: newRange.end.hour(endTime.hour()).minute(endTime.minute()),
+      };
+      onChange?.(updatedRange);
+    } else {
+      onChange?.(newRange);
+    }
+    setModalOpen(false);
+  };
+
+  const handleTimeFocus = () => {
+    setTimeout(() => {
+      scrollContainerRef?.current?.scrollTo({
+        top: timeRef.current?.offsetTop ?? 0,
+        behavior: 'smooth',
+      });
+    }, 100);
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="ref={divRef} flex flex-col">
       <div className="f20 font-bold text-text_primary">과제 기간</div>
       <p className="f14 font-medium text-text_secondary">시작일부터 마감일을 선택해 주세요</p>
 
@@ -33,11 +85,11 @@ export default function DateSection({ value, onChange }: DateSectionProps) {
           }`}
           onClick={() => setModalOpen(true)}
         >
-          {formatDate(range.start)}
+          {startLabel}
         </button>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-4">
         <p className="f16 font-semibold text-text_primary">마감일</p>
         <button
           className={`f14 mt-3 h-[40px] w-full rounded-sm bg-button_default_bg p-2.5 text-left font-medium ${
@@ -45,18 +97,30 @@ export default function DateSection({ value, onChange }: DateSectionProps) {
           }`}
           onClick={() => setModalOpen(true)}
         >
-          {formatDate(range.end)}
+          {endLabel}
         </button>
       </div>
+
+      {/* 마감 시간 선택 */}
+      <div className="mt-4" ref={timeRef}>
+        <p className="f16 font-semibold text-text_primary">마감 시간</p>
+        <div className="mt-3">
+          <CustomTimePicker
+            value={endTime ?? undefined}
+            onChange={handleTimeChange}
+            placeholder="23:59"
+            disabled={!range.end}
+            onFocus={handleTimeFocus}
+          />
+        </div>
+      </div>
+
       {modalOpen && (
         <AssignmentCalendar
           open={modalOpen}
           onClose={() => setModalOpen(false)}
           value={range}
-          onChange={(newRange: { start?: Dayjs; end?: Dayjs }) => {
-            onChange?.(newRange);
-            setModalOpen(false);
-          }}
+          onChange={handleDateChange}
         />
       )}
     </div>

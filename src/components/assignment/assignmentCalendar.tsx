@@ -7,9 +7,7 @@ import type { CellRenderInfo } from 'rc-picker/lib/interface';
 import dayjs, { Dayjs } from 'dayjs';
 import locale from 'antd/locale/ko_KR';
 import Icons from '@/components/common/icons/icons';
-import Button from '@/components/common/button/button';
 import cn from '@/utils/cn';
-import CustomTimePicker from '@/components/assignment/timePicker';
 import 'dayjs/locale/ko';
 import { Drawer, DrawerContent, DrawerClose } from '@/components/common/drawer';
 
@@ -35,16 +33,20 @@ export default function AssignmentCalendar({
 }: AssignmentCalendarProps) {
   const [range, setRange] = useState<DateRange>(value || {});
   const [calendarValue, setCalendarValue] = useState<Dayjs>(dayjs());
-  const [startTime, setStartTime] = useState<Dayjs | null>(dayjs().hour(0).minute(0));
-  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs().hour(23).minute(59));
 
   const handleDateClick = (date: Dayjs) => {
+    if (date.isBefore(dayjs(), 'day')) return;
+
     if (!range.start || (range.start && range.end)) {
       setRange({ start: date, end: undefined });
     } else if (date.isBefore(range.start, 'day')) {
       setRange({ start: date, end: range.start });
+      onChange({ start: date, end: range.start });
+      onClose();
     } else {
       setRange({ start: range.start, end: date });
+      onChange({ start: range.start, end: date });
+      onClose();
     }
   };
 
@@ -159,45 +161,6 @@ export default function AssignmentCalendar({
               fullCellRender={cellRender}
             />
           </ConfigProvider>
-
-          <div className="mt-2 flex justify-between gap-4">
-            <div className="flex-1">
-              <div className="f16 mb-2 font-semibold text-text_primary">시작 시간</div>
-              <CustomTimePicker
-                value={startTime ?? undefined}
-                onChange={setStartTime}
-                placeholder="00:00"
-                disabled={!range.start}
-              />
-            </div>
-            <div className="flex-1">
-              <div className="f16 mb-2 font-semibold text-text_primary">마감 시간</div>
-              <CustomTimePicker
-                value={endTime ?? undefined}
-                onChange={setEndTime}
-                placeholder="23:59"
-                disabled={!range.end}
-              />
-            </div>
-          </div>
-
-          <Button
-            variant={range.start && range.end ? 'primary' : 'disabled'}
-            size="full"
-            className="mb-6 mt-6 px-4"
-            onClick={() => {
-              if (range.start && range.end && startTime && endTime) {
-                const fullRange = {
-                  start: range.start.hour(startTime.hour()).minute(startTime.minute()),
-                  end: range.end.hour(endTime.hour()).minute(endTime.minute()),
-                };
-                onChange(fullRange);
-              }
-            }}
-            disabled={!range.start || !range.end}
-          >
-            완료
-          </Button>
         </div>
       </DrawerContent>
     </Drawer>

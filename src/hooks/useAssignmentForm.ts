@@ -20,11 +20,7 @@ interface UseAssignmentFormProps {
   onSubmitSuccess?: () => void;
 }
 
-export default function useAssignmentForm({
-  courses,
-  initialData,
-  onSubmitSuccess,
-}: UseAssignmentFormProps) {
+export default function useAssignmentForm({ courses, initialData }: UseAssignmentFormProps) {
   const router = useRouter();
   const { confirmModal } = useModal();
   const searchParams = useSearchParams();
@@ -63,19 +59,23 @@ export default function useAssignmentForm({
     }
 
     setLoading(false);
-    onSubmitSuccess?.();
-    if (!onSubmitSuccess) router.back();
+    const fallbackPath = courseIdFromQueryParam
+      ? `/stack/attendance/${courseIdFromQueryParam}?tab=2`
+      : '/dashboard/attendance?tab=2';
+    router.replace(fallbackPath);
   };
 
   const handleDelete = () => {
     if (!initialData?.assignmentId) return;
-
+    const fallbackPath = courseIdFromQueryParam
+      ? `/stack/attendance/${courseIdFromQueryParam}?tab=2`
+      : '/dashboard/attendance?tab=2';
     confirmModal({
       title: '과제를 삭제할까요?',
       content: '다시 되돌릴 수 없어요',
       onClick: async () => {
         await deleteAssignment(initialData.assignmentId!);
-        router.back();
+        router.replace(fallbackPath);
       },
     });
   };

@@ -6,6 +6,7 @@ import AssignmentNameInput from '@/components/assignment/form/assignmentNameInpu
 import DateSection from '@/components/assignment/form/dateSection';
 import Button from '@/components/common/button/button';
 import useAssignmentForm from '@/hooks/useAssignmentForm';
+import { useRef } from 'react';
 
 interface AssignmentFormProps {
   courses: Option[];
@@ -37,10 +38,11 @@ export default function AssignmentForm({
     handleDelete,
     courseIdFromQueryParam,
   } = useAssignmentForm({ courses, initialData, onSubmitSuccess });
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex flex-1 flex-col overflow-y-auto">
+      <div className="flex flex-1 flex-col overflow-y-auto" ref={scrollContainerRef}>
         <CourseSelector
           courses={courses}
           selectedCourse={selectedCourse}
@@ -48,7 +50,7 @@ export default function AssignmentForm({
           disabled={!!courseIdFromQueryParam}
         />
         <AssignmentNameInput value={assignmentName} onChange={setAssignmentName} />
-        <DateSection value={range} onChange={setRange} />
+        <DateSection value={range} onChange={setRange} scrollContainerRef={scrollContainerRef} />
       </div>
       <div className="pb-4 pt-6">
         {initialData?.assignmentId ? (

@@ -8,6 +8,7 @@ import ClassList from '@/components/attendance/list/classList';
 import getSortedClassData from '@/utils/getSortedCourseData';
 import { Course } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
+import { useSearchParams } from 'next/navigation';
 
 const TAB_OPTIONS = {
   dashboard: [
@@ -29,7 +30,13 @@ interface AttendanceBoardProps {
 
 export default function AttendanceBoard({ type, courses, onChangeTab }: AttendanceBoardProps) {
   const { trackAmplitudeEvent } = useAmplitudeContext();
-  const [index, setIndex] = useState<number>(TAB_OPTIONS[type][0].value);
+
+  const searchParams = useSearchParams();
+  const tabParam = parseInt(searchParams.get('tab') || '', 10);
+  const validTabValues = TAB_OPTIONS[type].map((option) => option.value);
+  const defaultTab = validTabValues.includes(tabParam) ? tabParam : TAB_OPTIONS[type][0].value;
+  const [index, setIndex] = useState<number>(defaultTab);
+
   const lectures = courses.flatMap((course) => course.lectures);
   const assignments = courses.flatMap((course) => course.assignments);
   const { classData: sortedLectures, latestUpdatedAt: latestLectureUpdate } =
