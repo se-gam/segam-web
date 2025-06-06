@@ -66,11 +66,14 @@ export default function ClassList({
             title={item.name}
             description={description}
             tag={
-              <Tag
-                label={item.isDone ? '완료' : tagLabel(item.endsAt)}
-                variant={item.isDone ? 'done' : tagStatus(item.endsAt)}
-                size="sm"
-              />
+              <div className="flex gap-0.5">
+                <Tag
+                  label={item.isDone ? '완료' : tagLabel(item.endsAt)}
+                  variant={item.isDone ? 'done' : tagStatus(item.endsAt)}
+                  size="sm"
+                />
+                {isCustomAssignment && <Tag label="추가한 과제" variant="blue" size="sm" />}
+              </div>
             }
           />
         );
