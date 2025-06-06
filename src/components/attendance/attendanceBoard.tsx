@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 import CourseList from '@/components/attendance/list/courseList';
 import Tab from '@/components/common/tab/tab';
@@ -44,10 +44,6 @@ export default function AttendanceBoard({ type, courses, onChangeTab }: Attendan
   const { classData: sortedAssignments, latestUpdatedAt: latestAssignmentsUpdate } =
     getSortedClassData(assignments);
 
-  useEffect(() => {
-    onChangeTab?.(index);
-  }, [index, onChangeTab]);
-
   return (
     <div className="flex flex-col gap-3 overflow-hidden">
       <Tab
@@ -56,6 +52,7 @@ export default function AttendanceBoard({ type, courses, onChangeTab }: Attendan
         onChange={(value) => {
           trackAmplitudeEvent(`click_이러닝_${value}_btn`);
           setIndex(value);
+          onChangeTab?.(value);
         }}
       />
       <div className="f12 flex flex-col px-[1.375rem] font-light text-text_secondary">

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
+import cn from '@/utils/cn';
 
 interface CustomTimePickerProps {
   value?: Dayjs;
@@ -50,30 +51,19 @@ export default function CustomTimePicker({
       let hour = parseInt(hourStr, 10);
       let minute = parseInt(minuteStr, 10);
 
-      // 시간 아닌 입력값 보정하기
+      // 시간 보정
       if (hour > 23) hour = 23;
       if (minute > 59) minute = 59;
 
-      const adjustedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-      if (adjustedTime !== formatted) {
-        setInputValue(adjustedTime);
+      const adjusted = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+      if (adjusted !== formatted) {
+        setInputValue(adjusted);
       }
 
       const newTime = dayjs().hour(hour).minute(minute);
       onChange(newTime);
     } else if (formatted.length === 0) {
       onChange(null);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // 백스페이스랑 삭제, 탭, 화살표 키는 입력되고
-    if ([8, 9, 37, 38, 39, 40, 46].includes(e.keyCode)) {
-      return;
-    }
-    // 숫자키(0-9) 입력되도록
-    if (!(e.keyCode >= 48 && e.keyCode <= 57) && !(e.keyCode >= 96 && e.keyCode <= 105)) {
-      e.preventDefault();
     }
   };
 
@@ -87,16 +77,14 @@ export default function CustomTimePicker({
       type="text"
       value={inputValue}
       onChange={handleChange}
-      onKeyDown={handleKeyDown}
       onFocus={handleFocus}
       disabled={disabled}
       placeholder={placeholder}
-      className={`
-        w-full rounded-md bg-button_default_bg px-3 py-2
-        text-center font-medium text-theme_accent outline-none
-        placeholder:text-text_secondary
-        ${disabled ? 'cursor-not-allowed opacity-50' : ''}
-      `}
+      className={cn(
+        'w-full rounded-md bg-button_default_bg px-3 py-2 text-left font-medium text-theme_accent outline-none',
+        'f14 placeholder:font-medium placeholder:text-text_secondary',
+        disabled && 'cursor-not-allowed opacity-50',
+      )}
       maxLength={5}
       inputMode="numeric"
     />

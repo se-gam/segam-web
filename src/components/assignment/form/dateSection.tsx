@@ -13,7 +13,9 @@ interface DateSectionProps {
 
 export default function DateSection({ value, onChange, scrollContainerRef }: DateSectionProps) {
   const [modalOpen, setModalOpen] = useState(false);
-  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs().hour(23).minute(59));
+  const [endTime, setEndTime] = useState<Dayjs | null>(
+    value?.end ? dayjs(value.end) : dayjs().hour(23).minute(59),
+  );
 
   const range = value || {};
 
@@ -39,7 +41,6 @@ export default function DateSection({ value, onChange, scrollContainerRef }: Dat
   const handleTimeChange = (time: Dayjs | null) => {
     setEndTime(time);
 
-    // 마감일과 시간이 모두 있을 때 onChange 호출
     if (range.end && time) {
       const updatedRange = {
         ...range,
@@ -50,7 +51,6 @@ export default function DateSection({ value, onChange, scrollContainerRef }: Dat
   };
 
   const handleDateChange = (newRange: { start?: Dayjs; end?: Dayjs }) => {
-    // 마감일이 선택되고 시간도 설정되어 있다면 시간을 포함해서 전달
     if (newRange.end && endTime) {
       const updatedRange = {
         ...newRange,
@@ -101,7 +101,6 @@ export default function DateSection({ value, onChange, scrollContainerRef }: Dat
         </button>
       </div>
 
-      {/* 마감 시간 선택 */}
       <div className="mt-4" ref={timeRef}>
         <p className="f16 font-semibold text-text_primary">마감 시간</p>
         <div className="mt-3">
