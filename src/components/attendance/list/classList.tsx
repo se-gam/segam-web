@@ -6,6 +6,7 @@ import Tag from '@/components/common/tag/tag';
 import Icons from '@/components/common/icons/icons';
 import { Assignment, Lecture } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
+import { stackRouterPush } from '@/utils/stackRouter';
 
 const getRemainDate = (endDate: string) => {
   const todayDate = new Date();
@@ -78,7 +79,13 @@ export default function ClassList({
           <button
             key={item.id}
             type="button"
-            onClick={() => router.push(`/stack/assignment/${item.id}/edit`)}
+            onClick={() =>
+              stackRouterPush({
+                router,
+                page: `assignment/${item.id}/edit`,
+                title: '과제 수정하기',
+              })
+            }
             className="flex w-full items-center justify-between gap-3 rounded text-left active:scale-[0.98] active:bg-app_bg"
           >
             {content}

@@ -10,6 +10,7 @@ import useAssignmentForm from '@/hooks/useAssignmentForm';
 interface AssignmentFormProps {
   courses: Option[];
   initialData?: {
+    assignmentId?: string;
     courseId: string;
     name: string;
     startsAt: string;
@@ -33,6 +34,7 @@ export default function AssignmentForm({
     loading,
     isValid,
     handleSubmit,
+    handleDelete,
     courseIdFromQueryParam,
   } = useAssignmentForm({ courses, initialData, onSubmitSuccess });
 
@@ -49,14 +51,35 @@ export default function AssignmentForm({
         <DateSection value={range} onChange={setRange} />
       </div>
       <div className="pb-4 pt-6">
-        <Button
-          variant={isValid ? 'primary' : 'disabled'}
-          size="full"
-          label={loading ? '저장 중...' : '완료'}
-          loading={loading}
-          disabled={!isValid || loading}
-          onClick={handleSubmit}
-        />
+        {initialData?.assignmentId ? (
+          <div className="flex gap-2">
+            <Button
+              variant="default"
+              size="full"
+              label="삭제"
+              className="flex-1 border border-error bg-white text-error"
+              onClick={handleDelete}
+            />
+            <Button
+              variant={isValid ? 'primary' : 'disabled'}
+              size="full"
+              label="완료"
+              loading={loading}
+              disabled={!isValid || loading}
+              onClick={handleSubmit}
+              className="flex-1"
+            />
+          </div>
+        ) : (
+          <Button
+            variant={isValid ? 'primary' : 'disabled'}
+            size="full"
+            label="완료"
+            loading={loading}
+            disabled={!isValid || loading}
+            onClick={handleSubmit}
+          />
+        )}
       </div>
     </div>
   );

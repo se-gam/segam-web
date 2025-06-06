@@ -1,17 +1,22 @@
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Option } from '@/lib/definitions';
+import { createAssignment, updateAssignment, deleteAssignment } from '@/lib/actions/assignment';
+import useModal from '@/hooks/useModal';
 import dayjs, { Dayjs } from 'dayjs';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { createAssignment, updateAssignment } from '@/lib/actions/assignment';
+
+export type AssignmentPayload = {
+  courseId: string;
+  name: string;
+  startsAt: string;
+  endsAt: string;
+};
 
 interface UseAssignmentFormProps {
   courses: Option[];
-  initialData?: {
-    courseId: string;
-    name: string;
-    startsAt: string;
-    endsAt: string;
-  };
+  initialData?: AssignmentPayload & { assignmentId?: string };
   onSubmitSuccess?: () => void;
 }
 
@@ -21,27 +26,21 @@ export default function useAssignmentForm({
   onSubmitSuccess,
 }: UseAssignmentFormProps) {
   const router = useRouter();
+  const { confirmModal } = useModal();
   const searchParams = useSearchParams();
   const courseIdFromQueryParam = searchParams.get('courseId');
+
   const defaultCourse =
     courses.find((course) => course.value === courseIdFromQueryParam) ||
     courses.find((course) => course.value === initialData?.courseId);
 
   const [selectedCourse, setSelectedCourse] = useState<Option | undefined>(defaultCourse);
   const [assignmentName, setAssignmentName] = useState(initialData?.name || '');
-  const [range, setRange] = useState<{ start?: Dayjs; end?: Dayjs }>({});
+  const [range, setRange] = useState<{ start?: Dayjs; end?: Dayjs }>({
+    start: initialData?.startsAt ? dayjs(initialData.startsAt) : undefined,
+    end: initialData?.endsAt ? dayjs(initialData.endsAt) : undefined,
+  });
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (initialData) {
-      setSelectedCourse(courses.find((course) => course.value === initialData.courseId));
-      setAssignmentName(initialData.name);
-      setRange({
-        start: initialData.startsAt ? dayjs(initialData.startsAt) : undefined,
-        end: initialData.endsAt ? dayjs(initialData.endsAt) : undefined,
-      });
-    }
-  }, [initialData, courses]);
 
   const isValid =
     !!selectedCourse && assignmentName.trim().length > 0 && !!range.start && !!range.end;
@@ -49,23 +48,36 @@ export default function useAssignmentForm({
   const handleSubmit = async () => {
     if (!isValid) return;
     setLoading(true);
-    const payload = {
-      courseId: String(selectedCourse.value),
+
+    const payload: AssignmentPayload = {
+      courseId: String(selectedCourse!.value),
       name: assignmentName.trim(),
       startsAt: range.start!.second(0).toISOString(),
       endsAt: range.end!.second(59).toISOString(),
     };
-    if (initialData) {
-      await updateAssignment(initialData.courseId, payload);
+
+    if (initialData?.assignmentId) {
+      await updateAssignment(initialData.assignmentId, payload);
     } else {
       await createAssignment(payload);
     }
+
     setLoading(false);
-    if (onSubmitSuccess) {
-      onSubmitSuccess();
-    } else {
-      router.back();
-    }
+    onSubmitSuccess?.();
+    if (!onSubmitSuccess) router.back();
+  };
+
+  const handleDelete = () => {
+    if (!initialData?.assignmentId) return;
+
+    confirmModal({
+      title: '과제를 삭제할까요?',
+      content: '다시 되돌릴 수 없어요',
+      onClick: async () => {
+        await deleteAssignment(initialData.assignmentId!);
+        router.back();
+      },
+    });
   };
 
   return {
@@ -78,6 +90,7 @@ export default function useAssignmentForm({
     loading,
     isValid,
     handleSubmit,
+    handleDelete,
     courseIdFromQueryParam,
   };
 }
