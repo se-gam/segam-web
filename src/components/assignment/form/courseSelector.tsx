@@ -21,7 +21,7 @@ export default function CourseSelector({ courses, selectedCourse, onSelect, disa
       placeholder="과목을 선택해주세요"
       titleClassName="f20 font-bold"
       selectedClassName="text-theme_accent"
-      disabled={disabled}
+      disabled={disabled || courses.length === 0}
     />
   );
 }

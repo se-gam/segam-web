@@ -6,7 +6,8 @@ import AssignmentNameInput from '@/components/assignment/form/assignmentNameInpu
 import DateSection from '@/components/assignment/form/dateSection';
 import Button from '@/components/common/button/button';
 import useAssignmentForm from '@/hooks/useAssignmentForm';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import useModal from '@/hooks/useModal';
 
 interface AssignmentFormProps {
   courses: Option[];
@@ -25,6 +26,16 @@ export default function AssignmentForm({
   initialData,
   onSubmitSuccess,
 }: AssignmentFormProps) {
+  const { modal } = useModal();
+  useEffect(() => {
+    if (courses.length === 0) {
+      modal({
+        title: '선택할 수 있는 과목이 없어요',
+        content: '과제를 등록하려면 과목이 필요해요.',
+      });
+    }
+  }, [courses]);
+
   const {
     selectedCourse,
     setSelectedCourse,
