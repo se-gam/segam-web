@@ -51,9 +51,10 @@ export default function CustomTimePicker({
       let hour = parseInt(hourStr, 10);
       let minute = parseInt(minuteStr, 10);
 
-      // 시간 보정
-      if (hour > 23) hour = 23;
-      if (minute > 59) minute = 59;
+      if (Number.isNaN(hour) || hour > 23 || Number.isNaN(minute) || minute > 59) {
+        hour = 23;
+        minute = 59;
+      }
 
       const adjusted = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
       if (adjusted !== formatted) {
