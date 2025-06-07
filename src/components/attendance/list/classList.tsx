@@ -7,6 +7,7 @@ import Icons from '@/components/common/icons/icons';
 import { Assignment, Lecture } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
 import { stackRouterPush } from '@/utils/stackRouter';
+import useAmplitudeContext from '@/hooks/useAmplitudeContext';
 
 const getRemainDate = (endDate: string) => {
   const todayDate = new Date();
@@ -43,6 +44,7 @@ export default function ClassList({
   type: 'lecture' | 'assignment';
 }) {
   const router = useRouter();
+  const { trackAmplitudeEvent } = useAmplitudeContext();
 
   if (items.length === 0) {
     return (
@@ -82,13 +84,14 @@ export default function ClassList({
           <button
             key={item.id}
             type="button"
-            onClick={() =>
+            onClick={() => {
+              trackAmplitudeEvent('click_이러닝_커스텀_과제_list_btn');
               stackRouterPush({
                 router,
                 page: `assignment/${item.id}/edit`,
                 title: '과제 수정하기',
-              })
-            }
+              });
+            }}
             className="flex w-full items-center justify-between gap-3 rounded text-left active:scale-[0.98] active:bg-app_bg"
           >
             {content}

@@ -50,7 +50,7 @@ export default function AttendanceBoard({ type, courses, onChangeTab }: Attendan
         options={TAB_OPTIONS[type]}
         value={index}
         onChange={(value) => {
-          trackAmplitudeEvent(`click_이러닝_${value}_btn`);
+          trackAmplitudeEvent(`click_이러닝_${TAB_OPTIONS[type][value].label}_btn`);
           setIndex(value);
           onChangeTab?.(value);
         }}
