@@ -65,21 +65,24 @@ export default function useAssignmentForm({ courses, initialData }: UseAssignmen
     router.replace(fallbackPath);
   };
 
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
   const handleDelete = () => {
     if (!initialData?.assignmentId) return;
     const fallbackPath = courseIdFromQueryParam
       ? `/stack/attendance/${courseIdFromQueryParam}?tab=2`
       : '/dashboard/attendance?tab=2';
+
     confirmModal({
       title: '과제를 삭제할까요?',
       content: '다시 되돌릴 수 없어요',
       onClick: async () => {
+        setDeleteLoading(true);
         await deleteAssignment(initialData.assignmentId!);
         router.replace(fallbackPath);
       },
     });
   };
-
   return {
     selectedCourse,
     setSelectedCourse,
@@ -92,5 +95,6 @@ export default function useAssignmentForm({ courses, initialData }: UseAssignmen
     handleSubmit,
     handleDelete,
     courseIdFromQueryParam,
+    deleteLoading,
   };
 }
