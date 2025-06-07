@@ -6,6 +6,7 @@ import { Option } from '@/lib/definitions';
 import { createAssignment, updateAssignment, deleteAssignment } from '@/lib/actions/assignment';
 import useModal from '@/hooks/useModal';
 import dayjs, { Dayjs } from 'dayjs';
+import { isApp } from '@/utils/stackRouter';
 
 export type AssignmentPayload = {
   courseId: string;
@@ -59,19 +60,22 @@ export default function useAssignmentForm({ courses, initialData }: UseAssignmen
     }
 
     setLoading(false);
-    const fallbackPath = courseIdFromQueryParam
-      ? `/stack/attendance/${courseIdFromQueryParam}?tab=2`
-      : '/dashboard/attendance?tab=2';
-    router.replace(fallbackPath);
+
+    if (isApp()) {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({
+          type: 'UPDATE',
+        }),
+      );
+    } else {
+      router.back();
+    }
   };
 
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handleDelete = () => {
     if (!initialData?.assignmentId) return;
-    const fallbackPath = courseIdFromQueryParam
-      ? `/stack/attendance/${courseIdFromQueryParam}?tab=2`
-      : '/dashboard/attendance?tab=2';
 
     confirmModal({
       title: '과제를 삭제할까요?',
@@ -79,7 +83,15 @@ export default function useAssignmentForm({ courses, initialData }: UseAssignmen
       onClick: async () => {
         setDeleteLoading(true);
         await deleteAssignment(initialData.assignmentId!);
-        router.replace(fallbackPath);
+        if (isApp()) {
+          window.ReactNativeWebView.postMessage(
+            JSON.stringify({
+              type: 'UPDATE',
+            }),
+          );
+        } else {
+          router.back();
+        }
       },
     });
   };
