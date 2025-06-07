@@ -188,6 +188,9 @@ const IMAGE: ImageType = {
   classic_science: {
     src: '/images/classic-science.png',
   },
+  noticeBell: {
+    src: '/images/noticeBell.png',
+  },
 };
 const Icons = {
   Bell: (props: IconProps) => (
@@ -198,6 +201,11 @@ const Icons = {
           <path d="M10.0967 18.6309H15.3001C15.4785 18.6309 15.6271 18.7826 15.6271 18.9647V19.0861C15.6271 20.6946 14.3486 21.9996 12.7727 21.9996C11.1373 21.9996 9.79932 20.6339 9.79932 18.9647C9.79932 18.7826 9.94799 18.6309 10.1264 18.6309H10.0967Z" />
         </g>
       </g>
+    </svg>
+  ),
+  Plus: (props: IconProps) => (
+    <svg {...props} viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 2V16 M2 9H16" stroke="#4E5968" strokeWidth="2" strokeLinecap="round" />
     </svg>
   ),
   ArrowRight: (props: IconProps) => (

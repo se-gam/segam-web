@@ -210,7 +210,7 @@ export type BookInfo = {
 };
 
 export type Option = {
-  value: number;
+  value: number | string;
   label: string;
 };
 

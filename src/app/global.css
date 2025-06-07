@@ -94,10 +94,10 @@ input {
   vertical-align: middle !important;
   text-align: -webkit-center !important;
 }
-.ant-picker-content tbody tr td div {
+/* .ant-picker-content tbody tr td div {
   width: 42px !important;
   height: 42px !important;
-}
+} */
 .ant-picker-cell-disabled::before {
   background-color: unset !important;
 }

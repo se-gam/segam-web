@@ -19,6 +19,13 @@ export default async function DashBoard() {
         <h1 className="f20 font-bold text-text_primary">대시보드</h1>
       </header>
       <div className="space-y-3 pb-3">
+        <AnnounceCard
+          title="과제 추가하러 가기"
+          description="이제 과제를 직접 추가할 수 있어요"
+          iconName="noticeBell"
+          link="dashboard/attendance"
+          useStackRoute={false}
+        />
         <AnnounceCard title={title} description={description} iconName={iconName} link={link} />
         <Board title="출석 현황" url="dashboard/attendance">
           {CourseData.courses.length === 0 && (

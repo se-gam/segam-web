@@ -1,6 +1,5 @@
-import AttendanceBoard from '@/components/attendance/attendanceBoard';
-import StackHeader from '@/components/common/stackHeader/stackHeader';
 import Tag from '@/components/common/tag/tag';
+import SubjectPageContent from '@/components/attendance/subjectPageContent';
 import { getCourseAttendance } from '@/lib/actions/attendance';
 import { CourseAttendance } from '@/lib/definitions';
 import { getDayLabelByNumber } from '@/utils/format';
@@ -28,8 +27,7 @@ export default async function SubjectPage({ params }: { params: { id: string } }
     totalJobs > 0 ? `할 일이 ${totalJobs}개 있어요` : '모든 할 일을 완료했어요 🎉';
   return (
     <div className="safe-area-bottom flex h-screen flex-col overflow-hidden bg-white">
-      <StackHeader title={course.name} />
-      <main className="flex h-full flex-col overflow-hidden bg-white py-2.5">
+      <SubjectPageContent course={course}>
         <section className="mb-5 space-y-2  px-4 ">
           <div className="space-x-2">
             <Tag label={todayLabel} variant="default" size="md" />
@@ -50,8 +48,7 @@ export default async function SubjectPage({ params }: { params: { id: string } }
             )}
           </div>
         </section>
-        <AttendanceBoard type="subject" courses={[course]} />
-      </main>
+      </SubjectPageContent>
     </div>
   );
 }
