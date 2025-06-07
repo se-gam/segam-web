@@ -1,4 +1,5 @@
 import AttendanceBoard from '@/components/attendance/attendanceBoard';
+import PlusButton from '@/components/common/button/plusButton';
 import Tag from '@/components/common/tag/tag';
 import { getCourseAttendance } from '@/lib/actions/attendance';
 import { CourseAttendance } from '@/lib/definitions';
@@ -22,8 +23,9 @@ export default async function Attendance() {
 
   return (
     <main className="flex flex-col overflow-hidden">
-      <header className="mb-4 px-4  pt-2.5">
+      <header className="mb-4 flex items-center justify-between px-4  pt-2.5">
         <h1 className="f20 font-bold text-text_primary">이러닝</h1>
+        <PlusButton route="/assignment/add" />
       </header>
       <section className="mb-5 space-y-2  px-4">
         <Tag label={`${todayLabel} · ${getSemesterWeek()}`} variant="default" size="md" />

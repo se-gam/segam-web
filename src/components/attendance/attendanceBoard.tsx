@@ -8,6 +8,7 @@ import ClassList from '@/components/attendance/list/classList';
 import getSortedClassData from '@/utils/getSortedCourseData';
 import { Course } from '@/lib/definitions';
 import { dateDotFormatter } from '@/utils/format';
+import { useSearchParams } from 'next/navigation';
 
 const TAB_OPTIONS = {
   dashboard: [
@@ -24,11 +25,18 @@ const TAB_OPTIONS = {
 interface AttendanceBoardProps {
   type: 'dashboard' | 'subject';
   courses: Course[];
+  onChangeTab?: (value: number) => void;
 }
 
-export default function AttendanceBoard({ type, courses }: AttendanceBoardProps) {
+export default function AttendanceBoard({ type, courses, onChangeTab }: AttendanceBoardProps) {
   const { trackAmplitudeEvent } = useAmplitudeContext();
-  const [index, setIndex] = useState<number>(TAB_OPTIONS[type][0].value);
+
+  const searchParams = useSearchParams();
+  const tabParam = parseInt(searchParams.get('tab') || '', 10);
+  const validTabValues = TAB_OPTIONS[type].map((option) => option.value);
+  const defaultTab = validTabValues.includes(tabParam) ? tabParam : TAB_OPTIONS[type][0].value;
+  const [index, setIndex] = useState<number>(defaultTab);
+
   const lectures = courses.flatMap((course) => course.lectures);
   const assignments = courses.flatMap((course) => course.assignments);
   const { classData: sortedLectures, latestUpdatedAt: latestLectureUpdate } =
@@ -44,6 +52,7 @@ export default function AttendanceBoard({ type, courses }: AttendanceBoardProps)
         onChange={(value) => {
           trackAmplitudeEvent(`click_이러닝_${value}_btn`);
           setIndex(value);
+          onChangeTab?.(value);
         }}
       />
       <div className="f12 flex flex-col px-[1.375rem] font-light text-text_secondary">

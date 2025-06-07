@@ -52,8 +52,8 @@ export default function StackContent({ calendarSlot, bookData }: StackContentPro
       reserveClassic({
         session,
         godokSlotId: slot,
-        bookAreaCode: category.value,
-        bookCode: book.value,
+        bookAreaCode: category.value as number,
+        bookCode: book.value as number,
       }),
     onSuccess: () => {
       if (isApp()) {
